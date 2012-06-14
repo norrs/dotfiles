@@ -111,3 +111,4 @@ ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export M2_HOME="/opt/apache-maven-3.0.3"
 export M2="$M2_HOME/bin"
 export PATH=/opt/play:$ANDROID_BIN:$M2:$PATH
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
