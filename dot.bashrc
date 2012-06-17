@@ -107,13 +107,4 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-[[ -e /usr/share/terminfo/x/xterm-256color || -e /lib/terminfo/x/xterm-256color ]] && export TERM='xterm-256color'
-
-[[ -d "$HOME/bin" ]] && export PATH="~/bin:$PATH"
-
-export ANDROID_HOME="/opt/android-sdk-linux_x86"
-ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-export M2_HOME="/opt/apache-maven-3.0.3"
-export M2="$M2_HOME/bin"
-export PATH=/opt/play:$ANDROID_BIN:$M2:$PATH
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc

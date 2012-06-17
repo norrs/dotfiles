@@ -1,0 +1,6 @@
+hardstatus on
+defmonitor on
+activity ''
+startup_message off
+termcapinfo xterm*|rxvt* 'ti@:te@:vb@'
+caption always '%{=  g}%?%-Lw%?%{r}(%{w}%n*%f %t%?(%u)%?%{r})%{g}%?%+Lw%?%?%= [ %{B}%Y-%m-%d %{W}%c %{g}]'

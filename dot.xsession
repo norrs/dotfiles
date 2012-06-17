@@ -1,8 +1,11 @@
 #!/bin/bash
- 
+#export WINDOW_MANAGER=xmonad
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+[[ -f "$HOME/.pathrc" ]] && source $HOME/.pathrc
 # Load resources
  
-xrdb -merge .Xresources
+#xrdb -merge ~/.Xresources
  
 # Set up an icon tray
  
@@ -13,14 +16,15 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 
 dropbox start -i &
  
-xsetroot -solid midnightblue
+xsetroot -solid black
+#gconftool --type string --set /desktop/gnome/background/picture_filename "/path/to/your/image.png
  
 # Fire up apps
  
 #gajim &
  
 #xscreensaver -no-splash &
-gnome-screensaver &
+#gnome-screensaver &
  
 if [ -x /usr/bin/nm-applet ] ; then
    nm-applet --sm-disable &
