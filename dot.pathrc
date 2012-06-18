@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ -d "$HOME/.cabal/bin" ]] && export PATH="$HOME/.cabal/bin:$PATH"
+
 [[ -e /usr/share/terminfo/x/xterm-256color || -e /lib/terminfo/x/xterm-256color ]] && export TERM='xterm-256color'
 
 [[ -d "$HOME/bin" ]] && export PATH="~/bin:$PATH"
