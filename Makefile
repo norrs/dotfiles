@@ -1,6 +1,6 @@
 LN_FLAGS = -sf
 
-symlinks = .bashrc .pathrc .htoprc .Xdefaults .xsession .screenrc 
+symlinks = .bashrc .pathrc .htoprc .Xdefaults .xsession .screenrc .tmux.conf
 symdirs = .xmonad
 
 .PHONY: $(symlinks) $(symdirs)

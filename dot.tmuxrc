@@ -1,0 +1,3 @@
+# Use C-a like screen
+set -g prefix ^a
+bind C-a send-prefix
