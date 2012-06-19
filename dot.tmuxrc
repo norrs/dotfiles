@@ -1,3 +1,45 @@
-# Use C-a like screen
+# Use C-a like screen and unbind original key
+unbind C-b
 set -g prefix ^a
 bind C-a send-prefix
+
+# Defaults terminal, 256 colors
+set -g default-terminal "screen-256color"
+
+# UTF 8 enabled pr default
+set-window-option -g utf8 on
+set-option -g status-utf8 on
+
+
+set-option -g status-bg black
+set-option -g status-fg white
+set-option -g status-left-length 30
+set-option -g status-interval 5
+
+# Inactive windows in status bar
+set-window-option -g window-status-format '#[fg=cyan,dim]#I#[fg=blue]:#[default]#W#[fg=grey,dim]#F'
+
+# Current or active window in status bar
+set-window-option -g window-status-current-format '#[bg=blue,fg=cyan,bold]#I#[bg=blue,fg=cyan]:#[fg=white]#W#[fg=dim]#F'
+ 
+set -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+#set -g status-right '#[fg=cyan]»» #[fg=blue,bold]###S #[fg=magenta]%R %m-%d [#[fg=red]#(cat /proc/loadavg | cut -d " " -f1-3)]#[default]'
+set -g status-right '#[fg=green][#[fg=white]#T#[fg=green]][#[fg=blue]%Y-%m-%d #[fg=white]%H:%M#[default]#[fg=green]]'
+
+# Alerted window in status bar. Windows which have an alert (bell, activity or content).
+#set-window-option -g window-status-flagged-attr bold
+#set-window-option -g window-status-flagged-fg yellow
+#set-window-option -g window-status-flagged-bg default
+#set-window-option -g window-status-alert-bg white
+#set-window-option -g window-status-alert-fg red
+
+# clock
+set-window-option -g clock-mode-colour cyan
+set-window-option -g clock-mode-style 24
+
+# watches windows for activtiy and highlights em
+set-window-option -g monitor-activity on 
+
+set-option -g status-keys vi
+set-window-option -g mode-keys vi
+
