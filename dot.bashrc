@@ -84,6 +84,7 @@ alias l='ls -CF'
 
 if [[ $HOSTNAME == "luna" ]]
 then
+	xmodmap -e "keycode 36 = KP_Enter"
 	xmodmap -e "keycode 104 = Return"
 fi
 

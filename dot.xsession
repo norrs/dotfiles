@@ -34,7 +34,13 @@ if [ -x /usr/bin/gnome-power-manager ] ; then
    sleep 3
    gnome-power-manager &
 fi
- 
+
+if [[ $HOSTNAME == "luna" ]]
+then
+  xmodmap -e "keycode 36 = KP_Enter"
+  xmodmap -e "keycode 104 = Return"
+fi
+
 #xmonad-gnome-nopanel
 #exec xmonad
 exec gnome-session --session xmonad-gnome-nopanel "$@"
