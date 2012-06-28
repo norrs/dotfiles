@@ -10,6 +10,8 @@
 
 [[ -d "/opt/java/bin" ]] && export PATH="/opt/java/bin:$PATH"
 
+[[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
+
 export ANDROID_HOME="/opt/android-sdk-linux_x86"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export M2_HOME="/opt/apache-maven-3.0.3"
