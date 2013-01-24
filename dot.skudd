@@ -1,0 +1,9 @@
+#!/bin/sh
+WINDOW=
+SELECTED_SCREEN=
+AREA=
+SCREENSHOTS_DIR="$HOME/Pictures/screenshots"
+URL="http://absint.online.ntnu.no/~norangsh/scrot"
+REMOTE_HOST="norangsh@absint.online.ntnu.no"
+REMOTE_PATH="~/public_html/scrot"
+REMOTE_SCP="$REMOTE_HOST:$REMOTE_PATH"
