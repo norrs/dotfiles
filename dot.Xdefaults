@@ -73,8 +73,10 @@ URxvt.cursorColor: #404040
 urxvt*termName: xterm
 
 URxvt.perl-ext-common : default,matcher
-URxvt.urlLauncher     : chromium-browser
+URxvt.urlLauncher     : google-chrome
 URxvt.matcher.button  : 1
+URxvt*matcher.pattern.1: \\b(mailto|http|https|ftp|file):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+URxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 
 URxvt*keysym.Home: \033[1~
 URxvt*keysym.End: \033[4~
