@@ -22,6 +22,8 @@ Xcursor.theme: Vainilla-DMZ-AA Xcursor.size: 22
 !color15 = 1,37m
 
 !URxvt*background: #2B2B2B
+urxvt*transparent: true
+urxvt*shading: 8
 URxvt*background: #050505
 URxvt*foreground: #DEDEDE
 
