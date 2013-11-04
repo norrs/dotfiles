@@ -82,3 +82,5 @@ URxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 
 URxvt*keysym.Home: \033[1~
 URxvt*keysym.End: \033[4~
+URxvt.keysym.KP_Prior: \033[5~
+URxvt.keysym.KP_Next: \033[6~
