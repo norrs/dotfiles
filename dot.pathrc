@@ -12,9 +12,10 @@
 
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
-export ANDROID_HOME="/opt/android-sdk-linux"
+[[ -d "/opt/go/bin" ]] && export PATH="/opt/go/bin:$PATH"
+
+export ANDROID_HOME="/opt/android-sdk-linux/sdk"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export M2_HOME="/opt/maven3"
 export M2="$M2_HOME/bin"
 export PATH=/opt/play:$ANDROID_BIN:$M2:$PATH
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
