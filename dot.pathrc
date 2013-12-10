@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 [[ -d "$HOME/.cabal/bin" ]] && export PATH="$HOME/.cabal/bin:$PATH"
 
 [[ -e /usr/share/terminfo/x/xterm-256color || -e /lib/terminfo/x/xterm-256color ]] && export TERM='xterm-256color'
@@ -12,7 +13,10 @@
 
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
-[[ -d "/opt/go/bin" ]] && export PATH="/opt/go/bin:$PATH"
+if test -d "/opt/go" && test -d "/opt/go/bin";then
+ export GOROOT=/opt/go
+ export PATH="$GOROOT/bin:$PATH"
+fi
 
 export ANDROID_HOME="/opt/android-sdk-linux/sdk"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
