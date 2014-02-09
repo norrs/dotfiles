@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 [[ -d "$HOME/.cabal/bin" ]] && export PATH="$HOME/.cabal/bin:$PATH"
 
 [[ -e /usr/share/terminfo/x/xterm-256color || -e /lib/terminfo/x/xterm-256color ]] && export TERM='xterm-256color'
@@ -12,9 +13,13 @@
 
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
-export ANDROID_HOME="/opt/android-sdk-linux"
+if test -d "/opt/go" && test -d "/opt/go/bin";then
+ export GOROOT=/opt/go
+ export PATH="$GOROOT/bin:$PATH"
+fi
+
+export ANDROID_HOME="/opt/android-sdk-linux/sdk"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export M2_HOME="/opt/maven3"
 export M2="$M2_HOME/bin"
 export PATH=/opt/play:$ANDROID_BIN:$M2:$PATH
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
