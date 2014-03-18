@@ -1,3 +1,6 @@
 [submodule "dot.urxvt/ext/urxvt-font-size"]
 	path = dot.urxvt/ext/urxvt-font-size
 	url = https://github.com/majutsushi/urxvt-font-size.git
+[submodule "dot.local/share/urxvt-scripts"]
+	path = dot.local/share/urxvt-scripts
+	url = https://github.com/bartman/urxvt-scripts.git

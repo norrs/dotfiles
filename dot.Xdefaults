@@ -74,8 +74,18 @@ URxvt.scrollColor: #252525
 URxvt.cursorColor: #404040
 urxvt*termName: xterm
 
+URxvt.keysym.M-u: perl:mark-yank-urls:activate_mark_mode
+!!!URxvt.reverseVideo: true
+URxvt.perl-lib: ~/.urxvt/
+URxvt.perl-ext: selection
+URxvt.perl-ext: mark-yank-urls
+URxvt.keysym.M-y: perl:mark-and-yank:activate_mark_mode
+URxvt.keysym.M-u: perl:mark-and-yank:activate_mark_url_mode
+URxvt.perl-lib: ~/.urxvt/
+URxvt.perl-ext: mark-and-yank
+URxvt.urlLauncher: google-chrome
+
 URxvt.perl-ext-common : default,matcher,font-size
-URxvt.urlLauncher     : google-chrome
 URxvt.matcher.button  : 1
 URxvt*matcher.pattern.1: \\b(mailto|http|https|ftp|file):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 URxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]

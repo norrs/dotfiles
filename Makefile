@@ -2,7 +2,7 @@ LN_FLAGS = -sf
 
 mkdirs = .local/share/applications .config/gnome-session/sessions
 symlinks = .bashrc .pathrc .htoprc .Xdefaults .xsession .xmobarrc .screenrc .tmux.conf .local/share/applications/xmonad.desktop .config/gnome-session/sessions/xmonad-gnome-nopanel.session .skudd
-symdirs = .xmonad
+symdirs = .xmonad .local/share/urxvt-scripts .urxvt/ext
 
 .PHONY: $(mkdirs) $(symlinks) $(symdirs)
 
