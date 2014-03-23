@@ -76,12 +76,10 @@ urxvt*termName: xterm
 
 URxvt.keysym.M-u: perl:mark-yank-urls:activate_mark_mode
 !!!URxvt.reverseVideo: true
-URxvt.perl-lib: ~/.urxvt/
 URxvt.perl-ext: selection
 URxvt.perl-ext: mark-yank-urls
 URxvt.keysym.M-y: perl:mark-and-yank:activate_mark_mode
 URxvt.keysym.M-u: perl:mark-and-yank:activate_mark_url_mode
-URxvt.perl-lib: ~/.urxvt/
 URxvt.perl-ext: mark-and-yank
 URxvt.urlLauncher: google-chrome
 
