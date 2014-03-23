@@ -14,9 +14,11 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
  
 # Set the background color<
 
-dropbox start -i &
- 
+[ -x /usr/bin/dropbox ] && dropbox start -i &
+
+
 xsetroot -solid black
+feh --bg-scale $HOME/Pictures/wallpapers/1382320989663.jpg
 #gconftool --type string --set /desktop/gnome/background/picture_filename "/path/to/your/image.png
  
 # Fire up apps
