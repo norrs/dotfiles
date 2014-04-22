@@ -13,6 +13,8 @@
 
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
+[[ -d "/opt/arcanist/bin" ]] && export PATH="/opt/arcanist/bin:$PATH"
+
 if test -d "/opt/go" && test -d "/opt/go/bin";then
  export GOROOT=/opt/go
  export PATH="$GOROOT/bin:$PATH"
