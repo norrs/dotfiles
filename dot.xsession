@@ -18,7 +18,7 @@ trayer --edge top --align right --SetDockType true --SetPartialStrut true \
 
 
 xsetroot -solid black
-feh --bg-scale $HOME/Pictures/wallpapers/1382320989663.jpg
+feh --bg-scale $HOME/Pictures/wallpapers/current
 #gconftool --type string --set /desktop/gnome/background/picture_filename "/path/to/your/image.png
  
 # Fire up apps
@@ -26,10 +26,10 @@ feh --bg-scale $HOME/Pictures/wallpapers/1382320989663.jpg
 #gajim &
  
 #xscreensaver -no-splash &
-#gnome-screensaver &
+gnome-screensaver &
  
 
-#gnome-settings-daemon &
+gnome-settings-daemon &
 
 # gnome-session? runs nm-applet for us
 #if [ -x /usr/bin/nm-applet ] ; then
@@ -39,6 +39,10 @@ feh --bg-scale $HOME/Pictures/wallpapers/1382320989663.jpg
 if [ -x /usr/bin/gnome-power-manager ] ; then
    sleep 3
    gnome-power-manager &
+fi
+
+if [ -x /usr/bin/gsettings ]; then
+  gsettings set org.gnome.settings-daemon.plugins.xrandr active false
 fi
 
 if [[ $HOSTNAME == "luna" ]]
