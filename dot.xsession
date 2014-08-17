@@ -31,10 +31,10 @@ gnome-screensaver &
 
 gnome-settings-daemon &
 
-# gnome-session? runs nm-applet for us
-#if [ -x /usr/bin/nm-applet ] ; then
-#   nm-applet --sm-disable &
-#fi
+# Network manager
+if [ -x /usr/bin/nm-applet ] ; then
+   nm-applet --sm-disable &
+fi
  
 if [ -x /usr/bin/gnome-power-manager ] ; then
    sleep 3
