@@ -51,5 +51,11 @@ then
   xmodmap -e "keycode 104 = Return"
 fi
 
-#exec xmonad
-exec gnome-session --session=xmonad-gnome-nopanel "$@"
+# Fixes drawing of cursor in xmonad with gnome >=3.12
+# https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1238047.html
+if [ $(gsettings get org.gnome.settings-daemon.plugins.cursor active) = "true" ];then
+  gsettings set org.gnome.settings-daemon.plugins.cursor active false
+fi
+
+exec xmonad
+#exec gnome-session --session=xmonad-gnome-nopanel "$@"
