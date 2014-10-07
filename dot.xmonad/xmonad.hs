@@ -1,7 +1,6 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ICCCMFocus
 import XMonad.Layout.Fullscreen
 import XMonad.Util.Run(spawnPipe)
@@ -16,7 +15,6 @@ myManageHook = ( composeAll . concat $
     , [ className =? "Chromium"  --> doShift "2:www"]
     ])
 
-myStartupHook = setWMName "LG3D" -- Fix for java apps, + env _JAVA_AWT_WM_NONREPARENTING=1  
 myWorkspaces = ["1:main", "2:www", "3:chat", "4:IDE", "5:www-stack", "6:music", "7", "8", "9"]
 
 main = do
@@ -25,10 +23,10 @@ main = do
         { terminal = "urxvt"
 	, manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
 	, handleEventHook = fullscreenEventHook <+> handleEventHook defaultConfig
-	, startupHook = myStartupHook <+> startupHook defaultConfig
+	, startupHook = startupHook defaultConfig
 	, workspaces = myWorkspaces <+> workspaces defaultConfig
         , layoutHook = avoidStruts  $  layoutHook defaultConfig
-	, logHook = takeTopFocus <+> dynamicLogWithPP xmobarPP
+	, logHook = dynamicLogWithPP xmobarPP
 			{ ppOutput = hPutStrLn xmproc
 			, ppTitle = xmobarColor "green" "" . shorten 50
 			}
