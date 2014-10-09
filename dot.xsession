@@ -6,11 +6,14 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Load resources
  
 #xrdb -merge ~/.Xresources
- 
+
 # Set up an icon tray
  
 trayer --edge top --align right --SetDockType true --SetPartialStrut true \
  --expand true --width 10 --transparent true --tint 0x191970 --height 18 &
+
+GNOME_PK=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
+[ -x $GNOME_PK ] && $GNOME_PK &
  
 # Set the background color<
 
@@ -57,5 +60,15 @@ if [ $(gsettings get org.gnome.settings-daemon.plugins.cursor active) = "true" ]
   gsettings set org.gnome.settings-daemon.plugins.cursor active false
 fi
 
+# Export socket with Debian Sid (2014.10)
+# until I move to systemd --user session start instead of this .xsession
+# (currently /etc/X11/Xsession.d/90x11-common_ssh-agent seems to be the issue)
+if [ -x /usr/bin/gnome-keyring-daemon ]; then
+ /usr/bin/gnome-keyring-daemon -s
+ SSH_AUTH_SOCKET=/run/user/$(id -u)/keyring/ssh
+ [ -S $SSH_AUTH_SOCKET ] && export SSH_AUTH_SOCK=$SSH_AUTH_SOCKET
+fi
+
 exec xmonad
+#exec ck-launch-session dbus-launch xmonad
 #exec gnome-session --session=xmonad-gnome-nopanel "$@"
