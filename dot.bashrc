@@ -110,3 +110,4 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc
+[ -s "/home/norangshol/.nvm/nvm.sh" ] && source "/home/norangshol/.nvm/nvm.sh" # This loads nvm
