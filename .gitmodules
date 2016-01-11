@@ -4,3 +4,6 @@
 [submodule "dot.local/share/urxvt-font-size"]
 	path = dot.local/share/urxvt-font-size
 	url = https://github.com/majutsushi/urxvt-font-size.git
+[submodule "dot.opt/bash-git-prompt"]
+	path = dot.opt/bash-git-prompt
+	url = git@github.com:magicmonty/bash-git-prompt.git
