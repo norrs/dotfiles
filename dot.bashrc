@@ -114,5 +114,6 @@ for complete_file in $HOME/.bash.d/autocomplete/*; do
 done
 
 [[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc
-[ -s "/home/norangshol/.nvm/nvm.sh" ] && source "/home/norangshol/.nvm/nvm.sh" # This loads nvm
-[ -f "$HOME/.bazel/bin/bazel-complete.bash" ] && source "$HOME/.bazel/bin/bazel-complete.bash"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
