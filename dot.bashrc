@@ -109,6 +109,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+for complete_file in $HOME/.bash.d/autocomplete/*; do
+  source "$complete_file"
+done
+
 [[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc
 [ -s "/home/norangshol/.nvm/nvm.sh" ] && source "/home/norangshol/.nvm/nvm.sh" # This loads nvm
 [ -f "$HOME/.bazel/bin/bazel-complete.bash" ] && source "$HOME/.bazel/bin/bazel-complete.bash"
