@@ -6,4 +6,4 @@
 	url = https://github.com/majutsushi/urxvt-font-size.git
 [submodule "dot.opt/bash-git-prompt"]
 	path = dot.opt/bash-git-prompt
-	url = git@github.com:magicmonty/bash-git-prompt.git
+        url = https://github.com/norrs/bash-git-prompt.git
