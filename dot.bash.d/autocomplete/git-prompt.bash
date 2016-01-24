@@ -1,3 +1,10 @@
+override_git_prompt_colors() {
+  GIT_PROMPT_THEME_NAME="norrs" # needed for reload optimization, should be unique
+
+  GIT_PROMPT_START="foo"
+  GIT_PROMPT_END="bar"
+}
+
 # gitprompt configuration
 
 # Set config variables first
@@ -16,4 +23,5 @@ GIT_PROMPT_ONLY_IN_REPO=1
 # as last entry source the gitprompt script
 # GIT_PROMPT_THEME=Custom # use custom .git-prompt-colors.sh
 # GIT_PROMPT_THEME=Solarized # use theme optimized for solarized color scheme
+GIT_PROMPT_THEME=norrs
 source ~/.opt/bash-git-prompt/gitprompt.sh
