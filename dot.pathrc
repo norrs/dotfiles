@@ -15,6 +15,16 @@
 
 [[ -d "/opt/arcanist/bin" ]] && export PATH="/opt/arcanist/bin:$PATH"
 
+[[ -d "/opt/rkt" ]] && export PATH="/opt/rkt:$PATH"
+
+[[ -d "/opt/rkt-spec" ]] && export PATH="/opt/rkt-spec/bin:$PATH"
+
+[[ -d "/opt/deb2aci" ]] && export PATH="/opt/deb2aci/bin:$PATH"
+
+
+
+[[ -d "/opt/docker2aci" ]] && export PATH="/opt/docker2aci/bin:$PATH"
+
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
 
