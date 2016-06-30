@@ -27,6 +27,9 @@
 
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
+[[ -d "$HOME/zedge/marathon-cd/bin" ]] && export PATH="$HOME/zedge/marathon-cd/bin:$PATH"
+
+[[ -d "$HOME/zedge/clitools/bin" ]] && export PATH="$HOME/zedge/clitools/bin:$PATH"
 
 if test -d "/opt/go" && test -d "/opt/go/bin";then
  export GOROOT=/opt/go
