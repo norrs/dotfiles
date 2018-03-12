@@ -5,6 +5,8 @@
 
 [[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
 
+[[ -d "$HOME/.opt/kubectx" ]] && export PATH="$HOME/.opt/kubectx:$PATH"
+
 [[ -d "/opt/pycharm/bin" ]] && export PATH="/opt/pycharm/bin:$PATH"
 
 [[ -d "/opt/java/bin" ]] && export PATH="/opt/java/bin:$PATH"
