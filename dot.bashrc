@@ -48,25 +48,47 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+[ -f /usr/lib/git-core/git-sh-prompt ] && {
+ source /usr/lib/git-core/git-sh-prompt
+ GIT_PS1_SHOWDIRTYSTATE=1
+ GIT_PS1_SHOWUPSTREAM="auto"
+ GIT_PS1_SHOWCOLORHINTS=1
+ # Prompt is enabled in PROMPT_COMMAND below.
+}
+
+set_window_title() {
+    echo -ne "\033]0;"$@"\007"
+}
+
+
 source ~/.opt/kube-ps1/kube-ps1.sh
-KUBE_PS1_ENABLED=off
-PROMPT_COMMAND='_kube_ps1_update_cache;:;KPS1=$(kube_ps1; printf x);'
-#echo $color_prompt
+
 if [ "$color_prompt" = yes ]; then
-    PS1='${KPS1%x}${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  MY_PS1='${KPS1%x}${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  MY_PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+pwd_short() {
+    # How many characters of the $PWD should be kept
+    local pwdmaxlen=25
+    # Indicate that there has been dir truncation
+    local trunc_symbol=".."
+    local dir=${PWD##*/}
+    pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
+    NEW_PWD=${PWD/#$HOME/\~}
+    local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
+    if [ ${pwdoffset} -gt "0" ]
+    then
+        NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
+        NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
+    fi
+    echo "$NEW_PWD"
+}
+
+PROMPT_COMMAND='_kube_ps1_update_cache;:;KPS1=$(kube_ps1; printf x);__git_ps1 "$MY_PS1" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
