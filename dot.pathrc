@@ -19,7 +19,11 @@
 
 [[ -d "/opt/deb2aci" ]] && export PATH="/opt/deb2aci/bin:$PATH"
 
+[[ -d "/opt/ripgrep" ]] && export PATH="/opt/ripgrep:$PATH"
 
+[[ -d "$HOME/.cargo/bin" ]] && export PATH="$HOME/.cargo/bin:$PATH"
+
+[[ -d "/home/linuxbrew/.linuxbrew/bin" ]] && export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 [[ -d "/opt/docker2aci" ]] && export PATH="/opt/docker2aci/bin:$PATH"
 
@@ -28,6 +32,8 @@
 [[ -d "$HOME/zedge/marathon-cd/bin" ]] && export PATH="$HOME/zedge/marathon-cd/bin:$PATH"
 
 [[ -d "$HOME/zedge/clitools/bin" ]] && export PATH="$HOME/zedge/clitools/bin:$PATH"
+
+[[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
 if test -d "/opt/go" && test -d "/opt/go/bin";then
  export GOROOT=/opt/go
