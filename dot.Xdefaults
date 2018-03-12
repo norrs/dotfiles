@@ -72,7 +72,7 @@ URxvt.scrollBar_floating: true
 URxvt.scrollstyle: plain
 URxvt.scrollColor: #252525
 URxvt.cursorColor: #404040
-urxvt*termName: xterm
+urxvt*termName: xterm-256color
 
 URxvt.keysym.M-u: perl:mark-yank-urls:activate_mark_mode
 !!!URxvt.reverseVideo: true
