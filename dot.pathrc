@@ -3,7 +3,7 @@
 
 [[ -d "$HOME/.cabal/bin" ]] && export PATH="$HOME/.cabal/bin:$PATH"
 
-[[ -d "$HOME/bin" ]] && export PATH="~/bin:$PATH"
+[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
 
 [[ -d "/opt/pycharm/bin" ]] && export PATH="/opt/pycharm/bin:$PATH"
 
