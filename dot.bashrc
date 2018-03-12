@@ -48,8 +48,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+source ~/.opt/kube-ps1/kube-ps1.sh
+KUBE_PS1_ENABLED=off
+PROMPT_COMMAND='_kube_ps1_update_cache;:;KPS1=$(kube_ps1; printf x);'
+#echo $color_prompt
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${KPS1%x}${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
