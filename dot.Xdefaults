@@ -95,5 +95,4 @@ URxvt.keysym.KP_Next: \033[6~
 URxvt.keysym.C-Up:     perl:font-size:increase
 URxvt.keysym.C-Down:   perl:font-size:decrease
 
-XTerm.vt100.saveLines: 4096
-XTerm.termName: xterm-256color
+URxvt.vt100.saveLines: 4096
