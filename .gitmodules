@@ -10,3 +10,6 @@
 [submodule "dot.opt/kube-ps1"]
 	path = dot.opt/kube-ps1
 	url = git@github.com:jonmosco/kube-ps1.git
+[submodule "dot.opt/kubectx"]
+	path = dot.opt/kubectx
+	url = git@github.com:ahmetb/kubectx.git
