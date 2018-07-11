@@ -1,12 +1,19 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Fullscreen
 import XMonad.Util.Run(spawnPipe)
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig(additionalKeys, additionalKeysP)
+
+-- Why this part ? XMonad has own exit runtime
 import System.IO
 import System.Exit
+--- 
+
+import System.Taffybar.Support.PagerHints (pagerHints)
+
 import qualified Data.Map as M
 
 myManageHook = composeAll . concat $
@@ -28,7 +35,10 @@ myKeys conf = M.fromList
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ defaultConfig
+    xmonad $ 
+    ewmh $
+    pagerHints $
+    def
         { terminal = "urxvt"
         , manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , handleEventHook = fullscreenEventHook <+> handleEventHook defaultConfig
