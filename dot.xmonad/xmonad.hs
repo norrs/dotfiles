@@ -139,7 +139,7 @@ myManageHook =
           ["Steam","steam","vlc","Vlc","mpv"]
         myWorkspaceMove =
           [("google-chrome","2:www")
-          ,("urxvt","1:main")
+          --,("urxvt","1:main")
           ,("weechat","3:chat")]
 
 ------------------------------------------------------------------------
@@ -160,8 +160,6 @@ myStartupHook =
      -- setWMName "LG3D"
      spawnOnce "xrdb -merge ~/.Xdefaults"
      spawnOnce "xsetroot -solid black"
-     spawnOnce "status-notifier-watcher"
-     spawnOnce "taffybar"
      -- spawnOnce "compton -fb"
      --     spawnOnce "urxvtd-256color -f -q -o"
      -- spawnOnce "/home/mimi/.fehbg"
