@@ -5,7 +5,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 [[ -f "$HOME/.pathrc" ]] && source $HOME/.pathrc
 # Load resources
  
-#xrdb -merge ~/.Xresources
+xrdb -merge ~/.Xresources
 
 # Set up an icon tray
  
@@ -20,8 +20,10 @@ GNOME_PK=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 [ -x /usr/bin/dropbox ] && dropbox start -i &
 
+status-notifier-watcher &
+taffybar &
 
-#xsetroot -solid black
+xsetroot -solid black
 #feh --bg-scale $HOME/Pictures/wallpapers/current
 #gconftool --type string --set /desktop/gnome/background/picture_filename "/path/to/your/image.png
  
