@@ -9,8 +9,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Set up an icon tray
  
-trayer --edge top --align right --SetDockType true --SetPartialStrut true \
- --expand true --width 10 --transparent true --tint 0x191970 --height 18 &
+#status-notifier-watcher &
+#trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+# --expand true --width 10 --transparent true --tint 0x191970 --height 18 &
 
 GNOME_PK=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
 [ -x $GNOME_PK ] && $GNOME_PK &
@@ -20,8 +21,8 @@ GNOME_PK=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 [ -x /usr/bin/dropbox ] && dropbox start -i &
 
 
-xsetroot -solid black
-feh --bg-scale $HOME/Pictures/wallpapers/current
+#xsetroot -solid black
+#feh --bg-scale $HOME/Pictures/wallpapers/current
 #gconftool --type string --set /desktop/gnome/background/picture_filename "/path/to/your/image.png
  
 # Fire up apps
@@ -29,31 +30,31 @@ feh --bg-scale $HOME/Pictures/wallpapers/current
 #gajim &
  
 #xscreensaver -no-splash &
-gnome-screensaver &
+#gnome-screensaver &
  
 
 gnome-settings-daemon &
 
 # Network manager
-if [ -x /usr/bin/nm-applet ] ; then
-   nm-applet --sm-disable &
-fi
- 
-if [ -x /usr/bin/gnome-power-manager ] ; then
-   sleep 3
-   gnome-power-manager &
-fi
-
-if [ -x /usr/bin/gsettings ]; then
-  gsettings set org.gnome.settings-daemon.plugins.xrandr active false
-fi
-
-if [[ $HOSTNAME == "luna" ]]
-then
-  xmodmap -e "keycode 36 = KP_Enter"
-  xmodmap -e "keycode 104 = Return"
-fi
-
+#if [ -x /usr/bin/nm-applet ] ; then
+#   nm-applet --sm-disable &
+#fi
+# 
+#if [ -x /usr/bin/gnome-power-manager ] ; then
+#   sleep 3
+#   gnome-power-manager &
+#fi
+#
+#if [ -x /usr/bin/gsettings ]; then
+#  gsettings set org.gnome.settings-daemon.plugins.xrandr active false
+#fi
+#
+#if [[ $HOSTNAME == "luna" ]]
+#then
+#  xmodmap -e "keycode 36 = KP_Enter"
+#  xmodmap -e "keycode 104 = Return"
+#fi
+#
 # Fixes drawing of cursor in xmonad with gnome >=3.12
 # https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1238047.html
 if [ $(gsettings get org.gnome.settings-daemon.plugins.cursor active) = "true" ];then
