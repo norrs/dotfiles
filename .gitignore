@@ -2,3 +2,5 @@ dot.xmonad/xmonad-*-linux
 dot.xmonad/xmonad.errors
 dot.xmonad/xmonad.hi
 dot.xmonad/xmonad.o
+dot.xmonad/xmonad.state
+dot.xmonad/prompt-history
