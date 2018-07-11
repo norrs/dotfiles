@@ -1,5 +1,8 @@
+module Main where
+
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Fullscreen
 import XMonad.Util.Run(spawnPipe)
@@ -7,6 +10,8 @@ import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig(additionalKeys, additionalKeysP)
 import System.IO
 import System.Exit
+
+import System.Taffybar.Support.PagerHints (pagerHints)
 import qualified Data.Map as M
 
 myManageHook = composeAll . concat $
@@ -25,10 +30,12 @@ myKeys conf = M.fromList
         | (i, k) <- zip myWorkspaces ([xK_1 .. xK_9] ++ [xK_0] ++ [xK_F1 .. xK_F12])
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
-
 main = do
-    xmproc <- spawnPipe "xmobar"
-    xmonad $ defaultConfig
+    xmproc <- spawnPipe "taffybar"
+    xmonad $
+    ewmh $
+    pagerHints $
+    def
         { terminal = "urxvt"
         , manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , handleEventHook = fullscreenEventHook <+> handleEventHook defaultConfig
