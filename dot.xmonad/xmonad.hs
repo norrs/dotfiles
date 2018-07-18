@@ -62,8 +62,8 @@ myKeys conf = M.fromList
 
 ------------------------------------------------------------------------
 -- add mouse buttons
-button8 = 8 :: Button
-button9 = 9 :: Button
+-- button8 = 8 :: Button
+-- button9 = 9 :: Button
 ------------------------------------------------------------------------
 -- Layouts:
 -- You can specify and transform your layouts by modifying these values.
@@ -158,6 +158,7 @@ myStartupHook :: X ()
 myStartupHook =
   do setDefaultCursor xC_left_ptr
      -- setWMName "LG3D"
+     spawn "systemctl --user start wm.target"
      spawnOnce "xrdb -merge ~/.Xdefaults"
      spawnOnce "xsetroot -solid black"
      -- spawnOnce "compton -fb"
@@ -237,9 +238,9 @@ defaults =
   ,((0,xF86XK_AudioMute),spawn "pulseaudio-ctl mute")
   ,((0,xF86XK_AudioRaiseVolume),spawn "pulseaudio-ctl up")
   ,((0,xF86XK_AudioLowerVolume),spawn "pulseaudio-ctl down")
-  ,((0,xF86XK_MonBrightnessUp),spawn "xbacklight +5")
-  ,((0,xF86XK_MonBrightnessDown),spawn "xbacklight -5")
-  ,((mod4Mask,xK_b),sendMessage ToggleStruts)] `additionalMouseBindings`
-  [((0,button8),const prevWS) -- cycle Workspace up
-  ,((0,button9),const nextWS) -- cycle Workspace down
-   ]
+  ,((0,xF86XK_MonBrightnessUp),spawn "light -A 5")
+  ,((0,xF86XK_MonBrightnessDown),spawn "light -U 5")
+  ,((mod4Mask,xK_b),sendMessage ToggleStruts)] -- `additionalMouseBindings`
+  -- [((0,button8),const prevWS) -- cycle Workspace up
+  -- ,((0,button9),const nextWS) -- cycle Workspace down
+  -- ]
