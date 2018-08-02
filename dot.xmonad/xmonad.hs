@@ -161,7 +161,7 @@ myEventHook = fullscreenEventHook <+> hintsEventHook <+> docksEventHook
 myStartupHook :: X ()
 myStartupHook =
   do setDefaultCursor xC_left_ptr
-     -- setWMName "LG3D"
+     setWMName "LG3D"
      spawn "systemctl --user start wm.target"
      spawnOnce "xrdb -merge ~/.Xdefaults"
      spawnOnce "xsetroot -solid black"
