@@ -1,0 +1,6 @@
+rofi.terminal:         urxvt
+rofi.sidebar-mode:     false
+rofi.drun-icon-theme:  Papirus
+rofi.show-icons:       true
+rofi.dpi: 100
+rofi.theme: /home/norangshol/.local/share/rofi/themes/sidestyle.rasi

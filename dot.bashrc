@@ -60,6 +60,16 @@ set_window_title() {
     echo -ne "\033]0;"$@"\007"
 }
 
+function source_directory_files {
+	for filename in "$1"/*; do
+		#environment_variable_exists SHELL_STARTUP_DEBUG && echo "Sourcing $filename"
+                source "$filename"
+	done
+}
+
+source_directory_files "$HOME/.lib/shellenv"
+
+
 
 source ~/.opt/kube-ps1/kube-ps1.sh
 

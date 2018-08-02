@@ -1,25 +1,54 @@
-module Main where
-
+{-# LANGUAGE FlexibleContexts #-}
+-- Ondřej Súkup xmonad config ...
+-- main import
 import XMonad
+-- xmonad hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Layout.Fullscreen
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.SetWMName
+import XMonad.Hooks.UrgencyHook
+--xmonad actions
+import XMonad.Actions.CycleWS
+import XMonad.Actions.GridSelect
+import XMonad.Actions.Submap
+--xmonad utils
+import XMonad.Util.Cursor
+import XMonad.Util.EZConfig
+import XMonad.Util.NamedWindows
+import XMonad.Util.Scratchpad
+import XMonad.Util.SpawnOnce (spawnOnce)
+import XMonad.Util.Themes
+--xmonad layouts
+import XMonad.Layout.Fullscreen hiding (fullscreenEventHook)
+import XMonad.Layout.LayoutHints
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Tabbed
+-- import xmonad promt
+import XMonad.Prompt
+import XMonad.Prompt.Shell
+import XMonad.Prompt.Ssh
+-- qualified imports of Data and Stack
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig(additionalKeys, additionalKeysP)
-import System.IO
-import System.Exit
-
-import System.Taffybar.Support.PagerHints (pagerHints)
 import qualified Data.Map as M
+-- general import
+import Control.Applicative
+import Graphics.X11.ExtraTypes.XF86
+-- taffybar
+import System.Taffybar.Support.PagerHints (pagerHints)
 
-myManageHook = composeAll . concat $
-    [ [ className =? "Gimp"      --> doFloat]
-    , [ className =? "Vncviewer" --> doFloat]
-    , [ className =? "Chromium"  --> doShift "2:www"]
-    ]
-
+------------------------------------------------------------------------
+promptConfig :: XPConfig
+promptConfig =
+  def {font = "xft:Source Code Pro:pixelsize=20"
+                  ,borderColor = "#1e2320"
+                  ,height = 40
+                  ,position = Top}
+------------------------------------------------------------------------
+myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["1:main", "2:www", "3:chat", "4:IDE", "5:www-stack", "6:music","7", "8", "9", "0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10","F11", "F12"]
 
 
@@ -30,29 +59,193 @@ myKeys conf = M.fromList
         | (i, k) <- zip myWorkspaces ([xK_1 .. xK_9] ++ [xK_0] ++ [xK_F1 .. xK_F12])
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
-main = do
-    xmproc <- spawnPipe "taffybar"
-    xmonad $
-    ewmh $
-    pagerHints $
-    def
-        { terminal = "urxvt"
-        , manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
-        , handleEventHook = fullscreenEventHook <+> handleEventHook defaultConfig
-        , startupHook = startupHook defaultConfig
-        , workspaces = myWorkspaces <+> workspaces defaultConfig
-        , layoutHook = avoidStruts  $  layoutHook defaultConfig
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc
-                        , ppTitle = xmobarColor "green" "" . shorten 50
-                        }
-        , modMask = mod4Mask     -- Rebind Mod to the Windows key
-        , keys = keys defaultConfig <+> myKeys
-        } `additionalKeys`
-        [ ((mod4Mask .|. shiftMask, xK_z), spawn "gnome-screensaver-command -l")
-        , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -u")
-        , ((0, xK_Print), spawn "scrot")
-        ] `additionalKeysP`
-        [ ("M-S-q", spawn "gnome-session-quit")
-        , ("M-S-<Backspace>", io (exitSuccess))
-        ]
+
+------------------------------------------------------------------------
+-- add mouse buttons
+-- button8 = 8 :: Button
+-- button9 = 9 :: Button
+------------------------------------------------------------------------
+-- Layouts:
+-- You can specify and transform your layouts by modifying these values.
+-- If you change layout bindings be sure to use 'mod-shift-space' after
+-- restarting (with 'mod-q') to reset your layout state to the new
+-- defaults, as xmonad preserves your old layout settings by default.
+--
+-- The available layouts.  Note that each layout is separated by |||,
+-- which denotes layout choice.
+--
+-- myBorders = lessBorders (Combine Union Screen OnlyFloat)
+myBorders = lessBorders (Combine Union Screen OnlyScreenFloat)
+
+myLayout =
+  avoidStruts $
+  myBorders $
+  layoutHintsToCenter  $
+  onWorkspace "1:main"
+              ( tab ||| full ||| tiled ||| mtiled) $
+  onWorkspaces ["2:www","3:chat"]
+              full $
+    full ||| tiled ||| mtiled
+  where
+        -- default tiling algorithm partitions the screen into two panes
+        tiled = Tall nmaster delta ratio
+        -- The default number of windows in the master pane
+        nmaster = 1
+        -- Default proportion of screen occupied by master pane
+        ratio =
+          toRational (2 / (1 + sqrt 5 :: Double))
+        -- Percent of screen to increment by when resizing panes
+        delta = 5 / 100
+        -- tab is tabbed
+        tab =
+          tabbed shrinkText (theme smallClean)
+        -- full is Full
+        full =
+          (fullscreenFloat) Full
+          --(fullscreenFull) Full -- not working!
+          -- fullscreenFull Full -- not working!
+          --(fullscreenFloat . fullscreenFull) not working!
+        -- mtiled is mirrortiled
+        mtiled = Mirror tiled
+------------------------------------------------------------------------
+-- Window rules:
+-- Execute arbitrary actions and WindowSet manipulations when managing
+-- a new window. You can use this to, for example, always float a
+-- particular program, or have a client always appear on a particular
+-- workspace.
+--
+-- To find the property name associated with a program, use
+-- > xprop | grep WM_CLASS
+-- and click on the client you're interested in.
+--
+-- To match on the WM_NAME, you can use 'title' in the same way that
+-- 'className' and 'resource' are used below.
+--
+myManageHook :: ManageHook
+myManageHook =
+  composeAll $
+  [isDialog --> doFloat] ++
+  [appName =? r --> doIgnore | r <- myIgnores] ++
+  [className =? c --> doCenterFloat | c <- myFloats] ++
+  [appName =? r --> doShift wsp | (r,wsp) <- myWorkspaceMove]
+  -- fulscreen windows to fullfloating
+  ++
+  [isFullscreen --> doFullFloat] ++
+  -- unmanage docks such as gnome-panel and dzen
+  [fullscreenManageHook
+  ,scratchpadManageHookDefault
+  ]
+  where
+        -- windows to operate
+        myIgnores =
+          ["desktop","kdesktop","desktop_window"]
+        myFloats =
+          ["Steam","steam","vlc","Vlc","mpv"]
+        myWorkspaceMove =
+          [("google-chrome","2:www")
+          --,("urxvt","1:main")
+          ,("weechat","3:chat")]
+
+------------------------------------------------------------------------
+-- Event handling
+--
+-- * EwmhDesktops users should change this to ewmhDesktopsEventHook
+--
+-- Defines a custom handler function for X Events. The function should
+-- return (All True) if the default handler is to be run afterwards. To
+-- combine event hooks use mappend or mconcat from Data.Monoid.
+--
+myEventHook = fullscreenEventHook <+> hintsEventHook <+> docksEventHook
+------------------------------------------------------------------------
+-- myStartupHook
+myStartupHook :: X ()
+myStartupHook =
+  do setDefaultCursor xC_left_ptr
+     setWMName "LG3D"
+     spawn "systemctl --user start wm.target"
+     spawnOnce "xrdb -merge ~/.Xdefaults"
+     spawnOnce "xsetroot -solid black"
+     -- spawnOnce "compton -fb"
+     --     spawnOnce "urxvtd-256color -f -q -o"
+     -- spawnOnce "/home/mimi/.fehbg"
+------------------------------------------------------------------------
+-- Urgency Hook:
+--
+-- Use libnotify notifications when the X11 urgent hint is set
+data LibNotifyUrgencyHook =
+  LibNotifyUrgencyHook
+  deriving (Read,Show)
+instance UrgencyHook LibNotifyUrgencyHook where
+  urgencyHook LibNotifyUrgencyHook w =
+    do name <- getName w
+       wins <- gets windowset
+       whenJust (W.findTag w wins)
+                (flash name)
+    where flash name index = spawn $
+                             "notify-send " ++
+                             "'Workspace " ++
+                             index ++
+                             "' " ++ "'Activity in: " ++ show name ++ "' "
+------------------------------------------------------------------------
+--
+-- |
+-- Helper function which provides ToggleStruts keybinding
+--
+-- toggleStrutsKey :: XConfig t -> (KeyMask,KeySym)
+-- toggleStrutsKey XConfig{modMask = modm} =
+--  (modm,xK_b)
+------------------------------------------------------------------------
+-- xmobar from XMonad.Hooks.DynamicLog with scratchpad filter
+--
+-- myXmobar
+--   :: LayoutClass l Window
+--   => XConfig l -> IO (XConfig (ModifiedLayout AvoidStruts l))
+-- myXmobar =
+--   statusBar "xmobar"
+--             xmobarPP {ppSort = (. scratchpadFilterOutWorkspace) Control.Applicative.<$>
+--                                ppSort def}
+--             toggleStrutsKey
+-------------------------------------------------------------------------
+-- Now run xmonad with all the defaults we set up.
+main :: IO ()
+-- main = xmonad =<< myXmobar defaults
+main = xmonad defaults
+------------------------------------------------------------------------
+myUrgencyHook =
+  withUrgencyHook LibNotifyUrgencyHook
+
+defaults =
+  docks $
+  myUrgencyHook $
+  ewmh $
+  pagerHints $
+  def {terminal = "urxvt"
+                ,borderWidth = 2
+                ,modMask = mod4Mask
+                ,workspaces = myWorkspaces
+                ,layoutHook = myLayout
+                ,manageHook = myManageHook
+                ,handleEventHook = myEventHook
+                ,startupHook = myStartupHook
+                ,keys = keys defaultConfig <+> myKeys } `additionalKeys`
+  [((mod4Mask,xK_g),goToSelected def) -- Gridselect
+  ,((mod4Mask,xK_Print),spawn "scrot '%F-%H-%M-%S.png' -e 'mv $f ~/Shot/'") -- screenshot
+  ,((mod4Mask,xK_s),scratchpadSpawnActionTerminal "urxvt") -- scratchpad
+  ,((mod4Mask .|. controlMask,xK_p)
+   ,submap . M.fromList $ -- add submap Ctrl+Win+P,key
+    [((0,xK_q),spawn "urxvt")
+    ,((0,xK_w),spawn "google-chrome")
+    ,((0,xK_s),sshPrompt promptConfig)])
+  ,((mod4Mask,xK_p),shellPrompt promptConfig)
+  ,
+   --        , ((mod4Mask  .|. shiftMask     , xK_p          ), passPrompt promptConfig  )
+   ((mod4Mask .|. shiftMask,xK_z),spawn "i3lock -c 101010")
+  ,((0,xF86XK_AudioMute),spawn "pulseaudio-ctl mute")
+  ,((0,xF86XK_AudioRaiseVolume),spawn "pulseaudio-ctl up")
+  ,((0,xF86XK_AudioLowerVolume),spawn "pulseaudio-ctl down")
+  ,((0,xF86XK_MonBrightnessUp),spawn "light -A 5")
+  ,((0,xF86XK_MonBrightnessDown),spawn "light -U 5")
+  ,((mod4Mask,xK_b),sendMessage ToggleStruts)] -- `additionalMouseBindings`
+  -- [((0,button8),const prevWS) -- cycle Workspace up
+  -- ,((0,button9),const nextWS) -- cycle Workspace down
+  -- ]
