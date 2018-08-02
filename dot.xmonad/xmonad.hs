@@ -43,9 +43,9 @@ import System.Taffybar.Support.PagerHints (pagerHints)
 ------------------------------------------------------------------------
 promptConfig :: XPConfig
 promptConfig =
-  def {font = "xft:Source Code Pro:pixelsize=14"
+  def {font = "xft:Source Code Pro:pixelsize=20"
                   ,borderColor = "#1e2320"
-                  ,height = 18
+                  ,height = 40
                   ,position = Top}
 ------------------------------------------------------------------------
 myWorkspaces :: [WorkspaceId]
