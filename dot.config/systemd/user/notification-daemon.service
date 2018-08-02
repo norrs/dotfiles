@@ -1,0 +1,10 @@
+[Unit]
+Description=notification-daemon
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/notification-daemon/notification-daemon 
+ExecStop=/usr/bin/env pkill /usr/lib/notification-daemon/notification-daemon 
+
+[Install]
+WantedBy=wm.target

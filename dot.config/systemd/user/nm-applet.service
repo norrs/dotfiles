@@ -1,0 +1,10 @@
+[Unit]
+Description=Network Manager applet
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env nm-applet --sm-disable --indicator
+ExecStop=/usr/bin/pkill nm-applet --sm-disable --indicator
+
+[Install]
+WantedBy=wm.target
