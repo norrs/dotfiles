@@ -5,7 +5,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 function source_directory_files {
 	for filename in "$1"/*; do
 		#environment_variable_exists SHELL_STARTUP_DEBUG && echo "Sourcing $filename"
-               source "$filename"
+       		source "$filename"
 	done
 }
 
@@ -17,63 +17,29 @@ source_directory_files "$HOME/.lib/shellenv"
 
 [[ -f "$HOME/.pathrc" ]] && source $HOME/.pathrc
 systemctl --user import-environment PATH
-# Load resources
- 
-xrdb -merge ~/.Xresources
 
-# Set up an icon tray
- 
-#status-notifier-watcher &
-#trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-# --expand true --width 10 --transparent true --tint 0x191970 --height 18 &
+# Load resources
+# TODO: Use the .Xdefaults and .Xresources correctly. One should only be loaded
+# once, other one can be reloaded I think?
+xrdb -merge ~/.Xresources
 
 GNOME_PK=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
 [ -x $GNOME_PK ] && $GNOME_PK &
- 
-# Set the background color<
 
-[ -x /usr/bin/dropbox ] && dropbox start -i &
-
-status-notifier-watcher &
-taffybar &
-
+# Set background to solid black on root x window. If not this xmonad.hs file of
+# mine will output weird gfx glitches and stuff. Unsure why..
 xsetroot -solid black
-#feh --bg-scale $HOME/Pictures/wallpapers/current
-#gconftool --type string --set /desktop/gnome/background/picture_filename "/path/to/your/image.png
  
-# Fire up apps
- 
-#gajim &
- 
-#xscreensaver -no-splash &
-#gnome-screensaver &
- 
+if [[ $HOSTNAME == "luna" ]]
+then
+  xmodmap -e "keycode 36 = KP_Enter"
+  xmodmap -e "keycode 104 = Return"
+fi
 
-gnome-settings-daemon &
 
-# Network manager
-#if [ -x /usr/bin/nm-applet ] ; then
-#   nm-applet --sm-disable &
-#fi
-# 
-#if [ -x /usr/bin/gnome-power-manager ] ; then
-#   sleep 3
-#   gnome-power-manager &
-#fi
-#
-#if [ -x /usr/bin/gsettings ]; then
-#  gsettings set org.gnome.settings-daemon.plugins.xrandr active false
-#fi
-#
-#if [[ $HOSTNAME == "luna" ]]
-#then
-#  xmodmap -e "keycode 36 = KP_Enter"
-#  xmodmap -e "keycode 104 = Return"
-#fi
-#
 # Fixes drawing of cursor in xmonad with gnome >=3.12
 # https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1238047.html
-if [ $(gsettings get org.gnome.settings-daemon.plugins.cursor active) = "true" ];then
+if [ "$(gsettings get org.gnome.settings-daemon.plugins.cursor active)" = "true" ];then
   gsettings set org.gnome.settings-daemon.plugins.cursor active false
 fi
 
