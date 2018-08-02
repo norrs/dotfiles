@@ -2,6 +2,19 @@
 #export WINDOW_MANAGER=xmonad
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+function source_directory_files {
+	for filename in "$1"/*; do
+		#environment_variable_exists SHELL_STARTUP_DEBUG && echo "Sourcing $filename"
+               source "$filename"
+	done
+}
+
+# Only way to load functions before systemd user units start? 
+# Hm, need to research this later, as it is also in my .bashrc!
+# -norangshol 2.aug.2018
+source_directory_files "$HOME/.lib/shellenv"
+
+
 [[ -f "$HOME/.pathrc" ]] && source $HOME/.pathrc
 # Load resources
  
