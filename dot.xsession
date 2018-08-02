@@ -16,6 +16,7 @@ source_directory_files "$HOME/.lib/shellenv"
 
 
 [[ -f "$HOME/.pathrc" ]] && source $HOME/.pathrc
+systemctl --user import-environment PATH
 # Load resources
  
 xrdb -merge ~/.Xresources
