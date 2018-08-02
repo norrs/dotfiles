@@ -10,3 +10,6 @@
 [submodule "dot.opt/kubectx"]
 	path = dot.opt/kubectx
 	url = git@github.com:ahmetb/kubectx.git
+[submodule "dot.opt/rofi-systemd"]
+	path = dot.opt/rofi-systemd
+	url = git@github.com:IvanMalison/rofi-systemd.git
