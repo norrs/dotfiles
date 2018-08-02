@@ -74,7 +74,8 @@ myKeys conf = M.fromList
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myBorders = lessBorders (Combine Union Screen OnlyFloat)
+-- myBorders = lessBorders (Combine Union Screen OnlyFloat)
+myBorders = lessBorders (Combine Union Screen OnlyScreenFloat)
 
 myLayout =
   avoidStruts $
@@ -100,7 +101,10 @@ myLayout =
           tabbed shrinkText (theme smallClean)
         -- full is Full
         full =
-          (fullscreenFloat . fullscreenFull) Full
+          (fullscreenFloat) Full
+          --(fullscreenFull) Full -- not working!
+          -- fullscreenFull Full -- not working!
+          --(fullscreenFloat . fullscreenFull) not working!
         -- mtiled is mirrortiled
         mtiled = Mirror tiled
 ------------------------------------------------------------------------
@@ -130,7 +134,7 @@ myManageHook =
   -- unmanage docks such as gnome-panel and dzen
   [fullscreenManageHook
   ,scratchpadManageHookDefault
-  ,manageDocks]
+  ]
   where
         -- windows to operate
         myIgnores =
@@ -211,6 +215,7 @@ myUrgencyHook =
   withUrgencyHook LibNotifyUrgencyHook
 
 defaults =
+  docks $
   myUrgencyHook $
   ewmh $
   pagerHints $
