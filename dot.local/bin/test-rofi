@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rofi -show window -fg "#505050" -bg "#000000" -hlfg "#ffb964" -hlbg "#000000" -opacity 50 -sidebar-mode
