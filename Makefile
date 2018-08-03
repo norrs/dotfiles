@@ -13,7 +13,11 @@ symlinks = .bashrc \
 	   .config/systemd/user/notification-daemon.service \
 	   .config/systemd/user/status-notifier-watcher.service \
 	   .config/systemd/user/taffybar.service \
+	   .config/systemd/user/wallpaper.service \
+	   .config/systemd/user/wallpaper.timer \
 	   .local/bin/test-rofi \
+	   .local/bin/rofi-systemd \
+	   .local/bin/wallpaper \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
