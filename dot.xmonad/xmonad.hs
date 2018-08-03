@@ -236,16 +236,20 @@ defaults =
     [((0,xK_q),spawn "urxvt")
     ,((0,xK_w),spawn "google-chrome")
     ,((0,xK_s),sshPrompt promptConfig)])
-  ,((mod4Mask,xK_p),shellPrompt promptConfig)
-  ,
-   --        , ((mod4Mask  .|. shiftMask     , xK_p          ), passPrompt promptConfig  )
-   ((mod4Mask .|. shiftMask,xK_z),spawn "i3lock -c 101010")
+  -- , ((mod4Mask,xK_p),shellPrompt promptConfig) -- Built in xmonad prompt , disabled when using rofi
+  , ((mod4Mask, xK_p), spawn "rofi -show run")
+  , ((mod4Mask .|. shiftMask, xK_p), spawn "rofi -show drun -show-icons")
+  --        , ((mod4Mask  .|. shiftMask     , xK_p          ), passPrompt promptConfig  )
+  ,((mod4Mask .|. shiftMask,xK_z),spawn "i3lock -c 101010")
+  ,((mod1Mask .|. controlMask, xK_r), spawn "rofi-systemd")
   ,((0,xF86XK_AudioMute),spawn "pulseaudio-ctl mute")
   ,((0,xF86XK_AudioRaiseVolume),spawn "pulseaudio-ctl up")
   ,((0,xF86XK_AudioLowerVolume),spawn "pulseaudio-ctl down")
   ,((0,xF86XK_MonBrightnessUp),spawn "light -A 5")
   ,((0,xF86XK_MonBrightnessDown),spawn "light -U 5")
-  ,((mod4Mask,xK_b),sendMessage ToggleStruts)] -- `additionalMouseBindings`
+  ,((mod4Mask,xK_b),sendMessage ToggleStruts)] 
+
+-- `additionalMouseBindings`
   -- [((0,button8),const prevWS) -- cycle Workspace up
   -- ,((0,button9),const nextWS) -- cycle Workspace down
   -- ]
