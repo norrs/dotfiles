@@ -68,6 +68,7 @@ function source_directory_files {
 }
 
 source_directory_files "$HOME/.lib/shellenv"
+source_directory_files "$HOME/.lib/shellrc"
 
 
 

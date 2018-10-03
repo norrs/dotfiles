@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+# Sourcing manually the ssh hack because I dont use zsh..
+source "$HOME/.lib/shellrc/ssh_agent.sh"
+if [ -x /usr/bin/gnome-keyring-daemon ]; then
+ /usr/bin/gnome-keyring-daemon -s
+ SSH_AUTH_SOCKET=/run/user/$(id -u)/keyring/ssh
+ [ -S $SSH_AUTH_SOCKET ] && export SSH_AUTH_SOCK=$SSH_AUTH_SOCKET
+fi
+
+export SSH_AUTH_SOCK="$(sshag)"
+
+echo "Syncing $1"
+cd "$1"
+
+counter=0
+while true; do
+	changedFile=$(inotifywait ./ -r -e modify,move,create,delete --format "%w%f" --exclude '\.git' -t 60 2>/dev/null)
+	if [ -z "$changedFile" ]
+	then
+		counter=$((counter+1))
+		if [ $counter -gt 4 ]; then
+			git-sync
+			counter=0
+		else
+			git-sync > /dev/null
+		fi
+	else
+		echo "Syncing for: $changedFile"
+		{ git check-ignore "$changedFile" > /dev/null; } || git-sync
+	fi
+done

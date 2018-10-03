@@ -13,3 +13,6 @@
 [submodule "dot.opt/rofi-systemd"]
 	path = dot.opt/rofi-systemd
 	url = git@github.com:IvanMalison/rofi-systemd.git
+[submodule "dot.opt/git-sync"]
+	path = dot.opt/git-sync
+	url = git@github.com:IvanMalison/git-sync.git

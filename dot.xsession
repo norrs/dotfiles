@@ -13,6 +13,7 @@ function source_directory_files {
 # Hm, need to research this later, as it is also in my .bashrc!
 # -norangshol 2.aug.2018
 source_directory_files "$HOME/.lib/shellenv"
+source_directory_files "$HOME/.lib/shellrc"
 
 
 [[ -f "$HOME/.pathrc" ]] && source $HOME/.pathrc

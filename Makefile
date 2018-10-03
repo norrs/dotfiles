@@ -8,6 +8,7 @@ mkdirs = .local/share/applications \
 
 symlinks = .bashrc \
 	   .config/systemd/user/wm.target \
+	   .config/systemd/user/git-sync@.service \
 	   .config/systemd/user/github-notifications.service \
 	   .config/systemd/user/nm-applet.service \
 	   .config/systemd/user/notification-daemon.service \
@@ -18,6 +19,8 @@ symlinks = .bashrc \
 	   .local/bin/test-rofi \
 	   .local/bin/rofi-systemd \
 	   .local/bin/wallpaper \
+	   .local/bin/git_sync_directory \
+	   .local/bin/git-sync \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
