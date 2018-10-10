@@ -1,0 +1,13 @@
+[Unit]
+Description = Disable and Enable git-sync depending on AC power
+ReloadPropagatedFrom = sys-subsystem-power_supply-main_AC.device
+
+[Service]
+#ExecStart = /usr/bin/env git-sync-powersavehelper
+#ExecReload = /usr/bin/env git-sync-powersavehelper 
+ExecStart =   /home/norangshol/.local/bin/git-sync-powersavehelper
+ExecReload =  /home/norangshol/.local/bin/git-sync-powersavehelper 
+RemainAfterExit=true
+
+[Install]
+WantedBy = sys-subsystem-power_supply-main_AC.device

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source "$HOME/.lib/shellenv/functions.sh"
+
+
+if /lib/systemd/systemd-ac-power ; then
+ echo "Power On: $(date)"
+ for unit in $(systemctl --user list-units --plain | grep git-sync@ | get_cols 1); do
+   systemctl --user start "$unit"
+ done
+else
+ echo "Battery On: $(date)"
+ for unit in $(systemctl --user list-units --plain | grep git-sync@ | get_cols 1); do
+   systemctl --user stop "$unit"
+ done
+fi
