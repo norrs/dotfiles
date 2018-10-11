@@ -23,6 +23,7 @@ symlinks = .bashrc \
 	   .local/bin/git_sync_directory \
 	   .local/bin/git-sync-powersavehelper \
 	   .local/bin/git-sync \
+	   .local/bin/kcd \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
