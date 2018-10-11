@@ -17,4 +17,6 @@ function filter_by_column_value {
     awk '$'"$1"' == '"$2"'  { print $0 }'
 }
 
-
+function prometheus_rules_validate {
+   docker run --volume "$1:$1" --workdir="$1" --entrypoint /bin/sh prom/prometheus:latest -c 'find . -iname "*.rules" | xargs /bin/promtool check rules'
+}
