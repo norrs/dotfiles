@@ -1,1 +1,4 @@
 alias git=hub
+alias psc='ps xawf -eo pid,user,cgroup,args'
+alias k="kubectl"
+complete -o default -F __start_kubectl k
