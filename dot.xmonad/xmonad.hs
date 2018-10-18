@@ -239,6 +239,11 @@ defaults =
     ,((0,xK_w),spawn "google-chrome")
     ,((0,xK_s),sshPrompt promptConfig)])
   -- , ((mod4Mask,xK_p),shellPrompt promptConfig) -- Built in xmonad prompt , disabled when using rofi
+  ,((mod1Mask .|. controlMask, xK_k)
+   ,submap . M.fromList $ -- add submap Ctrl+Alt+K,key  , kubernetes shortcuts
+    [((0,xK_k),spawn "KUBECTX_IGNORE_FZF=1 kubectx | rofi -dmenu -i | KUBECTX_IGNORE_FZF=1 xargs kubectx")
+    ])
+  ,((mod1Mask .|. controlMask, xK_r), spawn "rofi-systemd")
   , ((mod4Mask, xK_p), spawn "rofi -show run")
   , ((mod4Mask .|. shiftMask, xK_p), spawn "rofi -show drun -show-icons")
   --        , ((mod4Mask  .|. shiftMask     , xK_p          ), passPrompt promptConfig  )
