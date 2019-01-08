@@ -20,3 +20,11 @@ function filter_by_column_value {
 function prometheus_rules_validate {
    docker run --volume "$1:$1" --workdir="$1" --entrypoint /bin/sh prom/prometheus:latest -c 'find . -iname "*.rules" | xargs /bin/promtool check rules'
 }
+
+adb-zid() {
+    adb exec-out run-as net.zedge.android cat /data/data/net.zedge.android/shared_prefs/net.zedge.android_preferences.xml | grep 'ZID' | awk -F">" '{print $2}' | awk -F"<" '{print $1}'
+}
+
+deeplink() {
+    adb shell am start -a "android.intent.action.VIEW" -d "$@"
+}
