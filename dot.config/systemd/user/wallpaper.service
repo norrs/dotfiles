@@ -3,8 +3,9 @@ Description=wallpaper
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/env wallpaper.sh
-ExecStop=/usr/bin/pkill wallpaper.sh
+RemainAfterExit=true
+ExecStart=/usr/bin/env wallpaper
+ExecStop=/usr/bin/pkill wallpaper
 
 [Install]
 WantedBy=wm.target
