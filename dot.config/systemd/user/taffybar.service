@@ -5,8 +5,9 @@ After=status-notifier-watcher.service
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env taffybar
-ExecStop=/usr/bin/env pkill taffybar
+WorkingDirectory=/usr/share/pixmaps
+ExecStart=/usr/bin/env my-taffybar
+ExecStop=/usr/bin/env pkill my-taffybar
 
 [Install]
 WantedBy=wm.target
