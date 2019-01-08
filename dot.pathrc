@@ -35,6 +35,8 @@
 
 [[ -d "$HOME/zedge/clitools/bin" ]] && export PATH="$HOME/zedge/clitools/bin:$PATH"
 
+[[ -d "/usr/local/kubebuilder" ]] && export PATH="$PATH:/usr/local/kubebuilder/bin"
+
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
 if test -d "/opt/go" && test -d "/opt/go/bin";then
@@ -42,7 +44,7 @@ if test -d "/opt/go" && test -d "/opt/go/bin";then
  export PATH="$GOROOT/bin:$PATH"
 fi
 
-export ANDROID_HOME="/opt/android-sdk-linux/sdk"
+export ANDROID_HOME="$HOME/.local/opt/android-sdk-linux/sdk"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export M2_HOME="/opt/maven3"
 export M2="$M2_HOME/bin"
