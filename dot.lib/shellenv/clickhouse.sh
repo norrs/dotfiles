@@ -5,6 +5,16 @@ run_on_clickhouse_servers() {
     done
 }
 
+clickhouse_portforward() {
+ (set -x; kubectl port-forward clickhouse-clickhouse-0 9000)
+}
+
+
+
+clickhouse_portforward_prod() {
+ (set -x; kubectl --context env:analytics port-forward clickhouse-clickhouse-0 9000)
+}
+
 run_on_clickhouse_server() {
  local shard="$1"
  test "$shard" -ge 0 || { >&2 echo "ERR: Only have clickhouse shards from 0 to $NUM_SHARDS"; return -1; }
