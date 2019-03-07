@@ -1,0 +1,20 @@
+flags: {}
+nix:
+  packages:
+  - pkgconfig
+  - x11
+  - xorg.libX11
+  - xorg.libXext
+  - xorg.libXinerama
+  - xorg.libXrandr
+  - xorg.libXrender
+  - xorg.libXScrnSaver
+extra-package-dbs: []
+packages:
+- .
+- location: ./xmonad
+  extra-dep: true
+- location: ./xmonad-contrib
+  extra-dep: true
+extra-deps: []
+resolver: lts-13.2

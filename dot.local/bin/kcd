@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-docker run -e KUBECD_ENVIRONMENTS -v "$HOME:$HOME" -w $(pwd) zedge/kubecd:latest "$@"

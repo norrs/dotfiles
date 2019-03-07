@@ -17,6 +17,7 @@ symlinks = .bashrc \
 	   .config/systemd/user/taffybar.service \
 	   .config/systemd/user/wallpaper.service \
 	   .config/systemd/user/wallpaper.timer \
+	   .local/bin/change-keyboard \
 	   .local/bin/test-rofi \
 	   .local/bin/rofi-systemd \
 	   .local/bin/wallpaper \
@@ -44,7 +45,8 @@ symdirs = .bash.d \
 	.local/share/rofi/themes \
 	.urxvt/ext \
 	.lib \
-	.config/rofi
+	.config/rofi \
+	.config/taffybar
 
 .PHONY: $(mkdirs) $(symlinks) $(symdirs)
 

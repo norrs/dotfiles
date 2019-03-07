@@ -16,3 +16,12 @@
 [submodule "dot.opt/git-sync"]
 	path = dot.opt/git-sync
 	url = git@github.com:IvanMalison/git-sync.git
+[submodule "dot.xmonad/xmonad"]
+	path = dot.xmonad/xmonad
+	url = https://github.com/xmonad/xmonad.git
+[submodule "dot.xmonad/xmonad-contrib"]
+	path = dot.xmonad/xmonad-contrib
+	url = https://github.com/xmonad/xmonad-contrib.git
+[submodule "dot.config/taffybar/taffybar"]
+	path = dot.config/taffybar/taffybar
+	url = https://github.com/taffybar/taffybar

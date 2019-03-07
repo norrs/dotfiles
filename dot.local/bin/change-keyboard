@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+echo -e "us English keyboard QWERTY\nno Norwegian keyboard QWERTY" | \
+ rofi -dmenu -i | \
+ cut -f1 -d' ' | \
+ xargs setxkbmap 

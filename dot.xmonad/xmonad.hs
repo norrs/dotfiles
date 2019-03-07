@@ -38,8 +38,7 @@ import qualified Data.Map as M
 import Control.Applicative
 import Graphics.X11.ExtraTypes.XF86
 -- taffybar
-import System.Taffybar.Support.PagerHints (pagerHints)
-
+import PagerHints
 ------------------------------------------------------------------------
 promptConfig :: XPConfig
 promptConfig =
@@ -241,7 +240,8 @@ defaults =
   -- , ((mod4Mask,xK_p),shellPrompt promptConfig) -- Built in xmonad prompt , disabled when using rofi
   ,((mod1Mask .|. controlMask, xK_k)
    ,submap . M.fromList $ -- add submap Ctrl+Alt+K,key  , kubernetes shortcuts
-    [((0,xK_k),spawn "KUBECTX_IGNORE_FZF=1 kubectx | rofi -dmenu -i | KUBECTX_IGNORE_FZF=1 xargs kubectx")
+    [((0,xK_k),spawn "KUBECTX_IGNORE_FZF=1 kubectx | rofi -dmenu -i | KUBECTX_IGNORE_FZF=1 xargs kubectx"),
+     ((0,xK_i), spawn "change-keyboard")
     ])
   ,((mod1Mask .|. controlMask, xK_r), spawn "rofi-systemd")
   , ((mod4Mask, xK_p), spawn "rofi -show run")
