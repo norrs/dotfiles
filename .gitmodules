@@ -12,7 +12,7 @@
 	url = git@github.com:ahmetb/kubectx.git
 [submodule "dot.opt/rofi-systemd"]
 	path = dot.opt/rofi-systemd
-	url = git@github.com:IvanMalison/rofi-systemd.git
+	url = git@github.com:norrs/rofi-systemd.git
 [submodule "dot.opt/git-sync"]
 	path = dot.opt/git-sync
 	url = git@github.com:IvanMalison/git-sync.git
