@@ -171,7 +171,7 @@ rofi.color-normal: ROFI1, ROFITEXT, ROFI1, ROFI2, _YELLOW
 *.color20:      base04
 *.color21:      base06
 
-# Disable printing.. https://wiki.archlinux.org/index.php/rxvt-unicode#Printing
+! Disable printing.. https://wiki.archlinux.org/index.php/rxvt-unicode#Printing
 URxvt.print-pipe: "cat > /dev/null"
 
 
