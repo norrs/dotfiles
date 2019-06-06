@@ -1,7 +1,10 @@
 LN_FLAGS = -sf
 
 mkdirs = .local/share/applications \
+	 .local/share/rofi \
+	 .local/bin \
 	 .config/gnome-session/sessions \
+	 .config/systemd/user \
 	 .urxvt \
 	 .gnupg \
 	 .caff/gnupghome
