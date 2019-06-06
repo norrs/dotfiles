@@ -25,6 +25,7 @@ symlinks = .bashrc \
 	   .local/bin/git-sync-powersavehelper \
 	   .local/bin/git-sync \
 	   .local/bin/kcd \
+	   .local/bin/kubernetes-add-service-account-kubeconfig \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
