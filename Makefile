@@ -48,6 +48,7 @@ symdirs = .bash.d \
 	.config/autorandr \
 	.local/share/urxvt-scripts \
 	.local/share/rofi/themes \
+	.local/share/fonts \
 	.urxvt/ext \
 	.lib \
 	.config/rofi \
