@@ -45,6 +45,7 @@ symlinks = .bashrc \
 symdirs = .bash.d \
 	.xmonad \
 	.opt \
+	.config/autorandr \
 	.local/share/urxvt-scripts \
 	.local/share/rofi/themes \
 	.urxvt/ext \
