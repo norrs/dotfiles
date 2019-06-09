@@ -12,8 +12,8 @@ enable_git_sync () {
 	systemctl --user restart "$unit_name"
 }
 
-#cd "$HOME/.config/systemd/user/"
-#find * -type f | grep -v git-sync | grep -E "\.service$" | xargs -I unitname sh -c 'echo unitname && systemctl --user enable unitname'
+cd "$HOME/.config/systemd/user/"
+find -L * -type f | grep -v git-sync | grep -v wants | grep -E "\.service$" | xargs -I unitname sh -x -c 'echo unitname && systemctl --user enable unitname'
 #
 enable_git_sync "$HOME/notes" git@gitlab.com:norrs/notes.git
 #enable_git_sync "$HOME/config" git@bitbucket.org:ivanmalison/config.git
