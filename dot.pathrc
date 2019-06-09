@@ -42,10 +42,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
-if test -d "/opt/go" && test -d "/opt/go/bin";then
- export GOROOT=/opt/go
- export PATH="$GOROOT/bin:$PATH"
-fi
+[[ -d "$HOME/go/bin:$PATH" ]] && export PATH="$GOROOT/bin:$PATH"
 
 export ANDROID_HOME="$HOME/.local/opt/android-sdk-linux/sdk"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"

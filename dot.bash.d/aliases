@@ -1,4 +1,7 @@
 alias git=hub
 alias psc='ps xawf -eo pid,user,cgroup,args'
 alias k="kubectl"
+alias kev='kubectl get event --sort-by="{.lastTimestamp}"'
+alias typeless='history | tail -n 20000 | sed "s/.* //" | sort | uniq -c | sort -g | tail -n 100'
+alias tl='typeless'
 complete -o default -F __start_kubectl k

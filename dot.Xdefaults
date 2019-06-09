@@ -175,7 +175,7 @@ rofi.color-normal: ROFI1, ROFITEXT, ROFI1, ROFI2, _YELLOW
 URxvt.print-pipe: "cat > /dev/null"
 
 
-URxvt.font: xft: Inconsolata:pixelsize=14:antialias=true
+URxvt.font: xft: Inconsolata:pixelsize=20:antialias=true
 URxvt.geometry: 80x20
 URxvt.scrollBar: true
 Urxvt.secondaryScroll: true
@@ -210,3 +210,14 @@ URxvt.keysym.C-Up:     perl:font-size:increase
 URxvt.keysym.C-Down:   perl:font-size:decrease
 
 URxvt.vt100.saveLines: 4096
+
+
+! Can use these below if only using laptop screen
+!Xft.dpi: 120
+!Xft.autohint: 0
+!Xft.lcdfilter:  lcddefault
+!Xft.hintstyle:  hintfull
+!Xft.hinting: 1
+!Xft.antialias: 1
+!Xft.rgba: rgb
+
