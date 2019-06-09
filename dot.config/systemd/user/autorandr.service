@@ -1,0 +1,11 @@
+[Unit]
+Description=autorandr change at startup
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/bin/env autorandr --change
+ExecStop=/usr/bin/pkill autorandr
+
+[Install]
+WantedBy=wm.target
