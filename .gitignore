@@ -7,4 +7,5 @@ dot.xmonad/xmonad.hi
 dot.xmonad/xmonad.o
 dot.xmonad/xmonad.state
 dot.xmonad/prompt-history
+dot.local/share/fonts/.uuid
 .stack-work
