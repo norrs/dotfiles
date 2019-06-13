@@ -44,6 +44,9 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [[ -d "$HOME/.local/opt/go/bin:$PATH" ]] && export PATH="$GOROOT/bin:$HOME/.local/opt/go/bin:$PATH"
 
+[[ -d "$HOME/.gem/ruby/2.5.0" ]] && export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
+
+
 export ANDROID_HOME="$HOME/.local/opt/android-sdk-linux/sdk"
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 export M2_HOME="/opt/maven3"
