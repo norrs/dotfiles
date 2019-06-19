@@ -21,6 +21,20 @@ function prometheus_rules_validate {
    docker run --volume "$1:$1" --workdir="$1" --entrypoint /bin/sh prom/prometheus:latest -c 'find . -iname "*.rules" | xargs /bin/promtool check rules'
 }
 
+function kwatchdiff {
+ kind="$1"
+ name="$2"
+ kubectl get -w -o json "$kind" "$name" \
+  | jq -c --unbuffered . \
+  | bash -c ' \
+    PREV="{}"; \
+    while read -r NEXT; do \
+      diff -u <(echo -E "$PREV" | jq .) <(echo -E "$NEXT" | jq .); \
+      PREV=$NEXT; \
+      echo; done' \
+  | colordiff
+}
+
 adb-zid() {
     adb exec-out run-as net.zedge.android cat /data/data/net.zedge.android/shared_prefs/net.zedge.android_preferences.xml | grep 'ZID' | awk -F">" '{print $2}' | awk -F"<" '{print $1}'
 }
