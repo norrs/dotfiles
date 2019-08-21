@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+export NVM_DIR=$HOME/.nvm
+export NODE_VERSION=stable
 
-echo $1
-chromix-too raw chrome.windows.create '{"tabId": '"$1}"
+socket=$1
+tabid=$2
+echo $2
+$HOME/.nvm/nvm-exec chromix-too --sock $socket raw chrome.windows.create '{"tabId": '"$2}"

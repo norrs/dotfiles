@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+socket=$HOME/.chromix-too-norangshol.sock
+chromix-too --sock "$socket" "$@"
