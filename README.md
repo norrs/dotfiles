@@ -28,6 +28,11 @@ https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440
 ## Chromeix-too
 
 https://chrome.google.com/webstore/detail/chromix-too/ppapdfccnamacakfkpfmpfnefpeajboj
+https://github.com/norrs/chromix-too
+
+## pulseaudio-ctl
+
+https://github.com/graysky2/pulseaudio-ctl
 
 ## Fonts
 
