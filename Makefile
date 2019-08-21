@@ -35,6 +35,8 @@ symlinks = .bashrc \
 	   .local/bin/split_current_chrome_tab \
 	   .local/bin/split_current_chrome_tab_norangshol \
 	   .local/bin/split_tab_by_id \
+	   .local/bin/focus_tab_by_id \
+	   .local/bin/focus_tab_by_id_norangshol \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
