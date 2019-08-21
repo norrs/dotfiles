@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+export NVM_DIR=$HOME/.nvm
+export NODE_VERSION=stable
+
+$HOME/.nvm/nvm-exec chromix-too focus "$1"
