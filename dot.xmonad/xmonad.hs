@@ -243,6 +243,11 @@ defaults =
     [((0,xK_k),spawn "KUBECTX_IGNORE_FZF=1 kubectx | rofi -dmenu -i | KUBECTX_IGNORE_FZF=1 xargs kubectx"),
      ((0,xK_i), spawn "change-keyboard")
     ])
+  ,((mod1Mask .|. controlMask, xK_g)
+   ,submap . M.fromList $ -- add submap Ctrl+Alt+K,key  , chrome shortcuts
+    [((0,xK_y),spawn "split_current_chrome_tab"),
+     ((0,xK_h), spawn "split_current_chrome_tab_norangshol")
+    ])
   ,((mod1Mask .|. controlMask, xK_r), spawn "rofi-systemd")
   , ((mod4Mask, xK_p), spawn "rofi -show run")
   , ((mod4Mask .|. shiftMask, xK_p), spawn "rofi -show drun -show-icons")
