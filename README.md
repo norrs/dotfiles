@@ -25,7 +25,9 @@ libghc-gi-dbusmenugtk3-dev
 
 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440
 
+## Chromeix-too
 
+https://chrome.google.com/webstore/detail/chromix-too/ppapdfccnamacakfkpfmpfnefpeajboj
 
 ## Fonts
 

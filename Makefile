@@ -11,6 +11,7 @@ mkdirs = .local/share/applications \
 
 symlinks = .bashrc \
 	   .config/systemd/user/wm.target \
+	   .config/systemd/user/chromix-too.service \
 	   .config/systemd/user/git-sync@.service \
 	   .config/systemd/user/git-sync-powersavehelper.service \
 	   .config/systemd/user/github-notifications.service \
@@ -29,6 +30,8 @@ symlinks = .bashrc \
 	   .local/bin/git-sync \
 	   .local/bin/kcd \
 	   .local/bin/kubernetes-add-service-account-kubeconfig \
+	   .local/bin/split_current_chrome_tab \
+	   .local/bin/split_tab_by_id \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
