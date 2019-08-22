@@ -1,0 +1,25 @@
+[user]
+	email = norangshol@zedge.net
+	name = Roy Sindre Norangshol
+	signingkey = 6F30D3F521A33517
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+
+[alias]
+	tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+        bownership = !git for-each-ref --sort=-committerdate refs/remotes --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)'|column -ts'|'
+	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+	pp = "!git pull -p --rebase && git push"
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2
+[core]
+	abbrev = 12
+[credential "https://github.com"]
+	helper = ~/.local/bin/hub-credential-helper
+
+[include]
+	path = ~/.gitconfig.custom
