@@ -7,7 +7,7 @@ After=taffybar.service
 Type=simple
 Environment=NVM_DIR=%h/.nvm
 Environment=NODE_VERSION=stable
-ExecStart=/usr/bin/env bash %h/.nvm/nvm-exec chromix-too-server --sock %h/.chromix-too-norangshol.sock --port 7443
+ExecStart=/usr/bin/env bash %h/.nvm/nvm-exec chromix-too-server --sock %h/.chromix-too-norangshol.sock --port 7444
 ExecStop=/usr/bin/env pkill chromix-too
 
 [Install]
