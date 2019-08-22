@@ -1,4 +1,5 @@
 # kcd: pip install --user kubecd
+dot.gitconfig.custom
 dot.local/bin/kcd 
 dot.config/taffybar/dist
 dot.xmonad/xmonad-*-linux
