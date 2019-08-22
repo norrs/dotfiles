@@ -11,6 +11,7 @@ mkdirs = .local/share/applications \
 
 symlinks = .bashrc \
 	   .gitconfig \
+	   .gitconfig-zedge \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/chromix-too.service \
 	   .config/systemd/user/chromix-too-norangshol.service \

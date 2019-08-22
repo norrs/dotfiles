@@ -1,6 +1,7 @@
 [user]
-	email = norangshol@zedge.net
+	email = roy.sindre@norangshol.no
 	name = Roy Sindre Norangshol
+        # TODO: Fix signing key for my personal. Not on work laptop.
 	signingkey = 6F30D3F521A33517
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -23,3 +24,6 @@
 
 [include]
 	path = ~/.gitconfig.custom
+
+[includeIf "gitdir:zedge/"]
+  path = ~/.gitconfig-zedge
