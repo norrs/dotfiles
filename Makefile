@@ -10,6 +10,7 @@ mkdirs = .local/share/applications \
 	 .caff/gnupghome
 
 symlinks = .bashrc \
+	   .gitconfig \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/chromix-too.service \
 	   .config/systemd/user/chromix-too-norangshol.service \
