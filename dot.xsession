@@ -24,6 +24,11 @@ systemctl --user import-environment PATH
 # once, other one can be reloaded I think?
 xrdb -merge ~/.Xresources
 
+[ -x /usr/bin/gpgconf ] && [ -x /usr/bin/gpgconf ] && {
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  gpgconf --launch gpg-agent
+}
+
 GNOME_PK=/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 
 [ -x $GNOME_PK ] && $GNOME_PK &
 
@@ -53,6 +58,9 @@ if [ -x /usr/bin/gnome-keyring-daemon ]; then
  [ -S $SSH_AUTH_SOCKET ] && export SSH_AUTH_SOCK=$SSH_AUTH_SOCKET
 fi
 
+if [ -x /usr/bin/nvidia-settings ]; then
+  /usr/bin/nvidia-settings --load-config-only
+fi
 exec xmonad
 #exec ck-launch-session dbus-launch xmonad
 #exec gnome-session --session=xmonad-gnome-nopanel "$@"
