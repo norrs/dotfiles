@@ -50,6 +50,9 @@ symlinks = .bashrc \
 	   .config/gnome-session/sessions/xmonad-gnome-nopanel.session \
 	   .skudd \
 	   .gnupg/gpg.conf \
+	   .gnupg/gpg-agent.conf \
+	   .gnupg/sshcontrol \
+	   .gnupg/dirmngr.conf \
 	   .gnupg/sks-keyservers.netCA.pem \
 	   .caff/gnupghome/gnupg.conf
 symdirs = .bash.d \
