@@ -49,13 +49,8 @@ if [ "$(gsettings get org.gnome.settings-daemon.plugins.cursor active)" = "true"
   gsettings set org.gnome.settings-daemon.plugins.cursor active false
 fi
 
-# Export socket with Debian Sid (2014.10)
-# until I move to systemd --user session start instead of this .xsession
-# (currently /etc/X11/Xsession.d/90x11-common_ssh-agent seems to be the issue)
 if [ -x /usr/bin/gnome-keyring-daemon ]; then
  /usr/bin/gnome-keyring-daemon -s
- SSH_AUTH_SOCKET=/run/user/$(id -u)/keyring/ssh
- [ -S $SSH_AUTH_SOCKET ] && export SSH_AUTH_SOCK=$SSH_AUTH_SOCKET
 fi
 
 if [ -x /usr/bin/nvidia-settings ]; then

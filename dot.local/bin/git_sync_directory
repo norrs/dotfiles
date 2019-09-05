@@ -3,8 +3,6 @@
 source "$HOME/.lib/shellrc/ssh_agent.sh"
 if [ -x /usr/bin/gnome-keyring-daemon ]; then
  /usr/bin/gnome-keyring-daemon -s
- SSH_AUTH_SOCKET=/run/user/$(id -u)/keyring/ssh
- [ -S $SSH_AUTH_SOCKET ] && export SSH_AUTH_SOCK=$SSH_AUTH_SOCKET
 fi
 
 export SSH_AUTH_SOCK="$(sshag)"
