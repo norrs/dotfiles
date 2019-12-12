@@ -71,11 +71,15 @@ source_directory_files "$HOME/.lib/shellenv"
 source_directory_files "$HOME/.lib/shellrc"
 
 
-
+#KUBE_PS1_BG_COLOR=cyan
+#KUBE_PS1_NS_COLOR=black
 source ~/.opt/kube-ps1/kube-ps1.sh
+source ~/.bash.d/colors
+source ~/.bash.d/gcloud
+
 
 if [ "$color_prompt" = yes ]; then
-  MY_PS1='${KPS1%x}${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
+  MY_PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
 else
   MY_PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'
 fi
@@ -98,7 +102,12 @@ pwd_short() {
     echo "$NEW_PWD"
 }
 
-PROMPT_COMMAND='_kube_ps1_update_cache;:;KPS1=$(kube_ps1; printf x);__git_ps1 "$MY_PS1" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
+# Research status bar later...
+#CSI=$'\e'"["
+#MY_STATUS="\[${CSI}s${CSI}1;$((LINES-1))r${CSI}$LINES;1f\u:YourOutputGoesHere:\w${CSI}K${CSI}u\]>"
+
+
+PROMPT_COMMAND='_kube_ps1_update_cache;:;KPS1=$(kube_ps1; printf x);__git_ps1 "$(__gcloud_ps1)${KPS1%x}${MY_PS1}" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
 
 
 # enable color support of ls and also add handy aliases

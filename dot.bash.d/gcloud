@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Depdsn on colors
+_GCLOUD_CAUTION_COLOR="$(EXT_COLOR 124)"
+_GCLOUD_DEFAULT_COLOR="$(EXT_COLOR 15)"
+_GCLOUD_GLYPH="$(echo -ne '\xEE\x9E\xB2') "
+
+__gcloud_ps1()
+{
+    [[ "${KUBE_PS1_ENABLED}" == "off" ]] && return
+    if [ -n "$CLOUDSDK_ACTIVE_CONFIG_NAME" ]; then
+    ACTIVE_CONFIG="$CLOUDSDK_ACTIVE_CONFIG_NAME"
+    elif [ -e ~/.config/gcloud/active_config ]; then
+    ACTIVE_CONFIG=$(cat ~/.config/gcloud/active_config)
+    else
+    return
+    fi
+
+    case "$ACTIVE_CONFIG" in
+    ci-cd|prod*)
+        echo "(\\[${_GCLOUD_CAUTION_COLOR}\\]${_GCLOUD_GLYPH}${ACTIVE_CONFIG}\\[${NORMAL}\\])";;
+        #echo -e "${BRIGHT}${WHITE}${RED_BG}${BLINK}${ACTIVE_CONFIG}${NORMAL}";;
+    *)
+        echo "(\\[${_GCLOUD_DEFAULT_COLOR}\\]${_GCLOUD_GLYPH}${ACTIVE_CONFIG}\\[${NORMAL}\\])";;
+        #echo -e "${YELLOW}${ACTIVE_CONFIG}${NORMAL}";;
+    esac
+}
+
+
+
