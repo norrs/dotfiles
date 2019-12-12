@@ -175,7 +175,10 @@ rofi.color-normal: ROFI1, ROFITEXT, ROFI1, ROFI2, _YELLOW
 URxvt.print-pipe: "cat > /dev/null"
 
 
-URxvt.font: xft: Inconsolata:pixelsize=20:antialias=true
+!URxvt.font: xft: Inconsolata:pixelsize=20:antialias=true
+! xrdb ~/.Xdefaults
+! printf '\e]710;%s\007' "xft:Terminus:pixelsize=12"
+URxvt.font: xft:Inconsolata Nerd Font Mono:pixelsize=20
 URxvt.geometry: 80x20
 URxvt.scrollBar: true
 Urxvt.secondaryScroll: true
