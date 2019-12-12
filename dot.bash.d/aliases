@@ -6,4 +6,9 @@ alias kev='kubectl get event --sort-by="{.lastTimestamp}"'
 alias kautoscalerstatus='kubectl describe cm -n kube-system cluster-autoscaler-status'
 alias typeless='history | tail -n 20000 | sed "s/.* //" | sort | uniq -c | sort -g | tail -n 100'
 alias tl='typeless'
+alias urldecode='python -c "import sys, urllib as ul; \
+    print ul.unquote_plus(sys.argv[1])"'
+
+alias urlencode='python -c "import sys, urllib as ul; \
+    print ul.quote_plus(sys.argv[1])"'
 complete -o default -F __start_kubectl k
