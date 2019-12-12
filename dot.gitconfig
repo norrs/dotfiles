@@ -2,7 +2,7 @@
 	email = roy.sindre@norangshol.no
 	name = Roy Sindre Norangshol
         # TODO: Fix signing key for my personal. Not on work laptop.
-	signingkey = 6F30D3F521A33517
+	signingkey = B8A34DFEAA1FBD46
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
