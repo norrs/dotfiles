@@ -139,7 +139,7 @@ myManageHook =
         myIgnores =
           ["desktop","kdesktop","desktop_window"]
         myFloats =
-          ["Steam","steam","vlc","Vlc","mpv"]
+          ["Steam","steam","vlc","Vlc","mpv", "gcr-prompter", "Gcr-prompter"]
         myWorkspaceMove =
           [("google-chrome","2:www")
           --,("urxvt","1:main")
