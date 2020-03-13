@@ -42,3 +42,26 @@ adb-zid() {
 deeplink() {
     adb shell am start -a "android.intent.action.VIEW" -d "$@"
 }
+
+adb-zprefs() {
+    APP_ID="net.zedge.android"
+    adb exec-out run-as ${APP_ID} cat /data/data/${APP_ID}/shared_prefs/${APP_ID}_preferences.xml
+}
+
+adb-zprefs-edit() {
+    APP_ID="net.zedge.android"
+    adb exec-out run-as "${APP_ID}" cat "/data/data/${APP_ID}/shared_prefs/${APP_ID}_preferences.xml" > /tmp/prefs_${APP_ID}
+    editor /tmp/prefs_${APP_ID} &&
+    adb push /tmp/prefs_${APP_ID} /sdcard/temp_prefs_${APP_ID}.xml &&
+    adb shell run-as ${APP_ID} "cp /sdcard/temp_prefs_${APP_ID}.xml /data/data/${APP_ID}/shared_prefs/${APP_ID}_preferences.xml" &&
+    adb shell rm /sdcard/temp_prefs_${APP_ID}.xml
+}
+
+adb-zprefs-config() {
+    APP_ID="net.zedge.android"
+    adb exec-out run-as ${APP_ID} cat /data/data/${APP_ID}/shared_prefs/zedge_configuration_loader.xml
+}
+
+jdk8() {
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+}
