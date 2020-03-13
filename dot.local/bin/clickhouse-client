@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+ch_host="127.0.0.1"
+docker run -ti --rm --net=host yandex/clickhouse-client --host "$ch_host" "$@"
