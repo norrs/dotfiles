@@ -34,9 +34,17 @@ https://github.com/norrs/chromix-too
 
 https://github.com/graysky2/pulseaudio-ctl
 
+## firebase
+
+`curl -sL https://firebase.tools | bash`
+
+https://firebase.google.com/docs/cli#install-cli-mac-linux
+
 ## Fonts
 
 
 fc-cache updates from /usr/local/share/fonts (system-wide), ~/.local/share/fonts (user-specific) or ~/.fonts (user-specific). These files should have the permission 644 (-rw-r--r--), otherwise they may not be usable.
 
 dpkg-reconfigure fontconfig-config  (if bitmap fonts)
+
+(Not sure, but my gcloud glyph started working AFTER a reboot.. so missing something else then fc-cache to be run ..)
