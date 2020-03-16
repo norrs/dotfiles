@@ -16,7 +16,7 @@ __gcloud_ps1()
     fi
 
     case "$ACTIVE_CONFIG" in
-    ci-cd|prod*)
+    ci-cd|prod*|zprod*)
         echo "(\\[${_GCLOUD_CAUTION_COLOR}\\]${_GCLOUD_GLYPH}${ACTIVE_CONFIG}\\[${NORMAL}\\])";;
         #echo -e "${BRIGHT}${WHITE}${RED_BG}${BLINK}${ACTIVE_CONFIG}${NORMAL}";;
     *)
