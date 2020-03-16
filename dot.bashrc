@@ -83,6 +83,7 @@ if [ "$color_prompt" = yes ]; then
 else
   MY_PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w'
 fi
+
 unset color_prompt force_color_prompt
 
 pwd_short() {
@@ -102,12 +103,23 @@ pwd_short() {
     echo "$NEW_PWD"
 }
 
+virtualenv_ps1() {
+   #local V_PS1="$(basename \"$(VIRTUAL_ENV)\")"
+   [ -n "${VIRTUAL_ENV_DISABLE_PROMPT-}" ] && return
+   local V_PS1="${VIRTUAL_ENV##*/}"
+   if [ -n "$V_PS1" ]; then
+     #local pyglyph=\\uf820 # py
+     local pyglyph=\\ue235 # python-logo
+     echo -ne "(${pyglyph}${V_PS1})"
+   fi
+}
+
 # Research status bar later...
 #CSI=$'\e'"["
 #MY_STATUS="\[${CSI}s${CSI}1;$((LINES-1))r${CSI}$LINES;1f\u:YourOutputGoesHere:\w${CSI}K${CSI}u\]>"
 
 
-PROMPT_COMMAND='_kube_ps1_update_cache;:;KPS1=$(kube_ps1; printf x);__git_ps1 "$(__gcloud_ps1)${KPS1%x}${MY_PS1}" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
+PROMPT_COMMAND='_kube_ps1_update_cache;:;VPS1=$(virtualenv_ps1; printf x);KPS1=$(kube_ps1; printf x);__git_ps1 "$(__gcloud_ps1)${KPS1%x}${VPS1%x}${MY_PS1}" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
 
 
 # enable color support of ls and also add handy aliases
