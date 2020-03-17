@@ -40,6 +40,7 @@ symlinks = .bashrc \
 	   .local/bin/split_tab_by_id \
 	   .local/bin/focus_tab_by_id \
 	   .local/bin/focus_tab_by_id_norangshol \
+	   .local/bin/vault \
 	   .pathrc \
 	   .htoprc \
 	   .Xdefaults \
