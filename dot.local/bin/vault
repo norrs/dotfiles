@@ -1,0 +1,16 @@
+#!/usr/bin/env bash 
+export VAULT_CLIENT_CERT=$HOME/.local/etc/zedge/clientcert/norangshol.pem
+export VAULT_CLIENT_KEY=$HOME/.local/etc/zedge/clientcert/norangshol-key.pem
+#export VAULT_TOKEN=....
+export VAULT_ADDR=https://vault.zedge.io
+#export VAULT_ADDR=https://vault.test-cluster.zedge.io
+vault-cli $*
+#docker run -i --rm \
+# --cap-add IPC_LOCK \
+# -e VAULT_CLIENT_CERT \
+# -e VAULT_CLIENT_KEY \
+# -e VAULT_ADDR \
+# -e USER \
+# -v $HOME:$HOME \
+# --entrypoint=/bin/sh vault -c "vault login $VAULT_TOKEN &>/dev/null; vault $*" 
+#
