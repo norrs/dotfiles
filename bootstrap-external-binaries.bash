@@ -11,6 +11,11 @@ function install_vault() {
  chmod +x "$HOME/.local/bin/vault-cli"
 }
 
+function install_docker_compose() {
+  curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/.local/bin/docker-compose
+}
+
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
  install_vault
+ install_docker_compose 
 fi
