@@ -24,6 +24,7 @@ symlinks = .bashrc \
 	   .config/systemd/user/taffybar.service \
 	   .config/systemd/user/wallpaper.service \
 	   .config/systemd/user/wallpaper.timer \
+	   .local/bin/change-gcloud \
 	   .local/bin/change-keyboard \
 	   .local/bin/clickhouse-client \
 	   .local/bin/test-rofi \

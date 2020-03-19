@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+source "$HOME/.lib/shellenv/functions.sh"
+
+gcloud config configurations list | tail -n +2 | rofi -dmenu -i | get_cols 1 | xargs gcloud config configurations activate

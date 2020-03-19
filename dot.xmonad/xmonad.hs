@@ -241,7 +241,8 @@ defaults =
   ,((mod1Mask .|. controlMask, xK_k)
    ,submap . M.fromList $ -- add submap Ctrl+Alt+K,key  , kubernetes shortcuts
     [((0,xK_k),spawn "KUBECTX_IGNORE_FZF=1 kubectx | rofi -dmenu -i | KUBECTX_IGNORE_FZF=1 xargs kubectx"),
-     ((0,xK_i), spawn "change-keyboard")
+     ((0,xK_i), spawn "change-keyboard"),
+     ((0,xK_c), spawn "change-gcloud")
     ])
   ,((mod1Mask .|. controlMask, xK_g)
    ,submap . M.fromList $ -- add submap Ctrl+Alt+K,key  , chrome shortcuts
