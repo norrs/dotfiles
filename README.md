@@ -18,6 +18,7 @@ sudo apt-get install gnome-common intltool valac libglib2.0-dev gobject-introspe
 
 rockj@pandora9k:~/dotfiles/dot.config/taffybar (master *>)$ apt install gir1.2-dbusmenu-gtk3-0.4 gir1.2-dbusmenu-gtk-0.4 gir1.2-dbusmenu-glib-0.4
 
+apt install numix-icon-theme-circle
 
 libghc-gi-dbusmenu-dev
 libghc-gi-dbusmenugtk3-dev

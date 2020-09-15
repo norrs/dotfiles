@@ -13,6 +13,7 @@ symlinks = .bashrc \
 	   .gitconfig \
 	   .gitconfig-zedge \
 	   .gitconfig-unit \
+	   .config/gtk-3.0/settings.ini \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/chromix-too.service \
 	   .config/systemd/user/chromix-too-norangshol.service \
