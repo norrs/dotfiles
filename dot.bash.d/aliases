@@ -8,7 +8,7 @@ alias typeless='history | tail -n 20000 | sed "s/.* //" | sort | uniq -c | sort 
 alias tl='typeless'
 alias urldecode='python -c "import sys, urllib as ul; \
     print ul.unquote_plus(sys.argv[1])"'
-
 alias urlencode='python -c "import sys, urllib as ul; \
     print ul.quote_plus(sys.argv[1])"'
+alias unitCheck='./gradlew build jacocoTestReport'
 complete -o default -F __start_kubectl k
