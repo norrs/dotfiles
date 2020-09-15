@@ -27,3 +27,6 @@
 
 [includeIf "gitdir:zedge/"]
   path = ~/.gitconfig-zedge
+
+[includeIf "gitdir:unit/"]
+  path = ~/.gitconfig-unit
