@@ -17,6 +17,7 @@ symlinks = .bashrc \
 	   .config/systemd/user/chromix-too-norangshol.service \
 	   .config/systemd/user/git-sync@.service \
 	   .config/systemd/user/git-sync-powersavehelper.service \
+	   .config/systemd/user/git-sync-yubikeyhelper.service \
 	   .config/systemd/user/github-notifications.service \
 	   .config/systemd/user/nm-applet.service \
 	   .config/systemd/user/notification-daemon.service \

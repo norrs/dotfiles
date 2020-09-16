@@ -1,0 +1,11 @@
+[Unit]
+Description = Disable and Enable git-sync depending on Yubikey
+ReloadPropagatedFrom = sys-subsystem-usb-yubikey.device
+
+[Service]
+ExecStart = /usr/bin/env git-sync-powersavehelper
+ExecReload = /usr/bin/env git-sync-powersavehelper 
+RemainAfterExit=true
+
+[Install]
+WantedBy = sys-subsystem-usb-yubikey.device

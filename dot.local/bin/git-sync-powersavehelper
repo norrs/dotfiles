@@ -5,12 +5,24 @@ source "$HOME/.lib/shellenv/functions.sh"
 
 if /lib/systemd/systemd-ac-power ; then
  echo "Power On: $(date)"
- for unit in $(systemctl --user list-units --plain | grep git-sync@ | get_cols 1); do
-   systemctl --user start "$unit"
- done
+ if grep cardno: <(ssh-add -L) >/dev/null 2>&1 ; then
+   echo "Yubikey found attached"
+   for unit in $(systemctl --user list-units --plain | grep git-sync@ | get_cols 1); do
+     systemctl --user start "$unit"
+   done
+ else
+   echo "Missing yubikey / not starting syncing."	 
+ fi	 
+elif ! grep cardno: <(ssh-add -L) ; then
+  echo "No yubikey attached"
+  stop_sync_units
 else
  echo "Battery On: $(date)"
+ stop_sync_units
+fi
+
+stop_sync_units() {
  for unit in $(systemctl --user list-units --plain | grep git-sync@ | get_cols 1); do
    systemctl --user stop "$unit"
  done
-fi
+}

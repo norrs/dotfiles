@@ -25,3 +25,14 @@ systemctl status sys-subsystem-power_supply-main_AC.device
 
 
 See blog for details.
+
+## Configuration for the yubikey as well
+
+cat /etc/udev/rules.d/40-stop-git-sync-yubikey.rules 
+
+SUBSYSTEM=="usb" ACTION=="add" ATTR{idVendor}=="1050" ATTR{manufacturer}=="Yubico" TAG+="systemd" ENV{SYSTEMD_ALIAS}+="/sys/subsystem/usb/yubikey"
+#ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="1050", ENV{ID_MODEL_ID}=="0407", TAG+="systemd", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/yubikey
+ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="1050/407/*", TAG+="systemd"
+
+#SUBSYSTEM=="usb" ACTION=="remove" ATTR{idVendor}=="1050" ATTR{manufacturer}=="Yubico" TAG+="systemd"
+
