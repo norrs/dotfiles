@@ -18,7 +18,7 @@ sudo apt-get install gnome-common intltool valac libglib2.0-dev gobject-introspe
 
 rockj@pandora9k:~/dotfiles/dot.config/taffybar (master *>)$ apt install gir1.2-dbusmenu-gtk3-0.4 gir1.2-dbusmenu-gtk-0.4 gir1.2-dbusmenu-glib-0.4
 
-apt install numix-icon-theme-circle
+apt install numix-icon-theme-circle rofi dmenu
 
 libghc-gi-dbusmenu-dev
 libghc-gi-dbusmenugtk3-dev
@@ -49,3 +49,7 @@ fc-cache updates from /usr/local/share/fonts (system-wide), ~/.local/share/fonts
 dpkg-reconfigure fontconfig-config  (if bitmap fonts)
 
 (Not sure, but my gcloud glyph started working AFTER a reboot.. so missing something else then fc-cache to be run ..)
+
+## Hibernate/sleep with laptop lid
+
+Configure in /etc/systemd/logind.conf , see `HandleLidSwitch=suspend` and the others.
