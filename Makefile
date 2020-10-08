@@ -3,6 +3,7 @@ LN_FLAGS = -sf
 mkdirs = .local/share/applications \
 	 .local/share/rofi \
 	 .local/bin \
+	 .local/etc/unit \
 	 .config/gnome-session/sessions \
 	 .config/systemd/user \
 	 .urxvt \
@@ -69,6 +70,7 @@ symdirs = .bash.d \
 	.local/share/urxvt-scripts \
 	.local/share/rofi/themes \
 	.local/share/fonts \
+	.local/etc/unit/wireless \
 	.urxvt/ext \
 	.lib \
 	.config/rofi \
