@@ -3,13 +3,10 @@ extra-package-dbs: []
 packages:
 - .
 extra-deps:
-- X11-xft-0.3.1
-- xdg-desktop-entry-0.1.1.0@sha256:4d35724b7a5ac1ffa636d60d7671726e7333290930ac17669b5819a37867049d,1008
-- ConfigFile-1.1.4@sha256:ca56261e1deae6ef958a337b03812987bfd94ab37b047e27f262bc3137813165,2056
 - ./xmonad
 - ./xmonad-contrib
 
-resolver: lts-13.19
+resolver: lts-16.17
 nix:
   packages:
     - pkgconfig
