@@ -1,4 +1,3 @@
-alias git=hub
 alias psc='ps xawf -eo pid,user,cgroup,args'
 alias k="kubectl"
 alias knp="kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName --all-namespaces | sed -n '1!p' | sort -k3"
