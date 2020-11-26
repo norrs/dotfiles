@@ -65,3 +65,8 @@ adb-zprefs-config() {
 jdk8() {
   export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 }
+
+outlookmsgtoeml() {
+  # apt-get install libemail-outlook-message-perl libemail-sender-perl	
+  perl -we 'use Email::Outlook::Message; print Email::Outlook::Message->new(shift)->to_email_mime->as_string' "$1" > "${1%.msg}.eml"
+}

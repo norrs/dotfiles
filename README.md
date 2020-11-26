@@ -23,6 +23,9 @@ apt install numix-icon-theme-circle rofi dmenu
 libghc-gi-dbusmenu-dev
 libghc-gi-dbusmenugtk3-dev
 
+To convert outlook msg to eml. (drag eml into thunderbird to read)
+apt install libemail-outlook-message-perl libemail-sender-perl
+
 
 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440
 
