@@ -21,6 +21,7 @@
 	program = gpg2
 [core]
 	abbrev = 12
+	autocrlf = input
 [credential "https://github.com"]
 	helper = ~/.local/bin/hub-credential-helper
 
