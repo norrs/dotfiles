@@ -8,4 +8,5 @@ dot.xmonad/xmonad.o
 dot.xmonad/xmonad.state
 dot.xmonad/prompt-history
 dot.local/share/fonts/.uuid
+dot.config/rofi/config.rasi # rofi-theme-selector
 .stack-work
