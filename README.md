@@ -11,6 +11,8 @@ Then you can create symlinks by running 'Make'
 
 ## List of apt dependencies
 
+sudo apt-get install policykit-1-gnome
+
 
 ### error: gobject-introspection-1.0
 sudo apt-get install gnome-common intltool valac libglib2.0-dev gobject-introspection libgirepository1.0-dev libgtk-3-dev libclutter-gtk-1.0-dev libgnome-desktop-3-dev libcanberra-dev libgdata-dev libdbus-glib-1-dev libgstreamer1.0-dev libupower-glib-dev fonts-droid
