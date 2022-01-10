@@ -108,7 +108,7 @@ rofi.fullscreen: true
 rofi.bw:   0
 rofi.dpi: 200
 rofi.padding: 50
-rofi.theme: /home/norangshol/.config/rofi/sidestyle.rasi
+rofi.theme: sidestyle
 rofi.color-enabled: true
 rofi.color-window: ROFIBG, ROFIACCENT, ROFIACCENT
 rofi.color-normal: ROFI1, ROFITEXT, ROFI1, ROFI2, _YELLOW
