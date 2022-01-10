@@ -71,6 +71,7 @@ symdirs = .bash.d \
 	.local/share/rofi/themes \
 	.local/share/fonts \
 	.local/etc/unit/wireless \
+	.local/etc/zettlr \
 	.urxvt/ext \
 	.lib \
 	.config/rofi \
