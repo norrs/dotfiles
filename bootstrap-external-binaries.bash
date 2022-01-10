@@ -12,7 +12,7 @@ function install_vault() {
 }
 
 function install_docker_compose() {
-  curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/.local/bin/docker-compose
+  curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o $HOME/.local/bin/docker-compose
 }
 
 function install_kubeseal() {
@@ -20,7 +20,14 @@ function install_kubeseal() {
   chmod +x $HOME/.local/bin/kubeseal
 }
 
+function install_kompose() {
+  curl -L https://github.com/kubernetes/kompose/releases/download/v1.21.0/kompose-linux-amd64 -o $HOME/.local/bin/kompose
+  chmod +x $HOME/.local/bin/kompose
+}
+
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
- install_vault
- install_docker_compose 
+ #install_vault
+ #install_docker_compose 
+ install_kubeseal
+ install_kompose
 fi
