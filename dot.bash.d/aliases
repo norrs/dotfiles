@@ -3,6 +3,7 @@ alias k="kubectl"
 alias knp="kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName --all-namespaces | sed -n '1!p' | sort -k3"
 alias kev='kubectl get event --sort-by="{.lastTimestamp}"'
 alias kautoscalerstatus='kubectl describe cm -n kube-system cluster-autoscaler-status'
+alias unitchromeproxy='google-chrome --user-data-dir=$HOME/.config/google-chrome-unit-proxy --proxy-server=socks5://localhost:1337'
 alias typeless='history | tail -n 20000 | sed "s/.* //" | sort | uniq -c | sort -g | tail -n 100'
 alias tl='typeless'
 alias urldecode='python -c "import sys, urllib as ul; \
