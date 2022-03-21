@@ -50,6 +50,7 @@ symlinks = .bashrc \
 	   .local/bin/vault \
 	   .pathrc \
 	   .htoprc \
+	   .tigrc \
 	   .Xdefaults \
 	   .xsession \
 	   .xmobarrc \
