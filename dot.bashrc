@@ -119,7 +119,7 @@ virtualenv_ps1() {
 #MY_STATUS="\[${CSI}s${CSI}1;$((LINES-1))r${CSI}$LINES;1f\u:YourOutputGoesHere:\w${CSI}K${CSI}u\]>"
 
 
-PROMPT_COMMAND='_kube_ps1_update_cache;:;VPS1=$(virtualenv_ps1; printf x);KPS1=$(kube_ps1; printf x);__git_ps1 "$(__gcloud_ps1)${KPS1%x}${VPS1%x}${MY_PS1}" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
+PROMPT_COMMAND='history -a;_kube_ps1_update_cache;:;VPS1=$(virtualenv_ps1; printf x);KPS1=$(kube_ps1; printf x);__git_ps1 "$(__gcloud_ps1)${KPS1%x}${VPS1%x}${MY_PS1}" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
 
 
 # enable color support of ls and also add handy aliases
