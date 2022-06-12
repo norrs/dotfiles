@@ -1,0 +1,6 @@
+[user]
+	email = roy.sindre.norangshol@sikt.no
+	signingKey = 84BA0315749FBBCB
+[commit]
+  gpgsign=true
+  signingkey = 84BA0315749FBBCB

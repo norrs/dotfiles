@@ -1,6 +1,0 @@
-[user]
-	email = rono@unit.no
-	signingKey = 
-[commit]
-  gpgsign=false
-#signingkey = 6F30D3F521A33517
