@@ -35,31 +35,8 @@ function kwatchdiff {
   | colordiff
 }
 
-adb-zid() {
-    adb exec-out run-as net.zedge.android cat /data/data/net.zedge.android/shared_prefs/net.zedge.android_preferences.xml | grep 'ZID' | awk -F">" '{print $2}' | awk -F"<" '{print $1}'
-}
-
 deeplink() {
     adb shell am start -a "android.intent.action.VIEW" -d "$@"
-}
-
-adb-zprefs() {
-    APP_ID="net.zedge.android"
-    adb exec-out run-as ${APP_ID} cat /data/data/${APP_ID}/shared_prefs/${APP_ID}_preferences.xml
-}
-
-adb-zprefs-edit() {
-    APP_ID="net.zedge.android"
-    adb exec-out run-as "${APP_ID}" cat "/data/data/${APP_ID}/shared_prefs/${APP_ID}_preferences.xml" > /tmp/prefs_${APP_ID}
-    editor /tmp/prefs_${APP_ID} &&
-    adb push /tmp/prefs_${APP_ID} /sdcard/temp_prefs_${APP_ID}.xml &&
-    adb shell run-as ${APP_ID} "cp /sdcard/temp_prefs_${APP_ID}.xml /data/data/${APP_ID}/shared_prefs/${APP_ID}_preferences.xml" &&
-    adb shell rm /sdcard/temp_prefs_${APP_ID}.xml
-}
-
-adb-zprefs-config() {
-    APP_ID="net.zedge.android"
-    adb exec-out run-as ${APP_ID} cat /data/data/${APP_ID}/shared_prefs/zedge_configuration_loader.xml
 }
 
 jdk8() {

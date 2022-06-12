@@ -28,8 +28,5 @@
 [include]
 	path = ~/.gitconfig.custom
 
-[includeIf "gitdir:zedge/"]
-  path = ~/.gitconfig-zedge
-
 [includeIf "gitdir:sikt/"]
   path = ~/.gitconfig-sikt

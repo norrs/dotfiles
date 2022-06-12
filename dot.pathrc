@@ -34,10 +34,6 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
-[[ -d "$HOME/zedge/marathon-cd/bin" ]] && export PATH="$HOME/zedge/marathon-cd/bin:$PATH"
-
-[[ -d "$HOME/zedge/clitools/bin" ]] && export PATH="$HOME/zedge/clitools/bin:$PATH"
-
 [[ -d "/usr/local/kubebuilder" ]] && export PATH="$PATH:/usr/local/kubebuilder/bin"
 
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
@@ -46,8 +42,6 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 [[ -d "$HOME/.local/opt/go/bin" ]] && export PATH="$GOROOT/bin:$HOME/.local/opt/go/bin:$PATH"
 
 [[ -d "$HOME/.gem/ruby/2.5.0" ]] && export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
-
-[[ -d "$HOME/.config/zedge/core" ]] && export PATH="$HOME/.config/zedge/core:$PATH"
 
 [[ -d "$HOME/.rbenv/bin" ]] && export PATH="$HOME/.rbenv/bin:$PATH"
 

@@ -12,8 +12,7 @@ mkdirs = .local/share/applications \
 
 symlinks = .bashrc \
 	   .gitconfig \
-	   .gitconfig-zedge \
-	   .gitconfig-unit \
+	   .gitconfig-sikt \
 	   .config/gtk-3.0/settings.ini \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/chromix-too.service \
