@@ -11,7 +11,7 @@ Then you can create symlinks by running 'Make'
 
 ## List of apt dependencies
 
-sudo apt-get install policykit-1-gnome
+sudo apt-get install policykit-1-gnome autocutsel
 
 
 ### error: gobject-introspection-1.0

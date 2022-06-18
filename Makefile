@@ -15,6 +15,7 @@ symlinks = .bashrc \
 	   .gitconfig-sikt \
 	   .config/gtk-3.0/settings.ini \
 	   .config/systemd/user/wm.target \
+	   .config/systemd/user/autocutsel.service \
 	   .config/systemd/user/chromix-too.service \
 	   .config/systemd/user/chromix-too-norangshol.service \
 	   .config/systemd/user/git-sync@.service \

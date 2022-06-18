@@ -1,0 +1,11 @@
+[Unit]
+Description=Autocutsel
+
+[Service]
+Type = forking
+Restart = on-failure
+RestartSec = 10
+ExecStartPre = /usr/bin/autocutsel -fork
+ExecStart = /usr/bin/autocutsel -selection PRIMARY -fork
+[Install]
+WantedBy=wm.target
