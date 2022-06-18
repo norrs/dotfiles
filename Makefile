@@ -28,6 +28,7 @@ symlinks = .bashrc \
 	   .config/systemd/user/taffybar.service \
 	   .config/systemd/user/wallpaper.service \
 	   .config/systemd/user/wallpaper.timer \
+	   .config/systemd/user/polkit.service \
 	   .config/systemd/user/streamdeck.path \
 	   .config/systemd/user/streamdeck.service \
 	   .local/bin/change-gcloud \
