@@ -36,6 +36,12 @@ https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440
 https://chrome.google.com/webstore/detail/chromix-too/ppapdfccnamacakfkpfmpfnefpeajboj
 https://github.com/norrs/chromix-too
 
+## clipboard 
+
+See https://mutelight.org/subtleties-of-the-x-clipboard and
+https://www.schaertl.me/posts/autocutsel-and-an-introduction-to-systemd-user-services/
+Solution hopefully: `autocutsel` which I run with a user unit
+
 ## pulseaudio-ctl
 
 https://github.com/graysky2/pulseaudio-ctl
@@ -77,3 +83,10 @@ Make sure your user is part of the `plugdev` group and reload the rules with
 should be good to go.
 
 See https://github.com/muesli/deckmaster
+
+
+## Inspiration of others
+
+* https://github.com/IvanMalison/dotfiles
+* https://github.com/thcipriani/dotfiles
+* https://github.com/addyosmani/dotfiles
