@@ -74,6 +74,7 @@ symdirs = .bash.d \
 	.local/share/urxvt-scripts \
 	.local/share/rofi/themes \
 	.local/share/fonts \
+	.local/share/man/man1 \
 	.local/etc/unit/wireless \
 	.local/etc/zettlr \
 	.urxvt/ext \

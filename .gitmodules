@@ -31,3 +31,6 @@
 [submodule "dot.opt/status-notifier-item"]
 	path = dot.opt/status-notifier-item
 	url = git@github.com:IvanMalison/status-notifier-item.git
+[submodule "dot.opt/z"]
+	path = dot.opt/z
+	url = https://github.com/rupa/z.git

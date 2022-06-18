@@ -173,6 +173,8 @@ for complete_file in $HOME/.bash.d/autocomplete/*; do
   source "$complete_file"
 done
 
+[ -f "$HOME/.opt/z/z.sh" ] && . $HOME/.opt/z/z.sh
+
 [[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc
 
 eval "$(rbenv init -)"
