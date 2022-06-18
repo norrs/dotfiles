@@ -17,7 +17,7 @@ import XMonad.Actions.Submap
 import XMonad.Util.Cursor
 import XMonad.Util.EZConfig
 import XMonad.Util.NamedWindows
-import XMonad.Util.Scratchpad
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes
 --xmonad layouts
@@ -132,7 +132,7 @@ myManageHook =
   [isFullscreen --> doFullFloat] ++
   -- unmanage docks such as gnome-panel and dzen
   [fullscreenManageHook
-  ,scratchpadManageHookDefault
+  , namedScratchpadManageHook scratchpads
   ]
   where
         -- windows to operate
@@ -144,6 +144,20 @@ myManageHook =
           [("google-chrome","2:www")
           --,("urxvt","1:main")
           ,("weechat","3:chat")]
+
+
+scratchpads = [
+  NS "scratch" "urxvt -name scratch"
+    (appName =? "scratch")
+    (customFloating $ W.RationalRect  (2/4) (1/4) (2/4) (2/4))
+  , NS "cal" "google-chrome --app='https://calendar.google.com/b/0/r'"
+    (className =? "Google-chrome" <&&> appName =? "calendar.google.com__b_0_r")
+    (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+  , NS "pavucontrol" "pavucontrol"
+    (className =? "Pavucontrol")
+    (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
+]
+
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -231,7 +245,12 @@ defaults =
   ,((mod4Mask,xK_Print),spawn "scrot '%F-%H-%M-%S.png' -e 'mv $f ~/Shot/'") -- screenshot
   ,((controlMask, xK_Print),spawn "sleep 0.2 && scrot '%F-%H-%M-%S-window-select.png' --select -e 'mv $f ~/Shot/'") -- screenshot, select area with mouse
   ,((mod1Mask, xK_Print),spawn "scrot '%F-%H-%M-%S-window-focus.png' --focused -e 'mv $f ~/Shot/'") -- screenshot focused window
-  ,((mod4Mask,xK_s),scratchpadSpawnActionTerminal "urxvt") -- scratchpad
+  ,((mod4Mask,xK_s)
+   , submap. M.fromList $ -- add submap to Super+S
+     [((0, xK_s), namedScratchpadAction scratchpads "scratch"), -- Super+S and s
+      ((0, xK_c), namedScratchpadAction scratchpads "cal"), -- Super+S and c
+      ((0, xK_p), namedScratchpadAction scratchpads "pavucontrol")
+    ])
   ,((mod4Mask .|. controlMask,xK_p)
    ,submap . M.fromList $ -- add submap Ctrl+Win+P,key
     [((0,xK_q),spawn "urxvt")
