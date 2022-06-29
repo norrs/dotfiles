@@ -4,6 +4,8 @@ mkdirs = .local/share/applications \
 	 .local/share/rofi \
 	 .local/bin \
 	 .local/etc/unit \
+	 .local/share/man \
+	 .local/share/man/man1 \
 	 .config/gnome-session/sessions \
 	 .config/systemd/user \
 	 .urxvt \
