@@ -83,7 +83,7 @@ myLayout =
   onWorkspace "1:main"
               ( tab ||| full ||| tiled ||| mtiled) $
   onWorkspaces ["2:www","3:chat"]
-              full $
+              tab $
     full ||| tiled ||| mtiled
   where
         -- default tiling algorithm partitions the screen into two panes
