@@ -242,7 +242,7 @@ defaults =
                 ,startupHook = myStartupHook
                 ,keys = keys defaultConfig <+> myKeys } `additionalKeys`
   [((mod4Mask,xK_g),goToSelected def) -- Gridselect
-  ,((mod4Mask,xK_Print),spawn "scrot '%F-%H-%M-%S.png' -e 'mv $f ~/Shot/'") -- screenshot
+  ,((mod4Mask,xK_Print),spawn "flameshot gui -p ~/Shot/") -- screenshot
   ,((controlMask, xK_Print),spawn "sleep 0.2 && scrot '%F-%H-%M-%S-window-select.png' --select -e 'mv $f ~/Shot/'") -- screenshot, select area with mouse
   ,((mod1Mask, xK_Print),spawn "scrot '%F-%H-%M-%S-window-focus.png' --focused -e 'mv $f ~/Shot/'") -- screenshot focused window
   ,((mod4Mask,xK_s)
