@@ -156,7 +156,7 @@ scratchpads = [
   , NS "pavucontrol" "pavucontrol"
     (className =? "Pavucontrol")
     (customFloating $ W.RationalRect (1/4) (1/4) (2/4) (2/4))
-]
+    ]
 
 
 ------------------------------------------------------------------------
