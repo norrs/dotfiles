@@ -48,7 +48,7 @@ promptConfig =
                   ,position = Top}
 ------------------------------------------------------------------------
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["1:main", "2:www", "3:chat", "4:IDE", "5:www-stack", "6:music","7", "8", "9", "0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10","F11", "F12"]
+myWorkspaces = ["1:main", "2:www", "3", "4:IDE", "5:www-stack", "6:music","7", "8", "9", "0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10","F11", "F12:chat"]
 
 
 -- mod-[1..9] %! Switch to workspace N
@@ -82,7 +82,7 @@ myLayout =
   layoutHintsToCenter  $
   onWorkspace "1:main"
               ( tab ||| full ||| tiled ||| mtiled) $
-  onWorkspaces ["2:www","3:chat"]
+  onWorkspaces ["2:www","F12:chat"]
               tab $
     full ||| tiled ||| mtiled
   where
