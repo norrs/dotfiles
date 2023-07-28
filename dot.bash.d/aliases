@@ -11,4 +11,5 @@ alias urldecode='python -c "import sys, urllib as ul; \
 alias urlencode='python -c "import sys, urllib as ul; \
     print ul.quote_plus(sys.argv[1])"'
 alias unitCheck='./gradlew build jacocoTestReport'
+alias unitchromeproxy='google-chrome --user-data-dir=$HOME/.config/google-chrome-unit-proxy --proxy-server=socks5://localhost:1337'
 complete -o default -F __start_kubectl k

@@ -5,6 +5,7 @@ packages:
 extra-deps:
 - ./xmonad
 - ./xmonad-contrib
+- ./taffybar
 
 resolver: lts-16.17
 nix:

@@ -11,12 +11,12 @@
 [alias]
 	tree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
         bownership = !git for-each-ref --sort=-committerdate refs/remotes --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)'|column -ts'|'
-	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop\\|main' | xargs -n 1 git branch -d"
 	pp = "!git pull -p --rebase && git push"
 	make-patch = "!bash -c \"cd ${GIT_PREFIX};git add .;git commit -m uncommited; git format-patch HEAD~1; git reset HEAD~1\""
 
 [commit]
-	gpgsign = true
+	gpgsign = false
 [gpg]
 	program = gpg2
 [core]
@@ -29,7 +29,11 @@
 	path = ~/.gitconfig.custom
 
 [includeIf "gitdir:sikt/"]
-  path = ~/.gitconfig-sikt
+	path = ~/.gitconfig-sikt
+
+
+#[includeIf "gitdir:unit/"]
+#  path = ~/.gitconfig-sikt
 
 [init]
 	defaultBranch = main

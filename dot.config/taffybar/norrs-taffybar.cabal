@@ -15,25 +15,14 @@ executable norrs-taffybar
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   -- ghc-options:      -threaded -g -rtsopts
   ghc-prof-options: -fprof-auto
-  build-depends:       base
-                     , X11>=1.8
-                     , bytestring
-                     , containers
-                     , directory
-                     , filepath
-                     , gi-gtk
-                     , gtk-sni-tray
-                     , gtk-strut
-                     , haskell-gi-base
-                     , hostname
-                     , hslogger
-                     , process
-                     , split
-                     , taffybar
-                     , transformers
-                     , xdg-basedir
-                     , xmonad-contrib>=0.13
-                     , xmonad>=0.13
+  build-depends:    base
+                  , gi-gtk-hs
+                  , haskell-gi-base
+                  , gi-gdk
+                  , taffybar
+                  , text
+                  , process
+                  , transformers
   default-language:    Haskell2010
 
 source-repository head

@@ -2,49 +2,17 @@ flags: {}
 extra-package-dbs: []
 packages:
 - .
-- location: ./taffybar
-  extra-dep: true
-- location: ../../dot.xmonad/xmonad-contrib
-  extra-dep: true
-- location: ../../dot.xmonad/xmonad
-  extra-dep: true
+- ./taffybar
 # - location: ../../../../Projects/status-notifier-item
 #   extra-dep: true
 # - location: ../../../../Projects/gtk-sni-tray
 #   extra-dep: true
 extra-deps:
-- ConfigFile-1.1.4
-- X11-1.8
-- X11-xft-0.3.1
-- containers-0.5.11.0
-- dbus-1.2.1
-- dbus-hslogger-0.1.0.1
-- gi-cairo-connector-0.0.1
-- gi-cairo-render-0.0.1
-- gi-dbusmenu-0.4.1
-- gi-dbusmenugtk3-0.4.1
-- gi-gdk-3.0.15
-- gi-gdkpixbuf-2.0.18
-- gi-gdkx11-3.0.4
-- gi-gio-2.0.16
-- gi-glib-2.0.17
-- gi-gtk-3.0.26
-- gi-gtk-hs-0.3.6.3
-- gi-pango-1.0.16
-- gi-xlib-2.0.2
-- gio-0.13.4.1
-- gtk-sni-tray-0.1.6.0
-- gtk-strut-0.1.3.0
-- haskell-gi-0.21.2
-- haskell-gi-base-0.21.2
-- libxml-sax-0.7.5
-- rate-limit-1.4.1
-- spool-0.1
-- status-notifier-item-0.3.0.1
-- stm-2.5.0.0
-- time-units-1.0.0
-- xml-helpers-1.0.0
-resolver: lts-13.2
+#- ../../dot.xmonad/xmonad
+#- ../../dot.xmonad/xmonad-contrib
+- rate-limit-1.4.3
+
+resolver: nightly-2023-01-11
 allow-newer: true
 nix:
   packages:
