@@ -31,5 +31,8 @@
 [includeIf "gitdir:sikt/"]
   path = ~/.gitconfig-sikt
 
+[includeIf "gitdir:wg2/"]
+  path = ~/.gitconfig-wg2
+
 [init]
 	defaultBranch = main
