@@ -1,0 +1,6 @@
+[user]
+	email = roysindre@wgtwo.com
+#	signingKey = 84BA0315749FBBCB
+[commit]
+  gpgsign=false
+#  signingkey = 84BA0315749FBBCB
