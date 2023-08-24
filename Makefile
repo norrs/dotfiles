@@ -15,6 +15,7 @@ mkdirs = .local/share/applications \
 symlinks = .bashrc \
 	   .gitconfig \
 	   .gitconfig-sikt \
+	   .gitconfig-wg2 \
 	   .config/gtk-3.0/settings.ini \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/autocutsel.service \
