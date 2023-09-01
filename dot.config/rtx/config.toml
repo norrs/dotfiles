@@ -1,0 +1,8 @@
+[tools]
+java = "openjdk-17"
+go = "1.21"
+awscli = "latest"
+aws-vault = "latest"
+node = "latest"
+ktlint = "latest"
+krew = "latest"

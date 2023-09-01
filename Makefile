@@ -83,6 +83,7 @@ symdirs = .bash.d \
 	.urxvt/ext \
 	.lib \
 	.config/rofi \
+	.config/rtx \
 	.config/taffybar
 
 .PHONY: $(mkdirs) $(symlinks) $(symdirs)
