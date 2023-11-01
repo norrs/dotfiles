@@ -2,8 +2,8 @@
 Description=Switch Wallpapers Every 15 minutes
 
 [Timer]
-OnUnitActiveSec=5min
-OnBootSec=0min
+OnActiveSec=5sec
+OnUnitActiveSec=30min
 
 [Install]
 WantedBy=wm.target

@@ -4,7 +4,7 @@ Description=wallpaper
 [Service]
 Type=oneshot
 RemainAfterExit=true
-ExecStart=/usr/bin/env wallpaper
+ExecStart=%h/.local/bin/wallpaper
 ExecStop=/usr/bin/pkill wallpaper
 
 [Install]
