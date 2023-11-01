@@ -242,7 +242,7 @@ defaults =
                 ,startupHook = myStartupHook
                 ,keys = keys defaultConfig <+> myKeys } `additionalKeys`
   [((mod4Mask,xK_g),goToSelected def) -- Gridselect
-  ,((mod4Mask,xK_Print),spawn "flameshot gui -p ~/Shot/") -- screenshot
+  ,((mod4Mask,xK_Print),spawn "flameshot gui") -- screenshot
   ,((controlMask, xK_Print),spawn "sleep 0.2 && scrot '%F-%H-%M-%S-window-select.png' --select -e 'mv $f ~/Shot/'") -- screenshot, select area with mouse
   ,((mod1Mask, xK_Print),spawn "scrot '%F-%H-%M-%S-window-focus.png' --focused -e 'mv $f ~/Shot/'") -- screenshot focused window
   ,((mod4Mask,xK_s)
@@ -268,12 +268,11 @@ defaults =
     [((0,xK_y),spawn "split_current_chrome_tab"),
      ((0,xK_h), spawn "split_current_chrome_tab_norangshol")
     ])
-  ,((mod1Mask .|. controlMask, xK_r), spawn "rofi-systemd")
+  ,((mod1Mask .|. shiftMask, xK_r), spawn "rofi-systemd")
   , ((mod4Mask, xK_p), spawn "rofi -show run")
   , ((mod4Mask .|. shiftMask, xK_p), spawn "rofi -show drun -show-icons")
   --        , ((mod4Mask  .|. shiftMask     , xK_p          ), passPrompt promptConfig  )
   ,((mod4Mask .|. shiftMask,xK_z),spawn "i3lock -c 101010")
-  ,((mod1Mask .|. controlMask, xK_r), spawn "rofi-systemd")
   ,((0,xF86XK_AudioMute),spawn "pulseaudio-ctl mute")
   ,((0,xF86XK_AudioRaiseVolume),spawn "pulseaudio-ctl up")
   ,((0,xF86XK_AudioLowerVolume),spawn "pulseaudio-ctl down")
