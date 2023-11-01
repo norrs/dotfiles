@@ -4,6 +4,7 @@ alias knp="kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.
 alias kev='kubectl get event --sort-by="{.lastTimestamp}"'
 alias kautoscalerstatus='kubectl describe cm -n kube-system cluster-autoscaler-status'
 alias unitchromeproxy='google-chrome --user-data-dir=$HOME/.config/google-chrome-unit-proxy --proxy-server=socks5://localhost:1337'
+alias r-chrome-random='google-chrome --user-data-dir=$HOME/.config/tmp2-google-chrome-$(grep -m1 -ao "[0-9]" /dev/urandom | sed s/0/10/ | head -n1)'
 alias typeless='history | tail -n 20000 | sed "s/.* //" | sort | uniq -c | sort -g | tail -n 100'
 alias tl='typeless'
 alias urldecode='python -c "import sys, urllib as ul; \
