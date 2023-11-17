@@ -125,7 +125,6 @@ myManageHook =
   composeAll $
   [isDialog --> doFloat] ++
   [appName =? r --> doIgnore | r <- myIgnores] ++
-  [title =? r --> doIgnore | r <- myIgnoresTitles] ++
   [className =? c --> doCenterFloat | c <- myFloats] ++
   [appName =? r --> doShift wsp | (r,wsp) <- myWorkspaceMove]
   -- fulscreen windows to fullfloating
@@ -137,12 +136,10 @@ myManageHook =
   ]
   where
         -- windows to operate
-        myIgnoresTitles =
-          [" "] -- Webex makes a black window due to transparency effects.. and no good prop identity.
         myIgnores =
           ["desktop","kdesktop","desktop_window"]
         myFloats =
-          ["Steam","steam","vlc","Vlc","mpv", "gcr-prompter", "Gcr-prompter", "Webex"]
+          ["Steam","steam","vlc","Vlc","mpv", "gcr-prompter", "Gcr-prompter"]
         myWorkspaceMove =
           [("google-chrome","2:www")
           --,("urxvt","1:main")
