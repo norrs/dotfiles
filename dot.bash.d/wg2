@@ -1,0 +1,23 @@
+
+# Retrieve and cache the AWS SSO access token.
+awslogin () { aws sso login --sso-session wgtwo; }
+
+# Export credentials for the given profile as shell vars.
+awshell () { profile="${1?Need to provide a profile}"; eval "$(aws --profile="$profile" configure export-credentials --format env)"; export AWS_REGION="$(aws --profile="$profile" configure get region)"; }
+
+# Clear the credentials from the exported shell vars.
+awsclear () { unset AWS_SECRET_ACCESS_KEY AWS_ACCESS_KEY_ID AWS_CREDENTIAL_EXPIRATION AWS_SESSION_TOKEN AWS_REGION; }
+
+# Clear the cached AWS SSO access token.
+awslogout () { aws sso logout; }
+
+# Run aws-vault commands for sso profiles without aws-vault.
+aws-vault() {
+    if [ "$1" == "exec" ] && [[ "$2" == "sso-"* ]] && [ "$3" == "--" ]; then
+        profile="$2"
+        shift 3
+        awshell "$profile" && bash -c "$*"; awsclear
+    else
+        command aws-vault "$@"
+    fi
+}

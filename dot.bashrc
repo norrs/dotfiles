@@ -76,6 +76,7 @@ source_directory_files "$HOME/.lib/shellrc"
 source ~/.opt/kube-ps1/kube-ps1.sh
 source ~/.bash.d/colors
 source ~/.bash.d/gcloud
+source ~/.bash.d/wg2
 
 
 if [ "$color_prompt" = yes ]; then
