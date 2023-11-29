@@ -39,7 +39,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 [[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
 
 # GOROOT is set in exports.sh
-[[ -d "$HOME/.local/opt/go/bin" ]] && export PATH="$GOROOT/bin:$HOME/.local/opt/go/bin:$PATH"
+[[ -d "$HOME/go/bin" ]] && export PATH="$GOROOT/bin:$HOME/go/bin:$PATH"
 
 [[ -d "$HOME/.gem/ruby/2.5.0" ]] && export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
 
