@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-command -v kubectl >/dev/null 2>&1 && source <(kubectl completion bash)
+
+rtx where kubectl >/dev/null 2>&1 && source <(rtx x -- kubectl completion bash)

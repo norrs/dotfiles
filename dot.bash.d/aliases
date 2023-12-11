@@ -1,5 +1,6 @@
 alias psc='ps xawf -eo pid,user,cgroup,args'
 alias k="kubectl"
+alias kubectxs="KUBECTX_IGNORE_FZF=1 kubectx"
 alias knp="kubectl get pod -o=custom-columns=NAME:.metadata.name,STATUS:.status.phase,NODE:.spec.nodeName --all-namespaces | sed -n '1!p' | sort -k3"
 alias kev='kubectl get event --sort-by="{.lastTimestamp}"'
 alias kautoscalerstatus='kubectl describe cm -n kube-system cluster-autoscaler-status'
