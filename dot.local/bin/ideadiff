@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# idea diff <file1> <file2> is a stupid program who does not understand process substitution.
+# Solution: create temporary files from /dev/fd#.
+# Try to place them in inmemory tmp files under /run/user/$UID/ which is usually tmpfs ..
+handle_input() {
+    local fd="$1"
+    if [[ -f "$fd" ]]; then
+      echo "$fd"
+      return 0
+    elif [[ "$fd" =~ ^/dev/fd/[0-9]+$ ]]; then
+       local tmpfile
+       tmpfile=$(mktemp -p /run/user/$UID/)
+       cat "$fd" > "$tmpfile"
+       echo "$tmpfile"
+       return 0
+    fi
+    echo "Error: Input '$fd' is not a valid file or process substitution" >&2
+    return 1
+}
+
+temp_files=()
+
+cleanup() {
+    #echo "Cleaning up ${temp_files[@]}"
+    rm -f "${temp_files[@]}"
+}
+trap cleanup EXIT
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <file1> <file2>"
+    exit 1
+fi
+set -e
+tempfile1=$(handle_input "$1")
+if [[ "$tempfile1" != "$1" ]]; then
+    temp_files+=("$tempfile1")
+fi
+tempfile2=$(handle_input "$2")
+if [[ "$tempfile2" != "$2" ]]; then
+    temp_files+=("$tempfile2")
+fi
+
+idea diff "$tempfile1" "$tempfile2"
+
