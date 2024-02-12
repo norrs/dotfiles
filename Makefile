@@ -37,6 +37,7 @@ symlinks = .bashrc \
 	   .local/bin/change-gcloud \
 	   .local/bin/change-keyboard \
 	   .local/bin/clickhouse-client \
+	   .local/bin/ideadiff \
 	   .local/bin/test-rofi \
 	   .local/bin/rofi-systemd \
 	   .local/bin/wallpaper \
