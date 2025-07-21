@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+echo "Host network namespace (default):"
+ss -tuln | grep -E 'LISTEN|UNCONN'
+echo ""
+
+# Loop over all running Docker containers
+for cid in $(docker ps -q); do
+    cname=$(docker inspect --format '{{.Name}}' "$cid" | sed 's/^\/\(.*\)/\1/')
+    pid=$(docker inspect --format '{{.State.Pid}}' "$cid")
+    netmode=$(docker inspect --format '{{.HostConfig.NetworkMode}}' "$cid")
+
+    echo "Inspecting container: $cname ($cid) - PID: $pid - NetworkMode: $netmode"
+
+    # Skip containers using host network
+    if [[ "$netmode" == "host" ]]; then
+        echo "  Skipping (uses host network namespace)"
+        echo ""
+        continue
+    fi
+
+    # Check if PID is valid and net namespace exists
+    if [[ "$pid" =~ ^[0-9]+$ ]] && [ -e "/proc/$pid/ns/net" ]; then
+        echo "Container: $cname ($cid)"
+        if ! nsenter -t "$pid" -n ss -tuln 2>/dev/null | grep -E 'LISTEN|UNCONN'; then
+            echo "  nsenter failed or 'ss' not available in container"
+            echo "  Trying docker exec fallback..."
+            docker exec "$cid" ss -tuln 2>/dev/null || echo "    'ss' not available via docker exec either"
+        fi
+    else
+        echo "  Could not access netns for container $cname (PID invalid or netns missing)"
+    fi
+
+    echo ""
+done
