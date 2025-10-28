@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# --- who/where ---
+ME="${SUDO_USER:-$USER}"
+if [[ "$ME" == "root" ]]; then
+  echo "Please run as your normal user (it will sudo as needed)."
+  exit 1
+fi
+HOME_DIR="$(getent passwd "$ME" | cut -d: -f6)"
+USER_BIN="${HOME_DIR}/.local/bin"
+HELPER="/usr/local/sbin/yubikey-replug-helper"
+SUDOERS_FILE="/etc/sudoers.d/90-yubikey-replug-${ME}"
+
+# --- require sudo once ---
+if ! sudo -v; then
+  echo "sudo is required."
+  exit 1
+fi
+
+# --- dependencies ---
+if ! command -v lsusb >/dev/null 2>&1; then
+  echo "lsusb not found. Install usbutils (e.g., sudo apt install usbutils)."
+  exit 1
+fi
+
+# --- detect VID/PID (best-effort, user script will also detect dynamically) ---
+USB_LINE="$(lsusb | grep -iE 'Yubico|YubiKey' | head -n1 || true)"
+if [[ -z "$USB_LINE" ]]; then
+  echo "Note: No YubiKey detected via lsusb right now. That's okay; the command will auto-detect at runtime."
+fi
+
+# --- install root-owned helper ---
+sudo install -o root -g root -m 0755 /dev/stdin "$HELPER" <<'EOF_HELPER'
+#!/usr/bin/env bash
+# Root-only helper: performs USB unbind/bind for a device matching VID/PID
+set -euo pipefail
+
+VID=""
+PID=""
+DEVPATH=""
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --vid) VID="$2"; shift 2 ;;
+    --pid) PID="$2"; shift 2 ;;
+    --devpath) DEVPATH="$2"; shift 2 ;;
+    -h|--help)
+      echo "Usage: sudo yubikey-replug-helper [--vid HEX] [--pid HEX] [--devpath BUS-PORTS...]"
+      exit 0
+      ;;
+    *) echo "Unknown arg: $1" >&2; exit 1 ;;
+  esac
+done
+
+# If no DEVPATH, try to find one by VID/PID; default VID=1050 if not given
+VID="${VID:-1050}"
+if [[ -z "${PID:-}" && -n "$(command -v lsusb)" ]]; then
+  # Try infer PID from lsusb (first Yubico device)
+  PID="$(lsusb | awk -v IGNORECASE=1 '/Yubico|YubiKey/{print $6; exit}' | cut -d: -f2 || true)"
+fi
+
+if [[ -z "${DEVPATH:-}" ]]; then
+  # Search sysfs for first matching device
+  for d in /sys/bus/usb/devices/*; do
+    [[ -r "$d/idVendor" && -r "$d/idProduct" ]] || continue
+    if [[ $(<"$d/idVendor") == "$VID" && $(<"$d/idProduct") == "${PID:-$(<"$d/idProduct")}" ]]; then
+      DEVPATH="$(basename "$d")"
+      break
+    fi
+  done
+fi
+
+if [[ -z "${DEVPATH:-}" ]]; then
+  echo "Could not determine USB device path (DEVPATH) for VID=$VID PID=${PID:-unknown}." >&2
+  echo "Tip: pass --devpath <BUS-PORTS> (e.g., 1-1.2), or ensure the key is connected." >&2
+  exit 1
+fi
+
+# Perform soft replug
+echo "$DEVPATH" > /sys/bus/usb/drivers/usb/unbind
+sleep 1
+echo "$DEVPATH" > /sys/bus/usb/drivers/usb/bind
+echo "Soft replug done for $DEVPATH (VID=$VID PID=${PID:-unknown})."
+EOF_HELPER
+
+echo "Installed helper: $HELPER"
+
+# --- sudoers entry (NOPASSWD for helper only) ---
+SUDOERS_LINE="${ME} ALL=(root) NOPASSWD: ${HELPER}"
+TMP_SUDOERS="$(mktemp)"
+printf "%s\n" "$SUDOERS_LINE" > "$TMP_SUDOERS"
+sudo install -o root -g root -m 0440 "$TMP_SUDOERS" "$SUDOERS_FILE"
+rm -f "$TMP_SUDOERS"
+
+# Validate sudoers
+if ! sudo visudo -cf "$SUDOERS_FILE" >/dev/null; then
+  echo "Invalid sudoers file generated at $SUDOERS_FILE" >&2
+  exit 1
+fi
+echo "Created sudoers rule (NOPASSWD) at: $SUDOERS_FILE"
+
+# --- user convenience command in ~/.local/bin/yubikey-replug ---
+mkdir -p "$USER_BIN"
+USER_CMD="${USER_BIN}/yubikey-replug"
+cat > "$USER_CMD" <<'EOF_USER'
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Auto-detect first YubiKey via lsusb, then call the root helper.
+if ! command -v lsusb >/dev/null 2>&1; then
+  echo "lsusb not found; please install usbutils." >&2
+  exit 1
+fi
+
+USB_LINE="$(lsusb | grep -iE 'Yubico|YubiKey' | head -n1 || true)"
+if [[ -z "$USB_LINE" ]]; then
+  echo "No YubiKey detected by lsusb. Is it connected?" >&2
+  exit 1
+fi
+
+VIDPID="$(awk '{print $6}' <<<"$USB_LINE")"
+VID="${VIDPID%:*}"
+PID="${VIDPID#*:}"
+
+# Try to locate the sysfs USB device path that matches VID/PID
+DEVPATH=""
+for d in /sys/bus/usb/devices/*; do
+  [[ -r "$d/idVendor" && -r "$d/idProduct" ]] || continue
+  if [[ $(<"$d/idVendor") == "$VID" && $(<"$d/idProduct") == "$PID" ]]; then
+    DEVPATH="$(basename "$d")"
+    break
+  fi
+done
+
+if [[ -z "$DEVPATH" ]]; then
+  echo "Could not find matching sysfs device for VID=$VID PID=$PID." >&2
+  echo "You can pass a specific devpath like: sudo yubikey-replug-helper --devpath 1-1.2" >&2
+  # Still try with just VID/PID (helper will attempt discovery)
+  exec sudo /usr/local/sbin/yubikey-replug-helper --vid "$VID" --pid "$PID"
+fi
+
+exec sudo /usr/local/sbin/yubikey-replug-helper --vid "$VID" --pid "$PID" --devpath "$DEVPATH"
+EOF_USER
+chmod +x "$USER_CMD"
+chown "$ME":"$ME" "$USER_CMD"
+
+echo "Installed user command: $USER_CMD"
+echo
+echo "✅ Setup complete."
+echo "Try it now:"
+echo "  $USER_CMD"
+echo
+echo "Notes:"
+echo "- Your user has NOPASSWD sudo only for: $HELPER"
+echo "- If multiple YubiKeys are present, the first one found is used."
