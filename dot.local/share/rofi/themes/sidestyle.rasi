@@ -16,6 +16,8 @@
   fc-color-trans: #39393AC5;
   bg-color-trans: #262626F0;
 
+  focus-col: #89b4fa;
+
   font: "Source Code Pro 11";
 }
 
