@@ -37,6 +37,7 @@ symlinks = .bashrc \
 	   .local/bin/change-gcloud \
 	   .local/bin/change-keyboard \
 	   .local/bin/clickhouse-client \
+	   .local/bin/fix-gpgagent \
 	   .local/bin/ideadiff \
 	   .local/bin/test-rofi \
 	   .local/bin/rofi-systemd \
@@ -104,4 +105,4 @@ $(symdirs):
 	rm -f ~/$@
 	ln $(LN_FLAGS) $(PWD)/dot$@/ ~/$@
 
-install: $(mkdirs) $(symlinks) $(symdirs) 
+install: $(mkdirs) $(symlinks) $(symdirs)

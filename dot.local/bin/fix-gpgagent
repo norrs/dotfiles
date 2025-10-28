@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -x
+gpgconf --kill gpg-agent
+gpg-connect-agent updatestartuptty /bye
+ssh-add -L
+set +x
+
+echo ".. replug yubikey .."
+yubikey-replug
+echo ".. trying ssh-add -L again"
+ssh-add -L
