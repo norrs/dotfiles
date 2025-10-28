@@ -1,76 +1,156 @@
-This is my personal collection of dotfiles for various shells and tools.
+# Dotfiles
 
-To use it, you need to do the following:
+Dark magic, this is parts I've bothered actually trying to archive as
+dotfiles..
 
-    git clone git://github.com/norrs/dotfiles.git
-    git submodule init
-    git submodule update
+# Quick start
 
-Then you can create symlinks by running 'Make'
+## Installation
+
+### Clone the repository
+
+This repository contains my personal collection of dotfiles for various shells and tools【683637299757771†L0-L7】. To get started, clone the repository and initialize its submodules:
+
+```bash
+git clone git://github.com/norrs/dotfiles.git
+git submodule init
+git submodule update
+```
+
+## Create symlinks
+
+After cloning and updating submodules, run `make` from within the repository to create the necessary directories and symlinks in your home directory:
+
+```bash
+make
+```
+
+The `Makefile` defines targets to create directories (`mkdirs`), symlink files (`symlinks`) and directories (`symdirs`) and then ties everything together through the `install` target.
 
 
-## List of apt dependencies
 
+# Dependencies
+
+Various packages are required for different pieces of this dotfiles collection. Use your system's package manager to install them.
+
+## Core dependencies
+
+Install the `policykit-1-gnome` and `autocutsel` packages for PolicyKit integration and clipboard support:
+
+```bash
 sudo apt-get install policykit-1-gnome autocutsel
+```
+
+## GObject introspection and related libraries
+
+If you encounter errors related to `gobject-introspection-1.0`, install the following development tools and libraries:
+
+```bash
+sudo apt-get install gnome-common intltool valac libglib2.0-dev \
+    gobject-introspection libgirepository1.0-dev libgtk-3-dev \
+    libclutter-gtk-1.0-dev libgnome-desktop-3-dev libcanberra-dev \
+    libgdata-dev libdbus-glib-1-dev libgstreamer1.0-dev \
+    libupower-glib-dev fonts-droid gawk
+```
+This list comes from the troubleshooting notes in the original README【683637299757771†L16-L20】.
+
+## Rofi and dmenu
+
+For Rofi and dmenu menu support, install:
+
+```bash
+sudo apt install numix-icon-theme-circle rofi dmenu
+```
+There are also Haskell bindings available via the `libghc-gi-dbusmenu-dev` and `libghc-gi-dbusmenugtk3-dev` packages【683637299757771†L24-L26】.
+
+## Outlook message conversion
+
+To convert Outlook `.msg` files into `.eml` so they can be imported into Thunderbird, install the following Perl modules:
+
+```bash
+sudo apt install libemail-outlook-message-perl libemail-sender-perl
+```
+These utilities are mentioned in the original README to streamline working with email archives【683637299757771†L27-L29】.
+
+## Miscellaneous notes
+
+If you see an upstream bug reference (for example, the `gobject-introspection` bug report at https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440), check the associated bug for work‑arounds and updates【683637299757771†L31-L31】.
 
 
-### error: gobject-introspection-1.0
-sudo apt-get install gnome-common intltool valac libglib2.0-dev gobject-introspection libgirepository1.0-dev libgtk-3-dev libclutter-gtk-1.0-dev libgnome-desktop-3-dev libcanberra-dev libgdata-dev libdbus-glib-1-dev libgstreamer1.0-dev libupower-glib-dev fonts-droid gawk
+# Power Management
+
+## Hibernate and suspend when closing the laptop lid
+
+To configure how your system behaves when the laptop lid is closed, edit `/etc/systemd/logind.conf` and set the `HandleLidSwitch` directive. For example, to suspend on lid close:
+
+```ini
+HandleLidSwitch=suspend
+```
+
+Other values include `hibernate`, `ignore`, and `lock`. After editing, restart `systemd-logind` or reboot to apply changes.
 
 
-rockj@pandora9k:~/dotfiles/dot.config/taffybar (master *>)$ apt install gir1.2-dbusmenu-gtk3-0.4 gir1.2-dbusmenu-gtk-0.4 gir1.2-dbusmenu-glib-0.4
+# Tools and Utilities
 
-apt install numix-icon-theme-circle rofi dmenu
+This section highlights various tools and utilities referenced in the dotfiles.
 
-libghc-gi-dbusmenu-dev
-libghc-gi-dbusmenugtk3-dev
+## Chromix-too
 
-To convert outlook msg to eml. (drag eml into thunderbird to read)
-apt install libemail-outlook-message-perl libemail-sender-perl
+Chromix‑too is a browser extension and accompanying CLI service for controlling Google Chrome from the command line. Install the extension from the Chrome Web Store and explore its GitHub repository:
 
+- Extension: <https://chrome.google.com/webstore/detail/chromix-too/ppapdfccnamacakfkpfmpfnefpeajboj>
+- Repository: <https://github.com/norrs/chromix-too>
 
-https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440
+These links are collected from the original README【683637299757771†L33-L37】.
 
-## Chromeix-too
+## Clipboard management
 
-https://chrome.google.com/webstore/detail/chromix-too/ppapdfccnamacakfkpfmpfnefpeajboj
-https://github.com/norrs/chromix-too
+Clipboard handling under X11 can be tricky. See the following resources for background information:
 
-## clipboard 
+- <https://mutelight.org/subtleties-of-the-x-clipboard>
+- <https://www.schaertl.me/posts/autocutsel-and-an-introduction-to-systemd-user-services/>
 
-See https://mutelight.org/subtleties-of-the-x-clipboard and
-https://www.schaertl.me/posts/autocutsel-and-an-introduction-to-systemd-user-services/
-Solution hopefully: `autocutsel` which I run with a user unit
+The recommended solution is to run `autocutsel` as a user unit so that selections are automatically copied between the primary and clipboard buffers【683637299757771†L38-L43】.
 
 ## pulseaudio-ctl
 
-https://github.com/graysky2/pulseaudio-ctl
+For controlling PulseAudio volume levels from the command line, use the `pulseaudio-ctl` utility:
 
-## firebase
+<https://github.com/graysky2/pulseaudio-ctl>【683637299757771†L44-L47】.
 
-`curl -sL https://firebase.tools | bash`
+## Firebase CLI
 
-https://firebase.google.com/docs/cli#install-cli-mac-linux
+Install the Firebase CLI with a one‑liner:
+
+```bash
+curl -sL https://firebase.tools | bash
+```
+
+Further installation instructions are available in the Firebase CLI documentation【683637299757771†L48-L53】.
 
 ## Fonts
 
+To refresh your font cache, run:
 
-fc-cache updates from /usr/local/share/fonts (system-wide), ~/.local/share/fonts (user-specific) or ~/.fonts (user-specific). These files should have the permission 644 (-rw-r--r--), otherwise they may not be usable.
-
-dpkg-reconfigure fontconfig-config  (if bitmap fonts)
-
-(Not sure, but my gcloud glyph started working AFTER a reboot.. so missing something else then fc-cache to be run ..)
-
-## Hibernate/sleep with laptop lid
-
-Configure in /etc/systemd/logind.conf , see `HandleLidSwitch=suspend` and the others.
-
-## deckmaster
-
-On Linux you need to set up some udev rules to be able to access the device as a
-regular user. Edit `/etc/udev/rules.d/99-streamdeck.rules` and add these lines:
-
+```bash
+fc-cache -f -v
 ```
+
+Font directories include `/usr/local/share/fonts` for system‑wide fonts, `~/.local/share/fonts` for user fonts, and `~/.fonts` for legacy user fonts. Font files should have 644 permissions (`-rw-r--r--`), otherwise they may not be usable【683637299757771†L54-L57】.
+
+If you are working with bitmap fonts, reconfigure `fontconfig` using:
+
+```bash
+sudo dpkg-reconfigure fontconfig-config
+```
+
+Sometimes you may need to log out or reboot to fully refresh certain glyphs【683637299757771†L58-L62】.
+
+## Deckmaster
+
+Deckmaster is a command‑line tool for controlling Elgato Stream Deck devices. On Linux, you need to configure udev rules to allow access as a regular user. Create `/etc/udev/rules.d/99-streamdeck.rules` containing:
+
+```udev
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="0060", MODE:="666", GROUP="plugdev", SYMLINK+="streamdeck"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="006d", MODE:="666", GROUP="plugdev", SYMLINK+="streamdeck"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="0080", MODE:="666", GROUP="plugdev", SYMLINK+="streamdeck"
@@ -78,15 +158,18 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="0063", MODE:="666"
 SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", ATTRS{idProduct}=="006c", MODE:="666", GROUP="plugdev", SYMLINK+="streamdeck-xl"
 ```
 
-Make sure your user is part of the `plugdev` group and reload the rules with
-`sudo udevadm control --reload-rules`. Unplug and replug the device and you
-should be good to go.
+After creating these rules, make sure your user belongs to the `plugdev` group and reload the rules with:
 
-See https://github.com/muesli/deckmaster
+```bash
+sudo udevadm control --reload-rules
+```
 
+Then unplug and reconnect the Stream Deck. These instructions are extracted from the original README【683637299757771†L69-L81】. See the Deckmaster project for additional details: <https://github.com/muesli/deckmaster>【683637299757771†L84-L84】.
 
-## Inspiration of others
+# Inspiration
 
-* https://github.com/IvanMalison/dotfiles
-* https://github.com/thcipriani/dotfiles
-* https://github.com/addyosmani/dotfiles
+This dotfiles collection draws ideas from other people's configurations. You may find additional inspiration in the following repositories:
+
+* <https://github.com/IvanMalison/dotfiles>
+* <https://github.com/thcipriani/dotfiles>
+* <https://github.com/addyosmani/dotfiles>
