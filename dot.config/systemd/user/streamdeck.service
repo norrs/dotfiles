@@ -1,0 +1,10 @@
+[Unit]
+Description=Deckmaster Service
+
+[Service]
+# adjust the path to deckmaster and .deck file to suit your needs
+ExecStart=%h/.local/bin/deckmaster -deck %h/.opt/deckmaster/main.deck
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
