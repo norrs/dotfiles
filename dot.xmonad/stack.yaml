@@ -6,7 +6,7 @@ extra-deps:
 - ./xmonad
 - ./xmonad-contrib
 
-resolver: lts-16.17
+resolver: lts-17.0
 nix:
   packages:
     - pkgconfig
