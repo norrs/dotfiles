@@ -34,3 +34,6 @@
 [submodule "dot.opt/z"]
 	path = dot.opt/z
 	url = https://github.com/rupa/z.git
+[submodule "dotfiles-work"]
+	path = dotfiles-work
+	url = git@github.com:norrs/dotfiles-work.git

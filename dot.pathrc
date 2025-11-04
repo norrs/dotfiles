@@ -1,65 +1,84 @@
 #!/bin/bash
 
+directories=(
+  "$HOME/.local/share/rtx/shims"
+  "/opt/homebrew/bin"
+  "$HOME/.cabal/bin"
+  "$HOME/bin"
+  "$HOME/.opt/kubectx"
+  "${KREW_ROOT:-$HOME/.krew}/bin"
+  "/opt/pycharm/bin"
+  "/opt/java/bin"
+  "/opt/node/bin"
+  "/opt/arcanist/bin"
+  "/opt/rkt"
+  "/opt/rkt-spec/bin"
+  "/opt/deb2aci/bin"
+  "/opt/ripgrep"
+  "$HOME/.cargo/bin"
+  "/home/linuxbrew/.linuxbrew/bin"
+  "/opt/docker2aci/bin"
+  "$HOME/.local/bin"
+  "/usr/local/kubebuilder/bin"
+  "$HOME/go/bin"
+  "$HOME/.gem/ruby/2.5.0/bin"
+  "$HOME/.rbenv/bin"
+  "/opt/homebrew/opt/libpq/bin"
+  "$HOME/src/apache-tomcat-9.0.52/bin"
+  "$(brew --prefix)/opt/llvm/bin"
+)
 
+# Source work-specific directories if available (e.g., Cisco-specific paths)
+if [ -f "$HOME/dotfiles-work/dot.pathrc-cisco" ]; then
+  source "$HOME/dotfiles-work/dot.pathrc-cisco"
+  # Merge cisco_directories into directories array
+  directories+=("${cisco_directories[@]}")
+fi
 
-[[ -d "$HOME/.cabal/bin" ]] && export PATH="$HOME/.cabal/bin:$PATH"
+# Additional SDK paths
+if [ -f "$HOME/.local/opt/google-cloud-sdk/path.bash.inc" ]; then
+  . "$HOME/.local/opt/google-cloud-sdk/path.bash.inc"
+fi
 
-[[ -d "$HOME/bin" ]] && export PATH="$HOME/bin:$PATH"
+if [ -f "$HOME/.local/opt/google-cloud-sdk/completion.bash.inc" ]; then
+  . "$HOME/.local/opt/google-cloud-sdk/completion.bash.inc"
+fi
 
-[[ -d "$HOME/.opt/kubectx" ]] && export PATH="$HOME/.opt/kubectx:$PATH"
+if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then
+  . "$HOME/google-cloud-sdk/path.bash.inc"
+fi
 
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then
+  . "$HOME/google-cloud-sdk/completion.bash.inc"
+fi
 
-[[ -d "/opt/pycharm/bin" ]] && export PATH="/opt/pycharm/bin:$PATH"
-
-[[ -d "/opt/java/bin" ]] && export PATH="/opt/java/bin:$PATH"
-
-[[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
-
-[[ -d "/opt/arcanist/bin" ]] && export PATH="/opt/arcanist/bin:$PATH"
-
-[[ -d "/opt/rkt" ]] && export PATH="/opt/rkt:$PATH"
-
-[[ -d "/opt/rkt-spec" ]] && export PATH="/opt/rkt-spec/bin:$PATH"
-
-[[ -d "/opt/deb2aci" ]] && export PATH="/opt/deb2aci/bin:$PATH"
-
-[[ -d "/opt/ripgrep" ]] && export PATH="/opt/ripgrep:$PATH"
-
-[[ -d "$HOME/.cargo/bin" ]] && export PATH="$HOME/.cargo/bin:$PATH"
-
-[[ -d "/home/linuxbrew/.linuxbrew/bin" ]] && export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
-[[ -d "/opt/docker2aci" ]] && export PATH="/opt/docker2aci/bin:$PATH"
-
-[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
-
-[[ -d "/usr/local/kubebuilder" ]] && export PATH="$PATH:/usr/local/kubebuilder/bin"
-
-[[ -d "/opt/node/bin" ]] && export PATH="/opt/node/bin:$PATH"
-
-# GOROOT is set in exports.sh
-[[ -d "$HOME/go/bin" ]] && export PATH="$GOROOT/bin:$HOME/go/bin:$PATH"
-
-[[ -d "$HOME/.gem/ruby/2.5.0" ]] && export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
-
-[[ -d "$HOME/.rbenv/bin" ]] && export PATH="$HOME/.rbenv/bin:$PATH"
-
-[[ -d "$HOME/.local/share/rtx/shims" ]] && export PATH="$HOME/.local/share/rtx/shims:$PATH"
-
-# Compat with enceladus laptop
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/.local/opt/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/.local/opt/google-cloud-sdk/path.bash.inc"; fi
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/.local/opt/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/.local/opt/google-cloud-sdk/completion.bash.inc"; fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/google-cloud-sdk/path.bash.inc" ]; then . "$HOME/google-cloud-sdk/path.bash.inc"; fi
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/google-cloud-sdk/completion.bash.inc" ]; then . "$HOME/google-cloud-sdk/completion.bash.inc"; fi
-
-export ANDROID_HOME="$HOME/.local/opt/android-sdk-linux/sdk"
+# Android SDK path
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ANDROID_HOME="/Users/norrs/Library/Android/sdk"
+else
+  ANDROID_HOME="$HOME/.local/opt/android-sdk-linux/sdk"
+fi
 ANDROID_BIN="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+
+export CATALINA_HOME="$HOME/src/apache-tomcat-9.0.52"
+
+# Maven path
+M2_HOME="/opt/maven3"
+M2="$M2_HOME/bin"
+
 export M2_HOME="/opt/maven3"
 export M2="$M2_HOME/bin"
-export PATH=/opt/play:$ANDROID_BIN:$M2:$PATH
+
+# Include Android and Maven paths
+directories+=("/opt/play" "$ANDROID_BIN" "$M2")
+
+# Build the PATH variable
+BUILT_PATH=""
+for dir in "${directories[@]}"; do
+  if [[ -d "$dir" ]]; then
+    BUILT_PATH="$dir:$BUILT_PATH"
+  fi
+done
+
+# Export the built PATH
+echo "$BUILT_PATH"
