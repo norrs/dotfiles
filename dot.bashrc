@@ -48,13 +48,17 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-[ -f /usr/lib/git-core/git-sh-prompt ] && {
- source /usr/lib/git-core/git-sh-prompt
+# Load git prompt support (Linux path)
+[ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
+# Load git prompt support (macOS Homebrew path)
+[ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ] && source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+
+if type -t __git_ps1 &>/dev/null; then
  GIT_PS1_SHOWDIRTYSTATE=1
  GIT_PS1_SHOWUPSTREAM="auto"
  GIT_PS1_SHOWCOLORHINTS=1
  # Prompt is enabled in PROMPT_COMMAND below.
-}
+fi
 
 set_window_title() {
     echo -ne "\033]0;"$@"\007"
