@@ -185,9 +185,9 @@ done
 
 [[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc
 
-eval "$(rbenv init -)"
+#eval "$(rbenv init -)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-[ -s "/usr/bin/rtx" ] && eval "$(rtx activate bash)"
+[ -s "$HOME/.local/bin/mise" ] && eval "$(mise activate bash)"
