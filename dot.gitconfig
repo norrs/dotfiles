@@ -14,7 +14,20 @@
         bownership-local = !git for-each-ref --sort=-committerdate refs/heads --format='%(HEAD)%(color:yellow)%(refname:short)|%(color:bold green)%(committerdate:relative)|%(color:blue)%(subject)|%(color:magenta)%(authorname)%(color:reset)'|column -ts'|'
 	cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
 	pp = "!git pull -p --rebase && git push"
-	make-patch = "!bash -c \"cd ${GIT_PREFIX};git add .;git commit -m uncommited; git format-patch HEAD~1; git reset HEAD~1\""
+        make-patch = "!bash -c \"set -e; cd $(git rev-parse --show-toplevel);git add .;git commit -n -m uncommited; git format-patch HEAD~1; git reset HEAD~1\""
+        retry-commit = "!sh -c 'while ! git commit \"$@\"; do git add .; done' -"
+
+
+
+[merge]
+    tool = intellij
+[mergetool "intellij"]
+    cmd = $HOME/Applications/IntelliJ\\ IDEA\\ Ultimate.app/Contents/MacOS/idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")
+    trustExitCode = true
+[diff]
+    tool = intellij
+[difftool "intellij"]
+    cmd = $HOME/Applications/IntelliJ\\ IDEA\\ Ultimate.app/Contents/MacOS/idea diff $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE")
 
 [commit]
 	gpgsign = true
@@ -23,20 +36,33 @@
 [core]
 	abbrev = 12
 	autocrlf = input
-[credential "https://github.com"]
-	helper = ~/.local/bin/hub-credential-helper
+	excludesfile = ~/.gitignore_global
 
 [include]
 	path = ~/.gitconfig.custom
+	path = ~/.gitconfig-linux
 
 [includeIf "gitdir:sikt/"]
   path = ~/.gitconfig-sikt
 
+[includeIf "gitdir:cisco/"]
+  path = ~/.gitconfig-cisco
+
 [includeIf "gitdir:wg2/"]
+  path = ~/.gitconfig-wg2
+
+[includeIf "gitdir:wg2-legacy/"]
   path = ~/.gitconfig-wg2
 
 [init]
 	defaultBranch = main
 
-[includeIf "gitdir:~/dotfiles/"]
-  path = ~/.gitconfig-cisco
+[http]
+	postBuffer = 157286400
+	cookiefile = abc
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

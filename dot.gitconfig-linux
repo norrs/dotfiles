@@ -1,0 +1,6 @@
+# Linux-specific git configuration
+# This file should only be symlinked on Linux systems
+# On Linux: ln -s ~/dotfiles/dot.gitconfig-linux ~/.gitconfig-linux
+
+[credential "https://github.com"]
+	helper = ~/.local/bin/hub-credential-helper

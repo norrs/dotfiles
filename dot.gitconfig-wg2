@@ -1,6 +1,10 @@
 [user]
-	email = roysindre@wgtwo.com
-	signingKey = 0xEFFB88CBD6B77C24
+	email = norrs@cisco.com
+        signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL48sEbdQdh7A+S6r5IyWQYU6UmcqxmQDWQdycJDG+4m
 [commit]
   gpgsign=true
-  signingKey = 0xEFFB88CBD6B77C24
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[gpg]
+  format = ssh
+  program = gpg

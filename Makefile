@@ -6,6 +6,7 @@ mkdirs = .local/share/applications \
 	 .local/etc/unit \
 	 .local/share/man \
 	 .local/share/man/man1 \
+         .config/git \
 	 .config/gnome-session/sessions \
 	 .config/systemd/user \
 	 .urxvt \
@@ -16,6 +17,7 @@ symlinks = .bashrc \
 	   .gitconfig \
 	   .gitconfig-sikt \
 	   .gitconfig-wg2 \
+	   .config/git/ignore \
 	   .config/gtk-3.0/settings.ini \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/autocutsel.service \
@@ -88,12 +90,30 @@ symdirs = .bash.d \
 	.config/rtx \
 	.config/taffybar
 
-.PHONY: $(mkdirs) $(symlinks) $(symdirs)
+.PHONY: $(mkdirs) $(symlinks) $(symdirs) update-paths install-work clean-work
 
 all: install
 
 clean:
 	rm -rf -- dot.vim/bundle/*
+
+clean-work:
+	@if [ -d dotfiles-work ] && [ -f dotfiles-work/Makefile ]; then \
+		echo "Cleaning work-specific dotfiles..."; \
+		$(MAKE) -C dotfiles-work clean; \
+	fi
+
+update-paths:
+	@echo "Building PATH in /etc/paths.d/norrs-dotfiles..."
+	@~/.pathrc | tr ':' '\n' > /etc/paths.d/norrs-dotfiles
+
+install-work:
+	@if [ -d dotfiles-work ] && [ -f dotfiles-work/Makefile ]; then \
+		echo "Installing work-specific dotfiles..."; \
+		$(MAKE) -C dotfiles-work install; \
+	else \
+		echo "Skipping work-specific dotfiles (dotfiles-work not available)"; \
+	fi
 
 $(mkdirs):
 	[ -d ~/$@ ] || mkdir -p ~/$@
@@ -105,4 +125,4 @@ $(symdirs):
 	rm -f ~/$@
 	ln $(LN_FLAGS) $(PWD)/dot$@/ ~/$@
 
-install: $(mkdirs) $(symlinks) $(symdirs)
+install: $(mkdirs) $(symlinks) $(symdirs) install-work

@@ -9,3 +9,6 @@ dot.xmonad/xmonad.state
 dot.xmonad/prompt-history
 dot.local/share/fonts/.uuid
 .stack-work
+
+# Work-specific symlinks created by dotfiles-work Makefile
+dot.bash.d/cisco-aliases
