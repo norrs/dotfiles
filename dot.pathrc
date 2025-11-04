@@ -24,8 +24,8 @@ directories=(
   "$HOME/.gem/ruby/2.5.0/bin"
   "$HOME/.rbenv/bin"
   "/opt/homebrew/opt/libpq/bin"
+  "/opt/homebrew/opt/llvm/bin"
   "$HOME/src/apache-tomcat-9.0.52/bin"
-  "$(brew --prefix)/opt/llvm/bin"
 )
 
 # Source work-specific directories if available (e.g., Cisco-specific paths)
@@ -82,5 +82,11 @@ for dir in "${directories[@]}"; do
   fi
 done
 
+# Append existing PATH
+BUILT_PATH="${BUILT_PATH}${PATH}"
+
 # Export the built PATH
+export PATH="$BUILT_PATH"
+
+# Also echo for use by update-paths Makefile target
 echo "$BUILT_PATH"
