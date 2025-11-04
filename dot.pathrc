@@ -29,8 +29,10 @@ directories=(
 )
 
 # Source work-specific directories if available (e.g., Cisco-specific paths)
-if [ -f "$HOME/dotfiles-work/dot.pathrc-cisco" ]; then
-  source "$HOME/dotfiles-work/dot.pathrc-cisco"
+# Try to find dotfiles-work relative to where this script is symlinked from
+DOTFILES_DIR="$(dirname "$(readlink ~/.pathrc)")"
+if [ -f "$DOTFILES_DIR/dotfiles-work/dot.pathrc-cisco" ]; then
+  source "$DOTFILES_DIR/dotfiles-work/dot.pathrc-cisco"
   # Merge cisco_directories into directories array
   directories+=("${cisco_directories[@]}")
 fi
