@@ -6,3 +6,16 @@
 # Load git prompt support (macOS Homebrew path)
 [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ] && source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
 
+# Enable color support for ls (BSD ls on macOS)
+export CLICOLOR=1
+# LSCOLORS format: directory, symlink, socket, pipe, executable, block special, char special,
+# executable with setuid, executable with setgid, directory writable to others with sticky bit, directory writable to others without sticky bit
+# Colors: a=black, b=red, c=green, d=brown, e=blue, f=magenta, g=cyan, h=light grey,
+#         A=bold black, B=bold red, etc., x=default
+export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
+
+# Color support for grep
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
