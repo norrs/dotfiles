@@ -92,5 +92,7 @@ BUILT_PATH="${BUILT_PATH}${PATH}"
 # Export the built PATH
 export PATH="$BUILT_PATH"
 
-# Also echo for use by update-paths Makefile target
-echo "$BUILT_PATH"
+# Only echo when executed directly (not sourced) for use by update-paths Makefile target
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  echo "$BUILT_PATH"
+fi
