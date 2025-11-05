@@ -48,6 +48,11 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Load git completion (Linux path)
+[ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
+# Load git completion (macOS Homebrew path)
+[ -f /opt/homebrew/etc/bash_completion.d/git-completion.bash ] && source /opt/homebrew/etc/bash_completion.d/git-completion.bash
+
 # Load git prompt support (Linux path)
 [ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
 # Load git prompt support (macOS Homebrew path)
