@@ -1,0 +1,8 @@
+# macOS-specific bash configuration
+
+# Load git completion (macOS Homebrew path)
+[ -f /opt/homebrew/etc/bash_completion.d/git-completion.bash ] && source /opt/homebrew/etc/bash_completion.d/git-completion.bash
+
+# Load git prompt support (macOS Homebrew path)
+[ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ] && source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+

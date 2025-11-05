@@ -48,15 +48,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# Load git completion (Linux path)
-[ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
-# Load git completion (macOS Homebrew path)
-[ -f /opt/homebrew/etc/bash_completion.d/git-completion.bash ] && source /opt/homebrew/etc/bash_completion.d/git-completion.bash
-
-# Load git prompt support (Linux path)
-[ -f /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
-# Load git prompt support (macOS Homebrew path)
-[ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ] && source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+# Load platform-specific configuration
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    [ -f ~/.bashrc-darwin ] && source ~/.bashrc-darwin
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    [ -f ~/.bashrc-linux ] && source ~/.bashrc-linux
+fi
 
 if type -t __git_ps1 &>/dev/null; then
  GIT_PS1_SHOWDIRTYSTATE=1
@@ -131,18 +128,6 @@ virtualenv_ps1() {
 
 PROMPT_COMMAND='history -a;_kube_ps1_update_cache;:;VPS1=$(virtualenv_ps1; printf x);KPS1=$(kube_ps1; printf x);__git_ps1 "$(__gcloud_ps1)${KPS1%x}${VPS1%x}${MY_PS1}" "\\\$ "; set_window_title "$USER@$HOSTNAME:" $(pwd_short)'
 
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
 
 # some more ls aliases
 alias ll='ls -alF'

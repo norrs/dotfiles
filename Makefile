@@ -14,6 +14,8 @@ mkdirs = .local/share/applications \
 	 .caff/gnupghome
 
 symlinks = .bashrc \
+	   .bashrc-darwin \
+	   .bashrc-linux \
 	   .gitconfig \
 	   .gitconfig-sikt \
 	   .gitconfig-wg2 \
