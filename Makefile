@@ -43,6 +43,7 @@ symlinks = .bashrc \
 	   .local/bin/clickhouse-client \
 	   .local/bin/fix-gpgagent \
 	   .local/bin/ideadiff \
+	   .local/bin/jkill \
 	   .local/bin/test-rofi \
 	   .local/bin/rofi-systemd \
 	   .local/bin/wallpaper \

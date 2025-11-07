@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# Interactive Java process killer using jps, ps, and fzf
+
+set -euo pipefail
+
+# Check for required commands
+for cmd in jps ps fzf; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Error: $cmd is required but not found in PATH" >&2
+        exit 1
+    fi
+done
+
+# Parse arguments
+KILL_SIGNAL=""
+if [[ "${1:-}" == "-9" ]]; then
+    KILL_SIGNAL="-9"
+fi
+
+# Get Java processes with jps
+jps_output=$(jps -l 2>/dev/null || true)
+
+if [[ -z "$jps_output" ]]; then
+    echo "No Java processes found" >&2
+    exit 0
+fi
+
+# Build a list with PID and class name for display
+# Also build a map of PID to full command for preview
+declare -A pid_to_cmd
+process_list=""
+while IFS= read -r line; do
+    # Skip empty lines
+    [[ -z "$line" ]] && continue
+
+    # Parse jps output: PID ClassName
+    pid=$(echo "$line" | awk '{print $1}')
+    classname=$(echo "$line" | cut -d' ' -f2-)
+
+    # Skip jps itself
+    [[ "$classname" == "jdk.jcmd/sun.tools.jps.Jps" ]] && continue
+    [[ "$classname" == "sun.tools.jps.Jps" ]] && continue
+
+    # Get full command line from ps
+    full_cmd=$(ps -p "$pid" -o args= 2>/dev/null || echo "$classname")
+
+    # Clean up the command: remove common java paths
+    clean_cmd="$full_cmd"
+    clean_cmd="${clean_cmd#/usr/bin/java }"
+    clean_cmd="${clean_cmd#/usr/lib/jvm/*/bin/java }"
+    clean_cmd="${clean_cmd#java }"
+
+    # Store full command for preview
+    pid_to_cmd[$pid]="$full_cmd"
+
+    # Format display: PID | ClassName (shortened if too long)
+    short_classname="$classname"
+    if [[ ${#classname} -gt 60 ]]; then
+        short_classname="...${classname: -57}"
+    fi
+
+    process_list+=$(printf "%-8s | %s\n" "$pid" "$short_classname")
+    process_list+=$'\n'
+done <<< "$jps_output"
+
+# Remove trailing newline
+process_list="${process_list%$'\n'}"
+
+if [[ -z "$process_list" ]]; then
+    echo "No Java processes found (excluding jps itself)" >&2
+    exit 0
+fi
+
+# Create a preview script that will show full command
+preview_script=$(cat <<'EOF'
+pid=$(echo {} | awk '{print $1}')
+ps -p "$pid" -o pid,user,%cpu,%mem,etime,args= 2>/dev/null || echo "Process not found"
+EOF
+)
+
+# Use fzf to select a process
+selected=$(echo "$process_list" | fzf \
+    --header="Select Java process to kill${KILL_SIGNAL:+ with signal $KILL_SIGNAL}" \
+    --header-lines=0 \
+    --prompt="Kill> " \
+    --preview="$preview_script" \
+    --preview-window=down:5:wrap \
+    --height=80% \
+    --reverse)
+
+if [[ -z "$selected" ]]; then
+    echo "No process selected" >&2
+    exit 0
+fi
+
+# Extract PID from selection
+selected_pid=$(echo "$selected" | awk '{print $1}')
+
+# Confirm and kill
+echo "Killing process $selected_pid${KILL_SIGNAL:+ with signal $KILL_SIGNAL}..."
+if kill $KILL_SIGNAL "$selected_pid" 2>/dev/null; then
+    echo "Process $selected_pid killed successfully"
+else
+    echo "Failed to kill process $selected_pid" >&2
+    exit 1
+fi
+
