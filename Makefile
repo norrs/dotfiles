@@ -90,7 +90,7 @@ symdirs = .bash.d \
 	.urxvt/ext \
 	.lib \
 	.config/rofi \
-	.config/rtx \
+	.config/mise \
 	.config/taffybar
 
 .PHONY: $(mkdirs) $(symlinks) $(symdirs) update-paths install-work clean-work
