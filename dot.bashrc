@@ -3,7 +3,10 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -167,10 +170,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-for complete_file in $HOME/.bash.d/autocomplete/*; do
-  source "$complete_file"
-done
-
 [ -f "$HOME/.opt/z/z.sh" ] && . $HOME/.opt/z/z.sh
 
 [[ -e "$HOME/.pathrc" ]] && source $HOME/.pathrc
@@ -181,3 +180,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 [ -s "$HOME/.local/bin/mise" ] && eval "$(mise activate bash)"
+
+# Load autocomplete files (mise exec is used where needed, so order doesn't matter)
+for complete_file in $HOME/.bash.d/autocomplete/*; do
+  source "$complete_file"
+done
