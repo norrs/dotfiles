@@ -54,6 +54,10 @@
 [includeIf "gitdir:wg2-legacy/"]
   path = ~/.gitconfig-wg2
 
+# Include work-specific includeIf directives (optional, only if dotfiles-work is installed)
+[include]
+  path = ~/.gitconfig-cisco-includes
+
 [init]
 	defaultBranch = main
 
