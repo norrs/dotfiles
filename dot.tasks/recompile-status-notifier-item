@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_DIR="${REPO_ROOT}/dot.opt/status-notifier-item"
+LOCAL_BIN_PATH="${HOME}/.local/bin"
+SERVICE_NAME="status-notifier-watcher.service"
+
+cd "${PROJECT_DIR}"
+
+echo "Rebuilding status-notifier-item with Stack + Nix..."
+stack --nix --no-terminal install status-notifier-item --local-bin-path "${LOCAL_BIN_PATH}"
+
+echo "Restarting ${SERVICE_NAME}..."
+systemctl --user restart "${SERVICE_NAME}"
+
+echo "Service status:"
+systemctl --user status "${SERVICE_NAME}" --no-pager
+
+echo
+echo "Recent logs:"
+journalctl --user -u "${SERVICE_NAME}" -n 80 --no-pager

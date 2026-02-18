@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_DIR="${REPO_ROOT}/dot.opt/notifications-tray-icon"
+LOCAL_BIN_PATH="${HOME}/.local/bin"
+SERVICE_NAME="github-notifications.service"
+
+cd "${PROJECT_DIR}"
+
+echo "Rebuilding notifications-tray-icon with Stack + Nix..."
+stack --nix --no-terminal install notifications-tray-icon --local-bin-path "${LOCAL_BIN_PATH}"
+
+echo "Restarting ${SERVICE_NAME}..."
+systemctl --user restart "${SERVICE_NAME}"
+
+echo "Service status:"
+systemctl --user status "${SERVICE_NAME}" --no-pager
+
+echo
+echo "Recent logs:"
+journalctl --user -u "${SERVICE_NAME}" -n 80 --no-pager
