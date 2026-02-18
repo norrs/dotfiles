@@ -48,19 +48,20 @@ main = do
 --      myIcons = scaledWindowIconPixbufGetter $
 --                unscaledDefaultGetWindowIconPixbuf <|||>
 --                (\size _ -> lift $ loadPixbufByName size "application-default-icon")
- 
+
   let myWorkspacesConfig = defaultWorkspacesConfig { minIcons = 1
                                                    , widgetGap = 0
                                                    , showWorkspaceFn = hideEmpty
                                                    --, getWindowIconPixbuf = myIcons
                                                    }
-      battery = textBatteryNew "$percentage$ - $time$"                                             
+      battery = textBatteryNew "$percentage$ - $time$"
       clock = textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
       workspaces = workspacesNew myWorkspacesConfig
       windows = windowsNew defaultWindowsConfig
       layout = layoutNew defaultLayoutConfig
       tray = sniTrayNew
       --- tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
+              -- { monitorsAction = useAllMonitors
       simpleConfig = defaultSimpleTaffyConfig
               { monitorsAction = usePrimaryMonitor
                        , startWidgets =  workspaces : map (>>= buildContentsBox) [ layout, windows ]
