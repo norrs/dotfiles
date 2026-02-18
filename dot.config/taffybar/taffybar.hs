@@ -48,13 +48,13 @@ main = do
 --      myIcons = scaledWindowIconPixbufGetter $
 --                unscaledDefaultGetWindowIconPixbuf <|||>
 --                (\size _ -> lift $ loadPixbufByName size "application-default-icon")
- 
+
   let myWorkspacesConfig = defaultWorkspacesConfig { minIcons = 1
                                                    , widgetGap = 0
                                                    , showWorkspaceFn = hideEmpty
                                                    --, getWindowIconPixbuf = myIcons
                                                    }
-      battery = textBatteryNew "$percentage$ - $time$"                                             
+      battery = textBatteryNew "$percentage$ - $time$"
       clock = textClockNew Nothing "<span fgcolor='orange'>%a %b %_d %H:%M</span>" 1
       workspaces = workspacesNew myWorkspacesConfig
       windows = windowsNew defaultWindowsConfig
@@ -62,7 +62,10 @@ main = do
       tray = sniTrayNew
       --- tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
       simpleConfig = defaultSimpleTaffyConfig
-              { monitorsAction = usePrimaryMonitor
+              { monitorsAction = do
+                    -- Keep index-based selection for stability: monitor 0 resolves
+                    -- to your primary screen in your current xmonad/XRandR setup.
+                    return [0]
                        , startWidgets =  workspaces : map (>>= buildContentsBox) [ layout, windows ]
                        , endWidgets = [ tray, clock, battery ]
                        }

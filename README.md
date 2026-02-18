@@ -166,6 +166,25 @@ sudo udevadm control --reload-rules
 
 Then unplug and reconnect the Stream Deck. These instructions are extracted from the original README【683637299757771†L69-L81】. See the Deckmaster project for additional details: <https://github.com/muesli/deckmaster>【683637299757771†L84-L84】.
 
+## taffybar (rebuild with Nix)
+
+The source is in `dot.config/taffybar` (with the taffybar upstream submodule in `dot.config/taffybar/taffybar`).
+
+The regular upstream `taffybar` binary is a dyre stub that recompiles config at runtime. In this dotfiles setup we build the custom executable (`norrs-taffybar`) and install it as `~/.local/bin/taffybar`.
+
+Task helper:
+
+```bash
+dot.tasks/recompile-taffybar
+```
+
+After rebuilding, verify:
+
+```bash
+systemctl --user status taffybar.service --no-pager
+journalctl --user -u taffybar.service -n 80 --no-pager
+```
+
 ## notifications-tray-icon (rebuild with Nix)
 
 The source is in `dot.opt/notifications-tray-icon`.

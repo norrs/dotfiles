@@ -1,6 +1,7 @@
 LN_FLAGS = -sf
 
 mkdirs = .local/share/applications \
+	 .local/share/icons/hicolor/64x64/apps \
 	 .local/share/rofi \
 	 .local/bin \
 	 .local/etc/unit \
@@ -68,6 +69,7 @@ symlinks = .bashrc \
 	   .screenrc \
 	   .tmux.conf \
 	   .local/share/applications/xmonad.desktop \
+	   .local/share/icons/hicolor/64x64/apps/github-notifications.png \
 	   .config/gnome-session/sessions/xmonad-gnome-nopanel.session \
 	   .skudd \
 	   .gnupg/gpg.conf \
