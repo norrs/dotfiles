@@ -61,11 +61,13 @@ main = do
       layout = layoutNew defaultLayoutConfig
       tray = sniTrayNew
       --- tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
+              -- { monitorsAction = useAllMonitors
       simpleConfig = defaultSimpleTaffyConfig
-              { monitorsAction = do
-                    -- Keep index-based selection for stability: monitor 0 resolves
-                    -- to your primary screen in your current xmonad/XRandR setup.
-                    return [0]
+              { -- NOTE: `usePrimaryMonitor` currently resolves to DVI-D-0 on this setup
+                -- (XRandR output-number vs monitor-index mismatch in this taffybar path).
+                -- We pin monitor index 0 as a workaround; on this host index 0 is DP-2
+                -- (`xrandr --listactivemonitors`).
+                monitorsAction = return [0]
                        , startWidgets =  workspaces : map (>>= buildContentsBox) [ layout, windows ]
                        , endWidgets = [ tray, clock, battery ]
                        }
