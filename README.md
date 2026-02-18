@@ -76,6 +76,31 @@ These utilities are mentioned in the original README to streamline working with 
 
 If you see an upstream bug reference (for example, the `gobject-introspection` bug report at https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=924440), check the associated bug for work‑arounds and updates【683637299757771†L31-L31】.
 
+## Taffybar maintenance
+
+This setup runs `taffybar` from the user systemd unit with:
+
+- `ExecStart=/usr/bin/env taffybar`
+- `PATH` in the unit includes `%h/.local/bin` and `%h/.nix-profile/bin`
+
+To rebuild the local `taffybar` binary from `dot.config/taffybar/taffybar.hs` using the Nix-provided GHC package set:
+
+```bash
+cd ~/dotfiles/dot.config/taffybar
+/nix/store/77l5h9ihplj95wbrnjhhrcr0wc8f41b6-ghc-9.0.2-with-packages/bin/ghc \
+  -threaded -rtsopts -with-rtsopts=-N \
+  taffybar.hs -o ~/.local/bin/taffybar
+```
+
+Then reload and restart the user unit:
+
+```bash
+systemctl --user daemon-reload
+systemctl --user restart taffybar.service
+systemctl --user status taffybar.service
+```
+
+Note: monitor placement currently uses an explicit workaround in `dot.config/taffybar/taffybar.hs` (`monitorsAction = return [0]`) due to a primary-monitor detection mismatch in this Taffybar/XRandR path.
 
 # Power Management
 
