@@ -1,68 +1,88 @@
 flags: {}
 extra-package-dbs: []
 packages:
-- .
-- location: ./taffybar
-  extra-dep: true
-- location: ../../dot.xmonad/xmonad-contrib
-  extra-dep: true
-- location: ../../dot.xmonad/xmonad
-  extra-dep: true
+  - .
+  - ./taffybar
+  - ../../dot.xmonad/xmonad-contrib
+  - ../../dot.xmonad/xmonad
 # - location: ../../../../Projects/status-notifier-item
 #   extra-dep: true
 # - location: ../../../../Projects/gtk-sni-tray
 #   extra-dep: true
 extra-deps:
-- ConfigFile-1.1.4
-- X11-1.8
-- X11-xft-0.3.1
-- containers-0.5.11.0
-- dbus-1.2.1
-- dbus-hslogger-0.1.0.1
-- gi-cairo-connector-0.0.1
-- gi-cairo-render-0.0.1
-- gi-dbusmenu-0.4.1
-- gi-dbusmenugtk3-0.4.1
-- gi-gdk-3.0.15
-- gi-gdkpixbuf-2.0.18
-- gi-gdkx11-3.0.4
-- gi-gio-2.0.16
-- gi-glib-2.0.17
-- gi-gtk-3.0.26
-- gi-gtk-hs-0.3.6.3
-- gi-pango-1.0.16
-- gi-xlib-2.0.2
-- gio-0.13.4.1
-- gtk-sni-tray-0.1.6.0
-- gtk-strut-0.1.3.0
-- haskell-gi-0.21.2
-- haskell-gi-base-0.21.2
-- libxml-sax-0.7.5
-- rate-limit-1.4.1
-- spool-0.1
-- status-notifier-item-0.3.0.1
-- stm-2.5.0.0
-- time-units-1.0.0
-- xml-helpers-1.0.0
-resolver: lts-13.2
+  - rate-limit-1.4.3
+#- ConfigFile-1.1.4
+#- X11-1.8
+#- X11-xft-0.3.1
+#- containers-0.5.11.0
+#- dbus-1.2.1
+#- dbus-hslogger-0.1.0.1
+#- gi-cairo-connector-0.0.1
+#- gi-cairo-render-0.0.1
+#- gi-dbusmenu-0.4.6
+#- gi-dbusmenugtk3-0.4.7
+#- gi-gdk-3.0.15
+#- gi-gdkpixbuf-2.0.18
+#- gi-gdkx11-3.0.8
+#- gi-gio-2.0.16
+#- gi-glib-2.0.17
+#- gi-gtk-3.0.26
+#- gi-gtk-hs-0.3.6.3
+#- gi-pango-1.0.16
+#- gi-xlib-2.0.7
+#- gio-0.13.4.1
+#- gtk-sni-tray-0.1.6.0
+#- gtk-strut-0.1.3.0
+#- haskell-gi-0.22.6
+#- haskell-gi-base-0.21.2
+#- libxml-sax-0.7.5
+#- rate-limit-1.4.1
+#- spool-0.1
+#- status-notifier-item-0.3.0.3
+#- stm-2.5.0.0
+#- time-units-1.0.0
+#- xml-helpers-1.0.0
+#- Cabal-3.2.1.0@sha256:8743076ec022296f9771d962000c9ca3a0fe02e68c37b992c63e382a675f791d,27482
+#- base-compat-0.10.5@sha256:d49e174ed0daecd059c52d13d4f4de87b5609c81212a22adbb92431f9cd58fff,6941
+#- binary-0.8.8.0@sha256:e9387a7ef2b34c6a23b09664c306e37cc01ae2cb4e4511a1c96ffb14008c24b0,6262
+#- network-2.8.0.1@sha256:0f165dffa752d8cde30c2bde86f80609c4f1dc5eeb3182d593041f97839c5b3b,3011
+#- parsec-3.1.14.0@sha256:2b7a30ad13b66ed4ae1c8b3b76f7b26f102f63fe4abc48663113686b0d68d2f7,4356
+#- text-1.2.4.1@sha256:e12b468008b3c2bbc1f39bd2dcb75ba8f563c65aa5e54ee223b76463a845b6f1,7184
+#- time-1.8.0.4@sha256:3f6eddf238b828eb4f82683acce1c3afe64784f0d20114239b738c123316c85c,5494
+#- directory-1.3.6.1@sha256:3dc9c69c8e09ec95a7a45c6d06abe0f0d2f604439c37e5f88e5a6c335b088d71,2810
+#- process-1.6.11.0@sha256:519690f96c86717af0d5c0d0aafd5bb743e3666339d76192a0831eca8b460386,2705
+#- unix-2.7.2.2@sha256:ddb8fc5d5eede81dfad7846eceb65267fe4cf8b4f324bc74542f694a32335ef2,3496
+
 allow-newer: true
+resolver: nightly-2023-01-11
 nix:
   packages:
     - cairo
     - gcc
-    - gnome2.pango
-    - gobjectIntrospection
+    - pango
+    - gobject-introspection
     - gtk3
     - hicolor-icon-theme
-    - libdbusmenu-glib
-    - libdbusmenu-gtk3
+    - libdbusmenu
     - libxml2
     - numix-icon-theme-circle
-    - pkgconfig
-    - x11
+    - pkg-config
     - xorg.libX11
+    - xorg.libXau
+    - xorg.libXdmcp
     - xorg.libXext
     - xorg.libXinerama
+    - xorg.libxcb
+    - xorg.libpthreadstubs
     - xorg.libXrandr
     - xorg.libXrender
+    - xorg.libXScrnSaver
+    - pcre2
+    - pcre
+    - util-linux
+    - libselinux
+    - libsepol
+    - libthai
+    - libdeflate
+    - libdatrie
     - zlib
