@@ -83,6 +83,17 @@ This setup runs `taffybar` from the user systemd unit with:
 - `ExecStart=/usr/bin/env taffybar`
 - `PATH` in the unit includes `%h/.local/bin` and `%h/.nix-profile/bin`
 
+Bootstrap the Nix `taffybar` environment first (provides the wrapper + matching
+GHC package set used for recompiling your local `taffybar.hs`):
+
+```bash
+# Works with older Nix versions (e.g. 2.12):
+nix profile install github:NixOS/nixpkgs/nixos-22.11#taffybar
+
+# If your Nix is new enough, this also works:
+# nix profile install nixpkgs#taffybar
+```
+
 To rebuild the local `taffybar` binary from `dot.config/taffybar/taffybar.hs` using
 the same GHC package set as your currently installed Nix `taffybar` wrapper:
 
