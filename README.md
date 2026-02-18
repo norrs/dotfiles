@@ -83,11 +83,14 @@ This setup runs `taffybar` from the user systemd unit with:
 - `ExecStart=/usr/bin/env taffybar`
 - `PATH` in the unit includes `%h/.local/bin` and `%h/.nix-profile/bin`
 
-To rebuild the local `taffybar` binary from `dot.config/taffybar/taffybar.hs` using the Nix-provided GHC package set:
+To rebuild the local `taffybar` binary from `dot.config/taffybar/taffybar.hs` using
+the same GHC package set as your currently installed Nix `taffybar` wrapper:
 
 ```bash
 cd ~/dotfiles/dot.config/taffybar
-/nix/store/77l5h9ihplj95wbrnjhhrcr0wc8f41b6-ghc-9.0.2-with-packages/bin/ghc \
+TAFFY_WRAPPER="$(readlink -f ~/.nix-profile/bin/taffybar)"
+NIX_GHC="$(sed -n "s/^export NIX_GHC='\\(.*\\)'$/\\1/p" "$TAFFY_WRAPPER")"
+"$NIX_GHC" \
   -threaded -rtsopts -with-rtsopts=-N \
   taffybar.hs -o ~/.local/bin/taffybar
 ```
