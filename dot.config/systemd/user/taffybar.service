@@ -6,7 +6,6 @@ After=status-notifier-watcher.service
 [Service]
 Type=simple
 WorkingDirectory=/usr/share/pixmaps
-Environment=PATH=/home/rockj/.local/bin:/home/rockj/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin
 ExecStart=/usr/bin/env taffybar
 ExecStop=/usr/bin/pkill -x taffybar
 
