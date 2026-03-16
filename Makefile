@@ -7,6 +7,7 @@ mkdirs = .local/share/applications \
 	 .local/share/man \
 	 .local/share/man/man1 \
          .config/git \
+	 .config/neomutt \
 	 .config/gnome-session/sessions \
 	 .config/systemd/user \
 	 .urxvt \
@@ -21,6 +22,7 @@ symlinks = .bashrc \
 	   .gitconfig-wg2 \
 	   .config/git/ignore \
 	   .config/gtk-3.0/settings.ini \
+	   .config/neomutt/goto-folder \
 	   .config/systemd/user/wm.target \
 	   .config/systemd/user/autocutsel.service \
 	   .config/systemd/user/chromix-too.service \
@@ -60,6 +62,7 @@ symlinks = .bashrc \
 	   .local/bin/focus_tab_by_id_norangshol \
 	   .local/bin/vault \
 	   .local/bin/kubeconfig-rancher \
+	   .local/bin/mag-urns \
 	   .pathrc \
 	   .htoprc \
 	   .tigrc \
