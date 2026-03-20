@@ -12,7 +12,8 @@ mkdirs = .local/share/applications \
 	 .config/systemd/user \
 	 .urxvt \
 	 .gnupg \
-	 .caff/gnupghome
+	 .caff/gnupghome \
+	 .ssh
 
 symlinks = .bashrc \
 	   .bashrc-darwin \
@@ -80,7 +81,8 @@ symlinks = .bashrc \
 	   .gnupg/dirmngr.conf \
 	   .gnupg/sks-keyservers.netCA.pem \
 	   .gnupg/lets-encrypt-x3-cross-signed.pem \
-	   .caff/gnupghome/gnupg.conf
+	   .caff/gnupghome/gnupg.conf \
+	   .ssh/config
 symdirs = .bash.d \
 	.xmonad \
 	.opt \

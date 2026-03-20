@@ -1,0 +1,10 @@
+# Include Colima SSH config if it exists (optional)
+Include ~/.colima/ssh_config
+
+# Include work-specific SSH config if it exists (optional)
+Include ~/.ssh/config-cisco
+
+# Default: only send specified keys (important for 1Password)
+Host *
+    IdentitiesOnly yes
+
