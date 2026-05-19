@@ -21,3 +21,9 @@ uv = "0.9.7"
 helm = "latest"
 shellcheck = "latest"
 graalvm = "latest"
+cue = "0.16.1"
+
+[tools."http:amtool"]
+version = "0.28.1"
+url = "https://github.com/prometheus/alertmanager/releases/download/v{{version}}/alertmanager-{{version}}.linux-amd64.tar.gz"
+bin_path = "alertmanager-{{version}}.linux-amd64"
