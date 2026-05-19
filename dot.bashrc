@@ -185,3 +185,12 @@ export NVM_DIR="$HOME/.nvm"
 for complete_file in $HOME/.bash.d/autocomplete/*; do
   source "$complete_file"
 done
+
+# Configure 1Password SSH agent on macOS (must be after all other init to override)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    _1password_socket="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    if [[ -S "$_1password_socket" ]]; then
+        export SSH_AUTH_SOCK="$_1password_socket"
+    fi
+    unset _1password_socket
+fi
