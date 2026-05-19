@@ -4,6 +4,14 @@ Include ~/.colima/ssh_config
 # Include work-specific SSH config if it exists (optional)
 Include ~/.ssh/config-cisco
 
+# GitHub configuration
+Host github.com
+    HostName github.com
+    User git
+    IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    IdentitiesOnly yes
+    # Use key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJzdAekSaB+yhhzGOnmMECdjG9mvlno92mVXKtkWekjx norrs - github - auth
+
 # Default: only send specified keys (important for 1Password)
 Host *
     IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
