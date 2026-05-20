@@ -4,15 +4,23 @@ Include ~/.colima/ssh_config
 # Include work-specific SSH config if it exists (optional)
 Include ~/.ssh/config-cisco
 
-# GitHub Personal (use alias to avoid conflict with enterprise GitHub)
-Host github-personal github.com-personal
+# Cisco GitHub Enterprise (must come before github.com to match first)
+Host github-hyc.scm.engit.cisco.com *.scm.engit.cisco.com
+    HostName %h
+    User git
+    IdentityAgent ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+    IdentitiesOnly no
+    # Will use Cisco Git Authentication Key from 1Password
+
+# GitHub.com - Personal (default for all github.com access)
+Host github.com github-personal github.com-personal
     HostName github.com
     User git
     IdentityAgent ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
     IdentitiesOnly no
-    # Use key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJzdAekSaB+yhhzGOnmMECdjG9mvlno92mVXKtkWekjx norrs - github - auth
+    # Will use "norrs - github - auth" key from 1Password
 
-# Default: only send specified keys (important for 1Password)
+# Default: only send specified keys (important for 1Password security)
 Host *
     IdentityAgent ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
     IdentitiesOnly yes
