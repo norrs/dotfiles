@@ -86,6 +86,7 @@ symlinks = .bashrc \
 symdirs = .bash.d \
 	.xmonad \
 	.opt \
+	.local/system-overrides-path.d \
 	.config/autorandr \
 	.local/share/urxvt-scripts \
 	.local/share/rofi/themes \
