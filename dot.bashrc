@@ -197,13 +197,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     unset _1password_socket
 fi
 
-# System path overrides: binaries symlinked into this directory take precedence
-# over system/Homebrew versions (e.g. a modern bash over macOS bash 3.2).
-# Prepended last (and deduped) so macOS path_helper, mise and conda cannot push
-# it behind /usr/bin or /bin.
-system_overrides_dir="$HOME/.local/system-overrides-path.d"
-if [ -d "$system_overrides_dir" ]; then
-    PATH="$system_overrides_dir:${PATH//$system_overrides_dir:/}"
-    export PATH
-fi
-unset system_overrides_dir
