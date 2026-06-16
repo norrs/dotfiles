@@ -196,3 +196,4 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
     unset _1password_socket
 fi
+
