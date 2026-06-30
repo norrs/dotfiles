@@ -179,8 +179,6 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-export NODE_OPTIONS="--use-system-ca"
-
 [ -s "$HOME/.local/bin/mise" ] && eval "$(mise activate bash)"
 
 # Load autocomplete files (mise exec is used where needed, so order doesn't matter)
