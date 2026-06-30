@@ -63,7 +63,6 @@ symlinks = .bashrc \
 	   .local/bin/focus_tab_by_id_norangshol \
 	   .local/bin/vault \
 	   .local/bin/kubeconfig-rancher \
-	   .local/bin/mag-urns \
 	   .pathrc \
 	   .htoprc \
 	   .tigrc \
