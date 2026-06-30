@@ -1,6 +1,6 @@
 [tools]
 java = "openjdk-17"
-go = "1.21"
+go = "1.26.2"
 awscli = "latest"
 aws-vault = "latest"
 node = "latest"
@@ -22,6 +22,7 @@ helm = "latest"
 shellcheck = "latest"
 graalvm = "latest"
 cue = "0.16.1"
+python = "3.14.2"
 
 [tools."http:amtool"]
 version = "0.28.1"
