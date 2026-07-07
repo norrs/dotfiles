@@ -49,3 +49,24 @@ githuburl() {
         fi
     fi
 }
+
+# github-compare: open the github compare UI between two branches. The head
+# branch defaults to the current branch when omitted.
+github-compare() {
+    local base_branch="$1" head_branch="${2:-$(git rev-parse --abbrev-ref HEAD)}"
+    local base url opener
+    if [ -z "$base_branch" ]; then
+        echo "usage: github-compare <base-branch> [head-branch]" >&2
+        return 1
+    fi
+    base=$(git remote get-url origin \
+        | sed -E 's#^git@([^:]+):#https://\1/#; s#^ssh://git@([^/]+)/#https://\1/#; s#\.git$##') || return 1
+    url="${base}/compare/${base_branch}...${head_branch}"
+    echo "$url"
+    if command -v open >/dev/null 2>&1; then
+        opener=open
+    elif command -v xdg-open >/dev/null 2>&1; then
+        opener=xdg-open
+    fi
+    [ -n "$opener" ] && "$opener" "$url"
+}
