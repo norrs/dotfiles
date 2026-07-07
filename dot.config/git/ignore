@@ -1,0 +1,4 @@
+# global git ignore
+
+!products/**/config/localhost.yaml
+products/**/config/*.yaml

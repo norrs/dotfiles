@@ -23,6 +23,7 @@ shellcheck = "latest"
 graalvm = "latest"
 cue = "0.16.1"
 python = "3.14.2"
+skopeo = "latest"
 
 [tools."http:amtool"]
 version = "0.28.1"

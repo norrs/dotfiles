@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+cd ~/src/Maildir
+
+cat <<EOF
+macro index ,= "<change-folder>=<enter>"
+macro pager ,= "<exit><change-folder>=<enter>"
+EOF
+
+for letter in {0..9} {a..z} {A..Z}; do
+    folders=(.$letter*)
+    if [[ ${#folders[@]} -gt 1 ]] ;then
+        second_letter=
+        extra_tab='\t'
+        for folder in "${folders[@]}" ;do
+            a="${folder:2:1}"
+            if [[ -z "$second_letter" ]] ;then
+                second_letter="$a"
+            elif [[ "$second_letter" != "$a" ]] ;then
+                extra_tab=''
+                break
+            fi
+        done
+        cat <<EOF
+macro index ,$letter "<change-folder>=.$letter\\t\\t$extra_tab"
+macro pager ,$letter "<exit><change-folder>=.$letter\\t\\t$extra_tab"
+EOF
+    else
+        cat <<EOF
+macro index ,$letter "<change-folder>=.$letter\\t<enter>"
+macro pager ,$letter "<exit><change-folder>=.$letter\\t<enter>"
+EOF
+    fi
+done 

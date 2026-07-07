@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Sendmail replacement inspired by CheckAttach script for mutt.
+# http://wiki.mutt.org/?ConfigTricks/CheckAttach for the original script.
+# To use, simply add the following line to your .muttrc:
+#  set sendmail="/path/to/this/script -oi -oem"
+# Note that -oi -oem are the default parameters given by mutt to sendmail. You
+# could also use e.g. -t -i or... whatever floats your boat :)
+# Then restart mutt.
+
+# The script uses simple pattern matching to make an oninion on whether or not
+# an attachment should be present. Change the line below to match your way of
+# referring to attachmets, Use a POSIX extended regular expression. A simple
+# example for dutch and english: PATTERN='(p|att)at?ch|bij(ge)?voegd?'
+
+PATTERN='enclose|attach|vedl(egg|agt)|(legger|lagt)[[:space:]]+ved|archivo|fichero|adjunt'
+
+SENDMAIL=/usr/sbin/sendmail
+TIMESTAMP_FILE="$HOME/.checkattach_timestamp"
+
+# Keep the email in memory
+email="`cat`"
+
+# Test if the email is multipart (in my case, multipart == holds attachment)
+multipart() {
+	echo "$email" | grep -q '^Content-Type: multipart/mixed'
+}
+
+# Test if the email contains the keywords
+word_attach() {
+	echo "$email" | grep -v '^>' | tr '\n' ' ' | grep -E -q -i "$PATTERN"
+}
+
+# Check if the user insists on sending despite results of previous tests
+override() {
+	test -f "$TIMESTAMP_FILE" && \
+	test $[`date +%s`-`date +%s -r "$TIMESTAMP_FILE"`] -lt 10
+}
+
+# Simple short circuit logic
+if multipart || ! word_attach || override; then
+	echo "$email" | $SENDMAIL "$@"
+	exit_status=$?
+else
+	match=$(echo "$email" | grep -v '^>' | tr '\n' ' ' | sed -nre "s,.*(($PATTERN)[[:alnum:]]*).*,\1,p")
+	cat <<EOF
+No file was attached, but a search of the message text suggests one should be.
+Simply hit the send button again within ten seconds to send!
+
+Offending part:
+  $match
+
+Note: There may have been more than one offending part.
+
+EOF
+	touch "$TIMESTAMP_FILE"
+	exit_status=75
+fi
+
+# Use the exit code that sendmail gave if it died.
+exit $exit_status
