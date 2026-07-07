@@ -18,3 +18,34 @@ alias unitCheck='./gradlew build jacocoTestReport'
 kr() {
     eval "$(kubeconfig-rancher)"
 }
+
+# githuburl: print the github browse url for a file on the current branch,
+# plus the open pull request url for the branch if there is one.
+githuburl() {
+    local file="${1:-.}"
+    local abs dir base branch relpath sha pr_url pr_ref pr_num
+    abs=$(realpath "$file") || return 1
+    dir=$(dirname "$abs")
+    base=$(git -C "$dir" remote get-url origin \
+        | sed -E 's#^git@([^:]+):#https://\1/#; s#^ssh://git@([^/]+)/#https://\1/#; s#\.git$##') || return 1
+    branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD)
+    relpath="$(git -C "$dir" rev-parse --show-prefix)$(basename "$abs")"
+    echo "${base}/blob/${branch}/${relpath}"
+
+    # Prefer gh for an accurate open/draft status; fall back to github pull
+    # refs (refs/pull/N/head), which also exist for closed/merged PRs.
+    # A draft PR still reports state OPEN, distinguished by isDraft.
+    if command -v gh >/dev/null 2>&1; then
+        pr_url=$(cd "$dir" && gh pr view "$branch" --json url,state,isDraft \
+            --jq 'select(.state=="OPEN") | (if .isDraft then "PR (draft): " else "PR: " end) + .url' 2>/dev/null)
+        [ -n "$pr_url" ] && echo "$pr_url"
+    else
+        sha=$(git -C "$dir" rev-parse HEAD)
+        pr_ref=$(git -C "$dir" ls-remote origin 'refs/pull/*/head' 2>/dev/null \
+            | awk -v s="$sha" '$1==s {print $2; exit}')
+        if [ -n "$pr_ref" ]; then
+            pr_num=$(echo "$pr_ref" | sed -E 's#refs/pull/([0-9]+)/head#\1#')
+            echo "PR (state unknown, may be closed): ${base}/pull/${pr_num}"
+        fi
+    fi
+}
