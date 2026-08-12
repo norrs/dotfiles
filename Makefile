@@ -82,7 +82,9 @@ symlinks = .bashrc \
 	   .gnupg/lets-encrypt-x3-cross-signed.pem \
 	   .caff/gnupghome/gnupg.conf \
 	   .ssh/config \
-	   .ssh/1password-norrs-github-auth.pub
+	   .ssh/1password-norrs-github-auth.pub \
+	   .ssh/yubikey-norrs-github-auth.pub
+machine_symlinks = .ssh/norrs-github-auth.pub
 symdirs = .bash.d \
 	.xmonad \
 	.opt \
@@ -100,7 +102,7 @@ symdirs = .bash.d \
 	.config/mise \
 	.config/taffybar
 
-.PHONY: $(mkdirs) $(symlinks) $(symdirs) update-paths install-work clean-work
+.PHONY: $(mkdirs) $(symlinks) $(machine_symlinks) $(symdirs) update-paths install-work clean-work
 
 all: install
 
@@ -132,8 +134,17 @@ $(symlinks):
 	ln $(LN_FLAGS) $(CURDIR)/dot$@ ~/$@
 	@case "$@" in .ssh/*.pub) chmod 600 $(CURDIR)/dot$@ ;; esac
 
+.ssh/norrs-github-auth.pub:
+	@mkdir -p ~/$(dir $@)
+	@case "$$(uname)" in \
+		Darwin) key=1password-norrs-github-auth.pub ;; \
+		*) key=yubikey-norrs-github-auth.pub ;; \
+	esac; \
+	ln $(LN_FLAGS) "$(CURDIR)/dot.ssh/$$key" ~/.ssh/norrs-github-auth.pub; \
+	chmod 600 "$(CURDIR)/dot.ssh/$$key"
+
 $(symdirs):
 	rm -f ~/$@
 	ln $(LN_FLAGS) $(CURDIR)/dot$@/ ~/$@
 
-install: $(mkdirs) $(symlinks) $(symdirs) install-work
+install: $(mkdirs) $(symlinks) $(machine_symlinks) $(symdirs) install-work

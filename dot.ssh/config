@@ -22,14 +22,10 @@ Host 192.168.50.25
 Match exec "test \"$(uname)\" = Darwin && test -S \"$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock\""
     IdentityAgent ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
-# On Linux, use the normal shell SSH agent. In this setup that is GPG/YubiKey.
-Match exec "test \"$(uname)\" != Darwin"
-    IdentityAgent SSH_AUTH_SOCK
-
 # Default: pin the public key we ask the active agent to use.
 Host *
-    Tag 1password-norrs-github-auth
+    Tag norrs-github-auth
 
-Match tagged 1password-norrs-github-auth !tagged no-default-identity !tagged work
-    IdentityFile ~/.ssh/1password-norrs-github-auth.pub
+Match tagged norrs-github-auth !tagged no-default-identity !tagged work
+    IdentityFile ~/.ssh/norrs-github-auth.pub
     IdentitiesOnly yes
