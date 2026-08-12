@@ -31,5 +31,11 @@ skopeo = "https://github.com/norrs/skopeo-mise-tool.git"
 
 [tools."http:amtool"]
 version = "0.28.1"
+
+[tools."http:amtool".platforms.linux-x64]
 url = "https://github.com/prometheus/alertmanager/releases/download/v{{version}}/alertmanager-{{version}}.linux-amd64.tar.gz"
 bin_path = "alertmanager-{{version}}.linux-amd64"
+
+[tools."http:amtool".platforms.macos-arm64]
+url = "https://github.com/prometheus/alertmanager/releases/download/v{{version}}/alertmanager-{{version}}.darwin-arm64.tar.gz"
+bin_path = "alertmanager-{{version}}.darwin-arm64"
