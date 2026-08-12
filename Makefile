@@ -81,7 +81,8 @@ symlinks = .bashrc \
 	   .gnupg/sks-keyservers.netCA.pem \
 	   .gnupg/lets-encrypt-x3-cross-signed.pem \
 	   .caff/gnupghome/gnupg.conf \
-	   .ssh/config
+	   .ssh/config \
+	   .ssh/1password-norrs-github-auth.pub
 symdirs = .bash.d \
 	.xmonad \
 	.opt \
@@ -128,10 +129,11 @@ $(mkdirs):
 	[ -d ~/$@ ] || mkdir -p ~/$@
 
 $(symlinks):
-	ln $(LN_FLAGS) $(PWD)/dot$@ ~/$@
+	ln $(LN_FLAGS) $(CURDIR)/dot$@ ~/$@
+	@case "$@" in .ssh/*.pub) chmod 600 $(CURDIR)/dot$@ ;; esac
 
 $(symdirs):
 	rm -f ~/$@
-	ln $(LN_FLAGS) $(PWD)/dot$@/ ~/$@
+	ln $(LN_FLAGS) $(CURDIR)/dot$@/ ~/$@
 
 install: $(mkdirs) $(symlinks) $(symdirs) install-work
