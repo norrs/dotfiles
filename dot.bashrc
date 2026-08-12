@@ -179,7 +179,21 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-[ -s "$HOME/.local/bin/mise" ] && eval "$(mise activate bash)"
+if [ -x /usr/bin/mise ]; then
+    _mise_bin=/usr/bin/mise
+elif [ -x /opt/homebrew/bin/mise ]; then
+    _mise_bin=/opt/homebrew/bin/mise
+elif [ -x /usr/local/bin/mise ]; then
+    _mise_bin=/usr/local/bin/mise
+elif [ -x "$HOME/.local/bin/mise" ]; then
+    _mise_bin="$HOME/.local/bin/mise"
+elif command -v mise >/dev/null 2>&1; then
+    _mise_bin="$(command -v mise)"
+fi
+if [ -n "${_mise_bin:-}" ]; then
+    eval "$("$_mise_bin" activate bash)"
+fi
+unset _mise_bin
 
 # Load autocomplete files (mise exec is used where needed, so order doesn't matter)
 for complete_file in $HOME/.bash.d/autocomplete/*; do
@@ -194,4 +208,3 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     fi
     unset _1password_socket
 fi
-
