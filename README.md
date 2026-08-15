@@ -205,6 +205,82 @@ sudo udevadm control --reload-rules
 
 Then unplug and reconnect the Stream Deck. These instructions are extracted from the original README【683637299757771†L69-L81】. See the Deckmaster project for additional details: <https://github.com/muesli/deckmaster>【683637299757771†L84-L84】.
 
+## taffybar (rebuild with Nix)
+
+The source is in `dot.config/taffybar` (with the taffybar upstream submodule in `dot.config/taffybar/taffybar`).
+
+The regular upstream `taffybar` binary is a dyre stub that recompiles config at runtime. In this dotfiles setup we build the custom executable (`norrs-taffybar`) and install it as `~/.local/bin/taffybar`.
+
+Task helper:
+
+```bash
+dot.tasks/recompile-taffybar
+```
+
+After rebuilding, verify:
+
+```bash
+systemctl --user status taffybar.service --no-pager
+journalctl --user -u taffybar.service -n 80 --no-pager
+```
+
+## notifications-tray-icon (rebuild with Nix)
+
+The source is in `dot.opt/notifications-tray-icon`.
+
+Rebuild and install the binary to `~/.local/bin` using Stack's Nix integration:
+
+```bash
+cd dot.opt/notifications-tray-icon
+stack --nix --no-terminal install notifications-tray-icon --local-bin-path ~/.local/bin
+```
+
+If you need to force a Nix shell with build deps explicitly:
+
+```bash
+nix-shell -p gobject-introspection pkg-config gmp --run \
+  'cd dot.opt/notifications-tray-icon && stack --no-terminal install notifications-tray-icon --local-bin-path ~/.local/bin'
+```
+
+After installing a new binary, restart and inspect the user service:
+
+```bash
+systemctl --user restart github-notifications.service
+systemctl --user status github-notifications.service --no-pager
+journalctl --user -u github-notifications.service -n 80 --no-pager
+```
+
+Task helper:
+
+```bash
+dot.tasks/recompile-notifications-tray-icon
+```
+
+## status-notifier-item (rebuild with Nix)
+
+The source is in `dot.opt/status-notifier-item`.
+
+Rebuild and install with Stack + Nix:
+
+```bash
+cd dot.opt/status-notifier-item
+stack --nix --no-terminal install status-notifier-item --local-bin-path ~/.local/bin
+```
+
+After installing, restart and inspect the watcher service:
+
+```bash
+systemctl --user restart status-notifier-watcher.service
+systemctl --user status status-notifier-watcher.service --no-pager
+journalctl --user -u status-notifier-watcher.service -n 80 --no-pager
+```
+
+Task helper:
+
+```bash
+dot.tasks/recompile-status-notifier-item
+```
+
 # Inspiration
 
 This dotfiles collection draws ideas from other people's configurations. You may find additional inspiration in the following repositories:
