@@ -5,7 +5,7 @@ Description=Autocutsel
 Type = forking
 Restart = on-failure
 RestartSec = 10
-ExecStartPre = /usr/bin/autocutsel -fork
+ExecStartPre = /usr/bin/autocutsel -selection PRIMARY -fork
 ExecStart = /usr/bin/autocutsel -selection CLIPBOARD -fork
 [Install]
 WantedBy=wm.target
