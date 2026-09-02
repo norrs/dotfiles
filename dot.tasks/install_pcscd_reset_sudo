@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+
+ME="${SUDO_USER:-$USER}"
+if [[ "$ME" == root || ! "$ME" =~ ^[a-zA-Z_][a-zA-Z0-9_.-]*$ ]]; then
+  echo "Please run as your normal user (it will sudo as needed)." >&2
+  exit 1
+fi
+id "$ME" >/dev/null
+
+HELPER="/usr/local/sbin/pcscd-reset-helper"
+SUDOERS_FILE="/etc/sudoers.d/90-pcscd-reset-${ME}"
+
+if [[ ! -x /usr/bin/systemctl ]]; then
+  echo "This helper requires systemd (/usr/bin/systemctl)." >&2
+  exit 1
+fi
+sudo -v
+
+pcscd_tmp="$(mktemp -d)"
+trap 'rm -f "$pcscd_tmp/helper" "$pcscd_tmp/sudoers"; rmdir "$pcscd_tmp"' EXIT
+
+cat > "$pcscd_tmp/helper" <<'EOF_HELPER'
+#!/bin/bash
+# Fixed-purpose root helper; never accept unit names or other arguments.
+set -euo pipefail
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+
+if [[ $# -ne 0 ]]; then
+  echo "Usage: sudo /usr/local/sbin/pcscd-reset-helper" >&2
+  exit 2
+fi
+if [[ $EUID -ne 0 ]]; then
+  echo "pcscd-reset-helper must run as root." >&2
+  exit 1
+fi
+
+/usr/bin/systemctl --system reset-failed pcscd.service pcscd.socket
+/usr/bin/systemctl --system restart pcscd.socket
+/usr/bin/systemctl --system is-active --quiet pcscd.socket
+echo "pcscd.socket reset and restarted."
+EOF_HELPER
+
+# An explicit empty argument list restricts sudo to this helper without args.
+printf '%s ALL=(root) NOPASSWD: %s ""\n' "$ME" "$HELPER" > "$pcscd_tmp/sudoers"
+bash -n "$pcscd_tmp/helper"
+sudo visudo -cf "$pcscd_tmp/sudoers"
+
+sudo install -d -o root -g root -m 0755 /usr/local/sbin /etc/sudoers.d
+sudo install -o root -g root -m 0755 "$pcscd_tmp/helper" "$HELPER"
+sudo install -o root -g root -m 0440 "$pcscd_tmp/sudoers" "$SUDOERS_FILE"
+
+echo "Installed helper: $HELPER"
+echo "Created NOPASSWD sudoers rule: $SUDOERS_FILE"
+echo "fix-gpgagent will now recover a failed PC/SC service/socket automatically."

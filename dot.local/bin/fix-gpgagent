@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
+
+if ! systemctl --system is-active --quiet pcscd.socket || systemctl --system is-failed --quiet pcscd.service; then
+  echo ".. recovering pcscd .."
+  if [[ ! -x /usr/local/sbin/pcscd-reset-helper ]]; then
+    echo "Missing /usr/local/sbin/pcscd-reset-helper; run dot.tasks/install_pcscd_reset_sudo from your dotfiles checkout." >&2
+    exit 1
+  fi
+  if ! sudo -n /usr/local/sbin/pcscd-reset-helper; then
+    echo "PC/SC recovery failed. Check the helper's sudoers rule and journalctl -b -u pcscd.service." >&2
+    exit 1
+  fi
+fi
+
 set -x
 gpgconf --kill gpg-agent
 gpg-connect-agent updatestartuptty /bye
