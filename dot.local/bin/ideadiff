@@ -2,19 +2,34 @@
 # idea diff <file1> <file2> is a stupid program who does not understand process substitution.
 # Solution: create temporary files from /dev/fd#.
 # Try to place them in inmemory tmp files under /run/user/$UID/ which is usually tmpfs ..
+#
+# Usage:
+#   ideadiff <file1|dir1|/dev/fd/N> <file2|dir2|/dev/fd/N>
+#   ideadiff --git <git-difftool-args>...   e.g. ideadiff --git afac3b35075c^1 afac3b35075c
+
+# tmpfs when available (Linux), otherwise whatever mktemp defaults to (TMPDIR).
+tmpdir() {
+    local d="/run/user/$UID"
+    if [[ -d "$d" && -w "$d" ]]; then
+      echo "$d"
+    else
+      echo "${TMPDIR:-/tmp}"
+    fi
+}
+
 handle_input() {
     local fd="$1"
-    if [[ -f "$fd" ]]; then
+    if [[ -f "$fd" || -d "$fd" ]]; then
       echo "$fd"
       return 0
     elif [[ "$fd" =~ ^/dev/fd/[0-9]+$ ]]; then
        local tmpfile
-       tmpfile=$(mktemp -p /run/user/$UID/)
+       tmpfile=$(mktemp "$(tmpdir)/ideadiff.XXXXXX")
        cat "$fd" > "$tmpfile"
        echo "$tmpfile"
        return 0
     fi
-    echo "Error: Input '$fd' is not a valid file or process substitution" >&2
+    echo "Error: Input '$fd' is not a valid file, directory or process substitution" >&2
     return 1
 }
 
@@ -22,12 +37,23 @@ temp_files=()
 
 cleanup() {
     #echo "Cleaning up ${temp_files[@]}"
-    rm -f "${temp_files[@]}"
+    if [[ ${#temp_files[@]} -gt 0 ]]; then
+        rm -f "${temp_files[@]}"
+    fi
 }
 trap cleanup EXIT
 
+# git mode: let git materialize both sides of a revision range as directory trees
+# and compare them in a single IntelliJ window.
+if [[ "$1" == "--git" || "$1" == "-g" ]]; then
+    shift
+    self=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")
+    exec git difftool --dir-diff --no-prompt --extcmd="$self" "$@"
+fi
+
 if [ $# -ne 2 ]; then
-    echo "Usage: $0 <file1> <file2>"
+    echo "Usage: $0 <file1> <file2>" >&2
+    echo "       $0 --git <git-difftool-args>..." >&2
     exit 1
 fi
 set -e
@@ -40,5 +66,6 @@ if [[ "$tempfile2" != "$2" ]]; then
     temp_files+=("$tempfile2")
 fi
 
-idea diff "$tempfile1" "$tempfile2"
-
+# --wait is required whenever the caller owns the files (git difftool deletes its
+# snapshots as soon as we return), and harmless otherwise.
+idea --wait diff "$tempfile1" "$tempfile2"
