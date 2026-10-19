@@ -66,6 +66,6 @@ if [[ "$tempfile2" != "$2" ]]; then
     temp_files+=("$tempfile2")
 fi
 
-# --wait is required whenever the caller owns the files (git difftool deletes its
-# snapshots as soon as we return), and harmless otherwise.
-idea --wait diff "$tempfile1" "$tempfile2"
+# Keep diff first so IntelliJ dispatches to its diff viewer rather than LightEdit.
+# --wait also keeps Toolbox launchers alive until Git's snapshots can be removed.
+idea diff --wait "$tempfile1" "$tempfile2"
