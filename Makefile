@@ -53,6 +53,7 @@ symlinks = .bashrc \
 	   .local/bin/git_sync_directory \
 	   .local/bin/git-sync-powersavehelper \
 	   .local/bin/git-sync \
+	   .local/bin/git-wt \
 	   .local/bin/kcd \
 	   .local/bin/kubernetes-add-service-account-kubeconfig \
 	   .local/bin/chromix-too-norangshol \

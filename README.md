@@ -133,6 +133,12 @@ Other values include `hibernate`, `ignore`, and `lock`. After editing, restart `
 
 This section highlights various tools and utilities referenced in the dotfiles.
 
+## Git worktree commander
+
+Run `git-wt` (or `git wt`) for a terminal worktree browser with status, navigation,
+removal and confirmed cleanup actions. Use the Bash helper `gwt` to change the
+calling shell's directory on Enter. See [usage and key bindings](README.git-wt.md).
+
 ## Chromix-too
 
 Chromix‑too is a browser extension and accompanying CLI service for controlling Google Chrome from the command line. Install the extension from the Chrome Web Store and explore its GitHub repository:
