@@ -27,10 +27,10 @@
 	url = https://github.com/taffybar/taffybar
 [submodule "dot.opt/notifications-tray-icon"]
 	path = dot.opt/notifications-tray-icon
-	url = git@github.com:IvanMalison/notifications-tray-icon.git
+	url = git@github.com:norrs/notifications-tray-icon.git
 [submodule "dot.opt/status-notifier-item"]
 	path = dot.opt/status-notifier-item
-	url = git@github.com:IvanMalison/status-notifier-item.git
+	url = git@github.com:norrs/status-notifier-item.git
 [submodule "dot.opt/z"]
 	path = dot.opt/z
 	url = https://github.com/rupa/z.git

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_DIR="${REPO_ROOT}/dot.config/taffybar"
+LOCAL_BIN_PATH="${HOME}/.local/bin"
+SERVICE_NAME="taffybar.service"
+
+cd "${PROJECT_DIR}"
+
+echo "Rebuilding norrs-taffybar with Nix overlays from dot.config/taffybar/taffybar..."
+nix build \
+  --impure \
+  --no-write-lock-file \
+  --expr '
+let
+  flake = builtins.getFlake (toString ./taffybar);
+  pkgs = import flake.inputs.nixpkgs {
+    system = builtins.currentSystem;
+    overlays = flake.overlays;
+    config.allowBroken = true;
+  };
+in pkgs.haskellPackages.callCabal2nix "norrs-taffybar" ./. {}
+'
+
+mkdir -p "${LOCAL_BIN_PATH}"
+install -m 0755 ./result/bin/norrs-taffybar "${LOCAL_BIN_PATH}/taffybar"
+
+echo "Restarting ${SERVICE_NAME}..."
+systemctl --user daemon-reload
+systemctl --user restart "${SERVICE_NAME}"
+
+echo "Service status:"
+systemctl --user status "${SERVICE_NAME}" --no-pager
+
+echo
+echo "Recent logs:"
+journalctl --user -u "${SERVICE_NAME}" -n 80 --no-pager
